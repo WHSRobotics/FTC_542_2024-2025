@@ -46,6 +46,9 @@ public class OmniDrive extends LinearOpMode {
             double x = gamepad1.left_stick_x;
             double rotate = gamepad1.right_stick_x;
 
+            if (gamepad1.options) {
+                imu.resetYaw();
+            }
 
             double robotHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
 

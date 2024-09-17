@@ -42,6 +42,10 @@ public class TankDrive extends LinearOpMode{
             double forward = (-gamepad1.left_stick_y + -gamepad1.right_stick_y) / 2;
             double rotate = (gamepad1.right_stick_x - gamepad1.left_stick_x) / 2;
 
+            if (gamepad1.options) {
+                imu.resetYaw();
+            }
+
             double tempforward = forward * Math.cos(robotHeading) - rotate * Math.sin(robotHeading);
             rotate = forward * Math.sin(robotHeading) + rotate * Math.cos(robotHeading);
             forward = tempforward;
