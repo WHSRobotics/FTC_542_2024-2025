@@ -29,8 +29,6 @@ public class MecanumDrive extends LinearOpMode {
 
         waitForStart();
 
-        if (isStopRequested()) return;
-
         while (opModeIsActive()) {
             double y = -gamepad1.left_stick_y;
             double x = gamepad1.left_stick_x;
