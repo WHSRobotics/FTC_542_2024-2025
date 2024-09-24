@@ -5,7 +5,11 @@
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
+<<<<<<< HEAD
         <option name="gradleJvm" value="#GRADLE_LOCAL_JAVA_HOME" />
+=======
+        <option name="gradleJvm" value="jbr-17" />
+>>>>>>> main
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
@@ -14,7 +18,10 @@
             <option value="$PROJECT_DIR$/TeamCode" />
           </set>
         </option>
+<<<<<<< HEAD
         <option name="resolveExternalAnnotations" value="false" />
+=======
+>>>>>>> main
       </GradleProjectSettings>
     </option>
   </component>

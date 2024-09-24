@@ -21,7 +21,7 @@ import static org.whitneyrobotics.ftc.teamcode.Constants.FieldConstants.FieldSid
 
 import java.util.function.UnaryOperator;
 
-@TeleOp(name = "Mecanum TeleOp Testing" , group = "teleop")
+@TeleOp(name = "Mecanum TeleOp Test" , group = "teleop")
 public class MecanumTeleOp extends OpModeEx {
     private CenterstageMecanumDrive drivetrain;
     private Alliance alliance = Alliance.RED;
