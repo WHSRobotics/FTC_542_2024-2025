@@ -29,7 +29,7 @@ public class MecanumTeleOp extends OpModeEx {
     private MultipleChoicePoll tileSelector;
     private UnaryOperator<Float> scalingFunctionDefault = x -> (float)Math.pow(x, 3);
     private String navPath = "";
-    private FieldConstants.StartingTiles startingTile = FieldConstants.StartingTiles.RED_F2;
+//    private FieldConstants.StartingTiles startingTile = FieldConstants.StartingTiles.RED_F2;
 
     void switchAlliance(){
         this.alliance = alliance == Alliance.RED ? Alliance.BLUE : Alliance.RED;
@@ -113,21 +113,21 @@ public class MecanumTeleOp extends OpModeEx {
 
     @Override
     public void initInternalLoop(){
-        switch((int)tileSelector.getSelected()[0].getValue()){
-            case 0:
-                startingTile = alliance == Alliance.RED ? FieldConstants.StartingTiles.RED_F2 : FieldConstants.StartingTiles.BLUE_A2;
-                break;
-            case 1:
-                startingTile = alliance == Alliance.RED ? FieldConstants.StartingTiles.RED_F4 : FieldConstants.StartingTiles.BLUE_A4;
-                break;
-        }
-        telemetryPro.addLine("Starting at " + startingTile.name(), LineItem.Color.LIME);
-        telemetryPro.addData("Alliance", (alliance == Alliance.RED ? "RED" : "BLUE"), (alliance == Alliance.RED ? LineItem.Color.RED : LineItem.Color.BLUE));
+//        switch((int)tileSelector.getSelected()[0].getValue()){
+//            case 0:
+//                startingTile = alliance == Alliance.RED ? FieldConstants.StartingTiles.RED_F2 : FieldConstants.StartingTiles.BLUE_A2;
+//                break;
+//            case 1:
+//                startingTile = alliance == Alliance.RED ? FieldConstants.StartingTiles.RED_F4 : FieldConstants.StartingTiles.BLUE_A4;
+//                break;
+//        }
+//        telemetryPro.addLine("Starting at " + startingTile.name(), LineItem.Color.LIME);
+//         telemetryPro.addData("Alliance", (alliance == Alliance.RED ? "RED" : "BLUE"), (alliance == Alliance.RED ? LineItem.Color.RED : LineItem.Color.BLUE));
     }
 
     @Override
     public void startInternal() {
-        drivetrain.getLocalizer().setPoseEstimate(startingTile.pose);
+//        drivetrain.getLocalizer().setPoseEstimate(startingTile.pose);
         telemetryPro.removeLineByReference(tileSelector);
     }
 

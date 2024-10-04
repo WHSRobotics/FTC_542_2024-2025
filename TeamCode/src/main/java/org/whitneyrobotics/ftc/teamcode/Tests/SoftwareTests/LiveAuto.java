@@ -6,6 +6,7 @@ import static org.whitneyrobotics.ftc.teamcode.Constants.FieldConstants.Starting
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.path.PathContinuityViolationException;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -13,6 +14,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.whitneyrobotics.ftc.teamcode.Extensions.OpModeEx.OpModeEx;
 import org.whitneyrobotics.ftc.teamcode.Extensions.TelemetryPro.TelemetryPro;
 import org.whitneyrobotics.ftc.teamcode.Roadrunner.drive.CenterstageMecanumDrive;
+import org.whitneyrobotics.ftc.teamcode.Roadrunner.trajectorysequence.TrajectorySequence;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -27,10 +29,12 @@ public class LiveAuto extends OpModeEx {
 
     private CenterstageMecanumDrive drive;
     private boolean runButtonPressed = false;
-    private Trajectory please;
+    private TrajectorySequence please;
 
     @Override
     public void initInternal() {
+        drive = new CenterstageMecanumDrive(hardwareMap);
+
         try {
             nanoServer = new NanoHTTPD("192.168.43.1", 8043) {
                 @Override
@@ -99,6 +103,7 @@ public class LiveAuto extends OpModeEx {
         } catch (IOException ioe) {
         }
 
+
     }
 
 
@@ -109,13 +114,12 @@ public class LiveAuto extends OpModeEx {
         }
         telemetryPro.addData("Points: ", Arrays.deepToString(points));
 
-        drive = new CenterstageMecanumDrive(hardwareMap);
         if (points[0][0] != null && points[0][1] != null && points[0][2] != null &&
                 points[1][0] != null && points[1][1] != null && points[1][2] != null &&
                 points[2][0] != null && points[2][1] != null && points[2][2] != null) {
             telemetryPro.addData("Points:", Arrays.deepToString(points));
             try {
-                please = drive.trajectoryBuilder(new Pose2d(Double.parseDouble(points[0][0]), Double.parseDouble(points[0][1]), Math.toRadians(Double.parseDouble(points[0][2]))))
+                please = drive.trajectorySequenceBuilder(new Pose2d(Double.parseDouble(points[0][0]), Double.parseDouble(points[0][1]), Math.toRadians(Double.parseDouble(points[0][2]))))
                         .lineToLinearHeading(new Pose2d(Double.parseDouble(points[1][0]), Double.parseDouble(points[1][1]), Math.toRadians(Double.parseDouble(points[1][2]))))
                         .lineToLinearHeading(new Pose2d(Double.parseDouble(points[2][0]), Double.parseDouble(points[2][1]), Math.toRadians(Double.parseDouble(points[2][2]))))
                         .build();
@@ -131,7 +135,7 @@ public class LiveAuto extends OpModeEx {
                     points[2][0] != null && points[2][1] != null && points[2][2] != null) {
                 telemetryPro.addData("Points:", Arrays.deepToString(points));
                 try {
-                    please = drive.trajectoryBuilder(new Pose2d(Double.parseDouble(points[0][0]), Double.parseDouble(points[0][1]), Math.toRadians(Double.parseDouble(points[0][2]))))
+                    please = drive.trajectorySequenceBuilder(new Pose2d(Double.parseDouble(points[0][0]), Double.parseDouble(points[0][1]), Math.toRadians(Double.parseDouble(points[0][2]))))
                             .lineToLinearHeading(new Pose2d(Double.parseDouble(points[1][0]), Double.parseDouble(points[1][1]), Math.toRadians(Double.parseDouble(points[1][2]))))
                             .lineToLinearHeading(new Pose2d(Double.parseDouble(points[2][0]), Double.parseDouble(points[2][1]), Math.toRadians(Double.parseDouble(points[2][2]))))
                             .build();
@@ -141,13 +145,14 @@ public class LiveAuto extends OpModeEx {
 
                 }
             }
-            if (please != null) {
-                drive.followTrajectory(please);
+            drive.setPoseEstimate(new Pose2d(Double.parseDouble(points[0][0]), Double.parseDouble(points[0][1]), Math.toRadians(Double.parseDouble(points[0][2]))));
+
+            drive.followTrajectorySequenceAsync(please);
                 while (drive.isBusy()) {
                     drive.update();
                     telemetryPro.update();
                 }
-            }
+
             runButtonPressed = false;
         }
 
@@ -166,6 +171,8 @@ public class LiveAuto extends OpModeEx {
     @Override
     public void stop() {
         super.stop();
+        please = null;
+
         nanoServer.stop();
     }
 }
