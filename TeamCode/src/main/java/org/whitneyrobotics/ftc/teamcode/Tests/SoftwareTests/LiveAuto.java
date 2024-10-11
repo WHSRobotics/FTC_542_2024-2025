@@ -22,8 +22,8 @@ import java.util.Map;
 
 import fi.iki.elonen.NanoHTTPD;
 
-@TeleOp(name="AutoLiveTest", group="Tests")
-public class LiveAuto extends OpModeEx {
+@TeleOp(name="AutoLive", group="Tests")
+public class LiveAuto extends OpMode {
     private NanoHTTPD nanoServer;
     private String[][] points = new String[3][3];
 
@@ -32,8 +32,9 @@ public class LiveAuto extends OpModeEx {
     private TrajectorySequence please;
 
     @Override
-    public void initInternal() {
+    public void init() {
         drive = new CenterstageMecanumDrive(hardwareMap);
+        telemetry.addData("Name:","Mohnish");
 
         try {
             nanoServer = new NanoHTTPD("192.168.43.1", 8043) {
@@ -106,68 +107,79 @@ public class LiveAuto extends OpModeEx {
 
     }
 
-
     @Override
-    public void loopInternal() {
+    public void loop() {
+        // Display the points only if they are fully available
         for (int i = 0; i < 3; i++) {
-            telemetryPro.addData("Point " + (i + 1) + ": ", "X: " + points[i][0] + ", Y: " + points[i][1] + ", Heading: " + points[i][2]);
-        }
-        telemetryPro.addData("Points: ", Arrays.deepToString(points));
-
-        if (points[0][0] != null && points[0][1] != null && points[0][2] != null &&
-                points[1][0] != null && points[1][1] != null && points[1][2] != null &&
-                points[2][0] != null && points[2][1] != null && points[2][2] != null) {
-            telemetryPro.addData("Points:", Arrays.deepToString(points));
-            try {
-                please = drive.trajectorySequenceBuilder(new Pose2d(Double.parseDouble(points[0][0]), Double.parseDouble(points[0][1]), Math.toRadians(Double.parseDouble(points[0][2]))))
-                        .lineToLinearHeading(new Pose2d(Double.parseDouble(points[1][0]), Double.parseDouble(points[1][1]), Math.toRadians(Double.parseDouble(points[1][2]))))
-                        .lineToLinearHeading(new Pose2d(Double.parseDouble(points[2][0]), Double.parseDouble(points[2][1]), Math.toRadians(Double.parseDouble(points[2][2]))))
-                        .build();
-            } catch (PathContinuityViolationException e) {
-                telemetryPro.addData("Error:", "Your points don't connect properly. They are too close and confusing...");
-                runButtonPressed = false;
+            if (points[i][0] != null && points[i][1] != null && points[i][2] != null) {
+                telemetry.addData("Point " + (i + 1) + ": ", "X: " + points[i][0] + ", Y: " + points[i][1] + ", Heading: " + points[i][2]);
             }
         }
 
+        // Update telemetry immediately to reflect latest points
+        telemetry.addData("Points (all): ", Arrays.deepToString(points));
+        telemetry.update();
+
+        // Only rebuild and run the trajectory if button was pressed
         if (runButtonPressed) {
+            // Rebuild the trajectory before running to reflect the latest changes
             if (points[0][0] != null && points[0][1] != null && points[0][2] != null &&
                     points[1][0] != null && points[1][1] != null && points[1][2] != null &&
                     points[2][0] != null && points[2][1] != null && points[2][2] != null) {
-                telemetryPro.addData("Points:", Arrays.deepToString(points));
+
                 try {
-                    please = drive.trajectorySequenceBuilder(new Pose2d(Double.parseDouble(points[0][0]), Double.parseDouble(points[0][1]), Math.toRadians(Double.parseDouble(points[0][2]))))
-                            .lineToLinearHeading(new Pose2d(Double.parseDouble(points[1][0]), Double.parseDouble(points[1][1]), Math.toRadians(Double.parseDouble(points[1][2]))))
-                            .lineToLinearHeading(new Pose2d(Double.parseDouble(points[2][0]), Double.parseDouble(points[2][1]), Math.toRadians(Double.parseDouble(points[2][2]))))
+                    please = drive.trajectorySequenceBuilder(
+                                    new Pose2d(
+                                            Double.parseDouble(points[0][0]),
+                                            Double.parseDouble(points[0][1]),
+                                            Math.toRadians(Double.parseDouble(points[0][2]))
+                                    )
+                            )
+                            .lineToLinearHeading(new Pose2d(
+                                    Double.parseDouble(points[1][0]),
+                                    Double.parseDouble(points[1][1]),
+                                    Math.toRadians(Double.parseDouble(points[1][2]))
+                            ))
+                            .lineToLinearHeading(new Pose2d(
+                                    Double.parseDouble(points[2][0]),
+                                    Double.parseDouble(points[2][1]),
+                                    Math.toRadians(Double.parseDouble(points[2][2]))
+                            ))
                             .build();
                 } catch (PathContinuityViolationException e) {
-                    please = null;
-                    telemetryPro.addData("Error:", "Your points don't connect properly. They are too close and confusing...");
-
+                    telemetry.addData("Error:", "Your points don't connect properly. They are too close and confusing...");
+                    runButtonPressed = false; // Stop running if there's an error
                 }
             }
-            drive.setPoseEstimate(new Pose2d(Double.parseDouble(points[0][0]), Double.parseDouble(points[0][1]), Math.toRadians(Double.parseDouble(points[0][2]))));
 
-            drive.followTrajectorySequenceAsync(please);
+            // Check if trajectory is valid and then run it
+            if (please != null) {
+                drive.setPoseEstimate(new Pose2d(
+                        Double.parseDouble(points[0][0]),
+                        Double.parseDouble(points[0][1]),
+                        Math.toRadians(Double.parseDouble(points[0][2]))
+                ));
+
+                drive.followTrajectorySequenceAsync(please);
+
+                // Keep updating the trajectory
                 while (drive.isBusy()) {
                     drive.update();
-                    telemetryPro.update();
+                    telemetry.update();
+
                 }
 
-            runButtonPressed = false;
+                // Reset variables after trajectory is run
+                runButtonPressed = false; // Allow the button to be pressed again
+                please = null; // Clear the trajectory to rebuild next time
+            }
         }
 
-//        try {
-//            Trajectory trajectory = drive.trajectoryBuilder(new Pose2d(10, 10, 0))
-//                    .lineToLinearHeading(new Pose2d(20, 15, Math.toRadians(45)))
-//                    .lineToLinearHeading(new Pose2d(30, 20, Math.toRadians(90)))
-//                    .build();
-//
-//
-//            drive.followTrajectory(trajectory);
-//        } catch(Exception e) {
-//
-//        }
+        // Update telemetry after each loop
+        telemetry.update();
     }
+
+
     @Override
     public void stop() {
         super.stop();

@@ -3,16 +3,19 @@ plugins {
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
-repositories {
-    mavenCentral()
 
+repositories {
     maven { url = 'https://jitpack.io' }
     maven { url = 'https://maven.brott.dev/' }
 }
 
 dependencies {
-    implementation 'com.github.NoahBres:MeepMeep:2.0.3'
+    implementation 'com.github.rh-robotics:MeepMeep:v1.0.0'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.4.10'  // Downgrade Kotlin
+
+
 }
+
