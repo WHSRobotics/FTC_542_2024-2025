@@ -24,10 +24,8 @@ public class PIDControlledMotorTest extends OpModeEx {
     PIDControlledMotor motor;
     @Override
     public void initInternal() {
-        gamepad1.TRIANGLE.onPress(e -> {
-            motor.reloadCoefficients(kP, kI, kD);
-        });
-        motor = new PIDControlledMotor(hardwareMap.get(DcMotorEx.class, "driveFL"), 3000);
+        motor.reloadCoefficients(kP, kI, kD);
+        motor = new PIDControlledMotor(hardwareMap.get(DcMotorEx.class, "rotator"), 3000);
         initializeDashboardTelemetry(50);
         telemetryPro.useDashboardTelemetry(dashboardTelemetry);
     }
