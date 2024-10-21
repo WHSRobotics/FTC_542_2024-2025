@@ -35,9 +35,9 @@ public class RobotImpl {
         instance = new RobotImpl(hardwareMap);
     }
 
-    public final IntoTheDeepMecanumDrive drive;
+    public IntoTheDeepMecanumDrive drive;
 
-    public final StandardTrackingWheelLocalizer localizer;
+    public StandardTrackingWheelLocalizer localizer;
 
     private RobotImpl(HardwareMap hardwareMap) {
         drive = new IntoTheDeepMecanumDrive(hardwareMap);
