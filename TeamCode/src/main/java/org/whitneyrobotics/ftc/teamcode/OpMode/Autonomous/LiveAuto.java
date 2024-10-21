@@ -7,7 +7,7 @@ import org.whitneyrobotics.ftc.teamcode.Roadrunner.trajectorysequence.Trajectory
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
-import org.whitneyrobotics.ftc.teamcode.Roadrunner.drive.CenterstageMecanumDrive;
+import org.whitneyrobotics.ftc.teamcode.Roadrunner.drive.IntoTheDeepMecanumDrive;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -28,7 +28,7 @@ public class LiveAuto extends OpMode {
     private String[][] points = new String[6][3]; // Array to store 6 points (X, Y, Heading)
     private List<Pose2d> filteredPoints = new ArrayList<>(); // List to store only filled points
 
-    private CenterstageMecanumDrive drive;
+    private IntoTheDeepMecanumDrive drive;
     private boolean runButtonPressed = false;
     private boolean trajectoryRunning = false;
     private TrajectorySequence trajectorySequence;
@@ -36,7 +36,7 @@ public class LiveAuto extends OpMode {
     @Override
     public void init() {
         // Initialize the Roadrunner drive
-        drive = new CenterstageMecanumDrive(hardwareMap);
+        drive = new IntoTheDeepMecanumDrive(hardwareMap);
         telemetry.addData("Status", "Initializing...");
         telemetry.update();
 

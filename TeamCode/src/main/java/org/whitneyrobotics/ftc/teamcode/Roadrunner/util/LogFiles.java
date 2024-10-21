@@ -17,7 +17,7 @@ import com.qualcomm.robotcore.util.WebHandlerManager;
 import org.firstinspires.ftc.ftccommon.external.WebHandlerRegistrar;
 import org.firstinspires.ftc.robotcore.internal.system.AppUtil;
 import org.whitneyrobotics.ftc.teamcode.Roadrunner.drive.DriveConstants;
-import org.whitneyrobotics.ftc.teamcode.Roadrunner.drive.CenterstageMecanumDrive;
+import org.whitneyrobotics.ftc.teamcode.Roadrunner.drive.IntoTheDeepMecanumDrive;
 import org.whitneyrobotics.ftc.teamcode.Roadrunner.drive.SampleTankDrive;
 import org.whitneyrobotics.ftc.teamcode.Roadrunner.drive.StandardTrackingWheelLocalizer;
 
@@ -66,13 +66,13 @@ public final class LogFiles {
         public double maxAngVel = DriveConstants.MAX_ANG_VEL;
         public double maxAngAccel = DriveConstants.MAX_ANG_ACCEL;
 
-        public double mecTransP = CenterstageMecanumDrive.TRANSLATIONAL_PID.kP;
-        public double mecTransI = CenterstageMecanumDrive.TRANSLATIONAL_PID.kI;
-        public double mecTransD = CenterstageMecanumDrive.TRANSLATIONAL_PID.kD;
-        public double mecHeadingP = CenterstageMecanumDrive.HEADING_PID.kP;
-        public double mecHeadingI = CenterstageMecanumDrive.HEADING_PID.kI;
-        public double mecHeadingD = CenterstageMecanumDrive.HEADING_PID.kD;
-        public double mecLateralMultiplier = CenterstageMecanumDrive.LATERAL_MULTIPLIER;
+        public double mecTransP = IntoTheDeepMecanumDrive.TRANSLATIONAL_PID.kP;
+        public double mecTransI = IntoTheDeepMecanumDrive.TRANSLATIONAL_PID.kI;
+        public double mecTransD = IntoTheDeepMecanumDrive.TRANSLATIONAL_PID.kD;
+        public double mecHeadingP = IntoTheDeepMecanumDrive.HEADING_PID.kP;
+        public double mecHeadingI = IntoTheDeepMecanumDrive.HEADING_PID.kI;
+        public double mecHeadingD = IntoTheDeepMecanumDrive.HEADING_PID.kD;
+        public double mecLateralMultiplier = IntoTheDeepMecanumDrive.LATERAL_MULTIPLIER;
 
         public double tankAxialP = SampleTankDrive.AXIAL_PID.kP;
         public double tankAxialI = SampleTankDrive.AXIAL_PID.kI;

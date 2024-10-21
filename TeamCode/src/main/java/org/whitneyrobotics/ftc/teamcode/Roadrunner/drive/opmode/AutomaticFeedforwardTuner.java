@@ -15,7 +15,7 @@ import com.qualcomm.robotcore.util.RobotLog;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.internal.system.Misc;
-import org.whitneyrobotics.ftc.teamcode.Roadrunner.drive.CenterstageMecanumDrive;
+import org.whitneyrobotics.ftc.teamcode.Roadrunner.drive.IntoTheDeepMecanumDrive;
 import org.whitneyrobotics.ftc.teamcode.Roadrunner.util.LoggingUtil;
 import org.whitneyrobotics.ftc.teamcode.Roadrunner.util.RegressionUtil;
 
@@ -47,7 +47,7 @@ public class AutomaticFeedforwardTuner extends LinearOpMode {
 
         Telemetry telemetry = new MultipleTelemetry(this.telemetry, FtcDashboard.getInstance().getTelemetry());
 
-        CenterstageMecanumDrive drive = new CenterstageMecanumDrive(hardwareMap);
+        IntoTheDeepMecanumDrive drive = new IntoTheDeepMecanumDrive(hardwareMap);
 
         NanoClock clock = NanoClock.system();
 

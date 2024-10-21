@@ -3,22 +3,18 @@ package org.whitneyrobotics.ftc.teamcode.OpMode.Autonomous;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.whitneyrobotics.ftc.teamcode.Extensions.OpModeEx.OpModeEx;
-import org.whitneyrobotics.ftc.teamcode.Extensions.TelemetryPro.TelemetryPro;
-import org.whitneyrobotics.ftc.teamcode.Roadrunner.drive.CenterstageMecanumDrive;
+import org.whitneyrobotics.ftc.teamcode.Roadrunner.drive.IntoTheDeepMecanumDrive;
 import org.whitneyrobotics.ftc.teamcode.Roadrunner.trajectorysequence.TrajectorySequence;
-
-import com.qualcomm.robotcore.hardware.HardwareMap;
 
 @Autonomous(name = "AutoWHS")
 public class WHSAuto extends OpModeEx {
-    CenterstageMecanumDrive drive;
+    IntoTheDeepMecanumDrive drive;
 
     @Override
     public void initInternal() {
-        drive = new CenterstageMecanumDrive(hardwareMap);
+        drive = new IntoTheDeepMecanumDrive(hardwareMap);
     }
 
     @Override

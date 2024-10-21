@@ -20,16 +20,19 @@ import com.acmerobotics.roadrunner.trajectory.constraints.TrajectoryAcceleration
 import com.acmerobotics.roadrunner.trajectory.constraints.TrajectoryVelocityConstraint;
 import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
 
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.whitneyrobotics.ftc.teamcode.Libraries.Controllers.PIDCoefficientsNew;
+import org.whitneyrobotics.ftc.teamcode.Libraries.Controllers.PIDController;
+import org.whitneyrobotics.ftc.teamcode.Libraries.Controllers.PIDControllerNew;
+import org.whitneyrobotics.ftc.teamcode.Libraries.Controllers.PIDFController;
 import org.whitneyrobotics.ftc.teamcode.Roadrunner.trajectorysequence.TrajectorySequence;
 import org.whitneyrobotics.ftc.teamcode.Roadrunner.trajectorysequence.TrajectorySequenceBuilder;
 import org.whitneyrobotics.ftc.teamcode.Roadrunner.trajectorysequence.TrajectorySequenceRunner;
@@ -54,7 +57,7 @@ import static org.whitneyrobotics.ftc.teamcode.Roadrunner.drive.DriveConstants.k
  * Simple mecanum drive hardware implementation for REV hardware.
  */
 @Config
-public class CenterstageMecanumDrive extends MecanumDrive {
+public class IntoTheDeepMecanumDrive extends MecanumDrive {
     public static PIDCoefficients TRANSLATIONAL_PID = new PIDCoefficients(9.875, 0, 0.25);
     public static PIDCoefficients HEADING_PID = new PIDCoefficients(10, 0, 0);
 
@@ -84,7 +87,7 @@ public class CenterstageMecanumDrive extends MecanumDrive {
     private List<Integer> lastEncPositions = new ArrayList<>();
     private List<Integer> lastEncVels = new ArrayList<>();
 
-    public CenterstageMecanumDrive(HardwareMap hardwareMap) {
+    public IntoTheDeepMecanumDrive(HardwareMap hardwareMap) {
         super(kV, kA, kStatic, TRACK_WIDTH, TRACK_WIDTH, LATERAL_MULTIPLIER);
 
         follower = new HolonomicPIDVAFollower(TRANSLATIONAL_PID, TRANSLATIONAL_PID, HEADING_PID,
@@ -96,8 +99,11 @@ public class CenterstageMecanumDrive extends MecanumDrive {
 
         for (LynxModule module : hardwareMap.getAll(LynxModule.class)) {
             module.setBulkCachingMode(LynxModule.BulkCachingMode.AUTO);
+
+
         }
 
+        // Create a new SimpleMotorFeedforward with gains kS, kV, and kAs
         // TODO: adjust the names of the following hardware devices to match your configuration
         imu = hardwareMap.get(IMU.class,
         "imu");
