@@ -1,80 +1,87 @@
 package org.whitneyrobotics.ftc.teamcode.Tests.HardwareTests;
 
+import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
+import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-import org.whitneyrobotics.ftc.teamcode.Extensions.OpModeEx.OpModeEx;
 import org.whitneyrobotics.ftc.teamcode.Libraries.Controllers.ControlConstants;
 import org.whitneyrobotics.ftc.teamcode.Libraries.Controllers.PIDController;
-import org.whitneyrobotics.ftc.teamcode.Libraries.Controllers.PIDVAController;
 import org.whitneyrobotics.ftc.teamcode.Libraries.Motion.MotionProfileTrapezoidal;
+import org.whitneyrobotics.ftc.teamcode.Libraries.Utilities.NanoStopwatch;
 
-@TeleOp(name = "rotatorTest")
 @Config
-public class RotationSlidesTest extends OpModeEx {
-    private static DcMotorEx rotator;  // Ensure motor is not static and properly initialized
+@TeleOp(name = "RotationSlidesTest", group = "Control")
+public class RotationSlidesTest extends OpMode {
+    private PIDController controller;
+    private MotionProfileTrapezoidal motionProfile;
+    private NanoStopwatch stopwatch;
+    private boolean telemetryInitialized = false;
 
-    public static double MAX_ACCEl =0.2;
-    public static double MAX_VEL = 0.2;
+    public static double p = 0.005, i = 0, d = 0;
+    public static double f = 0.002;
+    public static int targetPosition = 0;
 
-    public static double KP = 1;
-    public static double KI = 0;
-    public static double KD = 1;
+    public static double V_MAX = 10; // max velocity in degrees/s
+    public static double A_MAX = 20; // max acceleration in degrees/s^2
+    private static final double ticksInDegrees = 700 / 180.0;
 
-    private static ControlConstants constants = new ControlConstants(KP,KD,KI);
+    private ControlConstants controlConstants;
+    private DcMotorEx armMotor;
+    private int initialPosition;
 
-    private static PIDController controller = new PIDController(constants);
-    private static double targetPos;
-    private static double error = 0;
-    public static double TOLERANCE = 30;  // Tolerance for how close we need to be to the target position
+    @Override
+    public void init() {
+        controlConstants = new ControlConstants(p, i, d);
+        controller = new PIDController(controlConstants);
+        armMotor = hardwareMap.get(DcMotorEx.class, "rotator");
+        armMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        armMotor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+
+        telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
 
 
-    public static void setTargetPosition(double position){
-        targetPos = position;
+
     }
-    public void setInitialError(){
-        controller.init(rotator.getCurrentPosition());
 
+    @Override
+    public void start() {
+        // Reset stopwatch and create a new motion profile for the target
+        stopwatch.reset();
+
+        int currentPos = armMotor.getCurrentPosition();
+        double error = (targetPosition - currentPos) / ticksInDegrees;
+        motionProfile.setGoal(error);
     }
-    public void GoToPosition(){
-        error = targetPos - rotator.getCurrentPosition();
 
+    @Override
+    public void loop() {
+        // Update PID control constants
+        controlConstants = new ControlConstants(p, i, d);
+        controller.setConstants(controlConstants);
+
+        double elapsedTime = stopwatch.seconds();
+        double desiredPosition = initialPosition + motionProfile.positionAt(elapsedTime) * ticksInDegrees;
+        double desiredVelocity = motionProfile.velocityAt(elapsedTime);
+
+        int currentPos = armMotor.getCurrentPosition();
+        double error = (desiredPosition - currentPos);
         controller.calculate(error);
-        // If the error is within the tolerance, stop the motor
-        if (Math.abs(error) <= TOLERANCE) {
-            rotator.setPower(0);  // Stop the motor if within tolerance
-        }else{
-            rotator.setPower(controller.getOutput());
-        }
 
-    }
-    @Override
-    public void initInternal() {
+        // Feedforward term for desired velocity
+        double ff = desiredVelocity * f;
+        double pid = controller.getOutput();
+        double power = pid + ff;
 
-        rotator = hardwareMap.get(DcMotorEx.class, "rotator");
-        rotator.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);  // Set brake behavior
-        rotator.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        armMotor.setPower(power);
 
-        rotator.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);  // Ensure motor is in encoder mode
-        setInitialError();
-        telemetryPro.addData("Current Position", rotator.getCurrentPosition());
-        telemetryPro.addData("Motor Power", rotator.getPower());
-        telemetryPro.update();
-
-    }
-
-    @Override
-    protected void loopInternal() {
-        setTargetPosition(5000);
-
-        GoToPosition();
-        // Add telemetry to check the motor status
-        telemetryPro.addData("Current Position", rotator.getCurrentPosition());
-        telemetryPro.addData("Motor Power", rotator.getPower());
-        telemetryPro.addData("PID Output", controller.getOutput());
-        telemetryPro.update();
+        // Telemetry updates
+        telemetry.addData("Current Position", currentPos);
+        telemetry.addData("Target Position", targetPosition);
+        telemetry.addData("Desired Position", desiredPosition);
+        telemetry.addData("Desired Velocity", desiredVelocity);
+        telemetry.update();
     }
 }

@@ -163,7 +163,7 @@ public abstract class OpModeEx extends OpMode {
     public void initInternalLoop(){};
 
     @Override
-    public final void start() {
+    public void start() {
         resetRuntime();
         startInternal();
     }

@@ -39,8 +39,9 @@ public class PIDController {
 
         //Derivative
         double deltaError = error - lastKnownError;
-        lastKnownError = error;
         derivative = deltaError / deltaTime;
+        lastKnownError = error;
+
 
     }
 

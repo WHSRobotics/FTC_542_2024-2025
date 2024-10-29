@@ -31,7 +31,7 @@ public class RobotImpl {
 
     }
 
-    private static void init(HardwareMap hardwareMap) {
+    public static void init(HardwareMap hardwareMap) {
         instance = new RobotImpl(hardwareMap);
     }
 
