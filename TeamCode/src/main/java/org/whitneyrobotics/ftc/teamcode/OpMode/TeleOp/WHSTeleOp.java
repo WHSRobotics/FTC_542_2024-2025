@@ -32,6 +32,10 @@ public class WHSTeleOp extends OpModeEx {
         dashboardTelemetry.setMsTransmissionInterval(25);
         telemetryPro.useDashboardTelemetry(dashboardTelemetry);
         gamepad1.SQUARE.onPress(robot::switchAlliance);
+//
+//        robot.rotationSlides.slidesSetPower(gamepad1);
+//        robot.rotationSlides.rotatorSetPower(gamepad1);
+
         gamepad1.START.onPress(() -> {
             Pose2d previousPosition = robot.drive.getPoseEstimate();
             robot.drive.setPoseEstimate(new Pose2d(
@@ -81,6 +85,11 @@ public class WHSTeleOp extends OpModeEx {
         robot.update();
         UnaryOperator<Float> scaling = scalingFunctionDefault;
         float brakePower = gamepad1.LEFT_TRIGGER.value();
+
+//        robot.rotationSlides.rotatorSetPower(gamepad2);
+//        robot.rotationSlides.slidesSetPower(gamepad2);
+//        gamepad2.SQUARE.onPress(robot.claw::updateState);
+
         if (!robot.drive.isBusy()) robot.drive.setWeightedDrivePower(
                 Functions.rotateVectorCounterclockwise(new Pose2d(
                         scaling.apply(gamepad1.LEFT_STICK_Y.value()),

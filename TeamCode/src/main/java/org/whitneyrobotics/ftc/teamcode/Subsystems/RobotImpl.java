@@ -18,9 +18,9 @@ public class RobotImpl {
 
     public Alliance alliance = Alliance.RED;
 
-    public RobotImpl() {
-    }
+    public RotatorMotor rotationSlides;
 
+    public IntakeClaw claw;
     public static RobotImpl getInstance(){
         return instance;
     }
@@ -41,6 +41,8 @@ public class RobotImpl {
 
     private RobotImpl(HardwareMap hardwareMap) {
         drive = new IntoTheDeepMecanumDrive(hardwareMap);
+//        rotationSlides = new RotatorMotor(hardwareMap);
+//        claw = new IntakeClaw(hardwareMap)
         localizer = new StandardTrackingWheelLocalizer(hardwareMap, new ArrayList<>(), new ArrayList<>());
 
     }
@@ -59,6 +61,7 @@ public class RobotImpl {
 
     public void update(){
         drive.update();
+//        claw.run();
     }
 
 }
