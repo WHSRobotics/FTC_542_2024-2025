@@ -1,19 +1,17 @@
 {
   "version": 3,
   "artifactType": {
-    "type": "APK",
+    "type": "PACKAGED_MANIFESTS",
     "kind": "Directory"
   },
-  "applicationId": "com.qualcomm.ftcrobotcontroller",
-  "variantName": "debug",
+  "applicationId": "com.qualcomm.ftcrobotcontroller.test",
+  "variantName": "debugAndroidTest",
   "elements": [
     {
       "type": "SINGLE",
       "filters": [],
       "attributes": [],
-      "versionCode": 55,
-      "versionName": "10.0",
-      "outputFile": "TeamCode-debug.apk"
+      "outputFile": "AndroidManifest.xml"
     }
   ],
   "elementType": "File"

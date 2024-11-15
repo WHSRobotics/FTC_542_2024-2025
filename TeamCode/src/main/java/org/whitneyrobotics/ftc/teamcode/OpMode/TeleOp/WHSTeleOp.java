@@ -47,7 +47,8 @@ public class WHSTeleOp extends OpModeEx {
         robot.teleOpInit();
 
         gamepad1.BUMPER_RIGHT.onPress(() -> fieldCentric = !fieldCentric);
-
+        robot.ascend.slidesInputPower(gamepad2.LEFT_STICK_Y.value());
+        robot.ascend.rotatorInputPower(gamepad2.LEFT_STICK_X.value());
 
     }
 

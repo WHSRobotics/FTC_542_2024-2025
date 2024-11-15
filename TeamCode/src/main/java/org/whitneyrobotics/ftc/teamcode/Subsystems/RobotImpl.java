@@ -21,6 +21,8 @@ public class RobotImpl {
     public RotatorMotor rotationSlides;
 
     public IntakeClaw claw;
+
+    public Ascend ascend;
     public static RobotImpl getInstance(){
         return instance;
     }
@@ -44,6 +46,7 @@ public class RobotImpl {
 //        rotationSlides = new RotatorMotor(hardwareMap);
 //        claw = new IntakeClaw(hardwareMap)
         localizer = new StandardTrackingWheelLocalizer(hardwareMap, new ArrayList<>(), new ArrayList<>());
+        ascend = new Ascend(hardwareMap);
 
     }
 
@@ -61,6 +64,7 @@ public class RobotImpl {
 
     public void update(){
         drive.update();
+        ascend.update();
 //        claw.run();
     }
 
