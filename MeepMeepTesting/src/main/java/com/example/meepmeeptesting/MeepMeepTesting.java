@@ -123,12 +123,44 @@ public class MeepMeepTesting {
                         //park
                         .lineToLinearHeading(new Pose2d(56,56, Math.toRadians(90)))
                         .build());
+
+        RoadRunnerBotEntity bot6 = new DefaultBotBuilder(meepMeep)
+                // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
+                .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 15)
+                .followTrajectorySequence(drive -> drive.trajectorySequenceBuilder(new Pose2d(18, -60, Math.toRadians(90)))
+                        .lineTo(new Vector2d(0,-35))
+                        .waitSeconds(3)
+                        .addTemporalMarker(1.5, () ->{
+//                            extend 26 inches vertical (idk how much horizontal), open claw, unextend
+                        })
+                        .lineToLinearHeading(new Pose2d(30,-40, Math.toRadians(180)))
+                        .lineToLinearHeading(new Pose2d(36,-10, Math.toRadians(270)))
+                        .lineTo(new Vector2d(42,-10))
+                        .waitSeconds(1)
+                        .lineTo(new Vector2d(42,-50))
+                        .lineTo(new Vector2d(42, -10))
+                        .lineTo(new Vector2d(52,-10))
+                        .waitSeconds(1)
+                        .lineTo(new Vector2d(55,-55))
+                        .waitSeconds(3)
+                        .addTemporalMarker(16, () -> {
+//                            extend slides (not sure abt distance), close claw when have specimen
+                        })
+                        .lineToLinearHeading(new Pose2d(0,-35, Math.toRadians(90)))
+                        .waitSeconds(3)
+                        .addTemporalMarker(21.6, () ->{
+//                            extend 26 inches vertical (idk how much horizontal), open claw, unextend
+                        })
+                        .lineTo(new Vector2d(58,-58))
+                        .build());
         meepMeep.setBackground(MeepMeep.Background.FIELD_INTOTHEDEEP_JUICE_DARK)
                 .setDarkMode(true)
                 .setBackgroundAlpha(0.95f)
-                .addEntity(bot4)
-                .addEntity(bot2)
-                .addEntity(myBot)
+//                .addEntity(bot4)
+//                .addEntity(bot2)
+//                .addEntity(myBot)
+                .addEntity(bot6)
+
                 .start();
     }
 }

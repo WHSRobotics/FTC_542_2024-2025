@@ -49,14 +49,7 @@ public class WHSTeleOp extends OpModeEx {
         gamepad1.BUMPER_RIGHT.onPress(() -> fieldCentric = !fieldCentric);
 //        robot.ascend.slidesInputPower(gamepad2.LEFT_STICK_Y.value());
 //        robot.ascend.rotatorInputPower(gamepad2.LEFT_STICK_X.value());
-        gamepad1.TRIANGLE.onPress(e -> {
-            robot.claw.update();
-            robot.claw.run();
-        });
-        gamepad1.SQUARE.onPress(e -> {
-            robot.wrist.update();
-            robot.wrist.run();
-        });
+
 
     }
 
@@ -95,8 +88,20 @@ public class WHSTeleOp extends OpModeEx {
         UnaryOperator<Float> scaling = scalingFunctionDefault;
         float brakePower = gamepad1.LEFT_TRIGGER.value();
 
-//        robot.rotationSlides.rotatorSetPower(gamepad2);
-//        robot.rotationSlides.slidesSetPower(gamepad2);
+        robot.rotationSlides.rotatorSetPower(gamepad2);
+        robot.rotationSlides.slidesSetPower(gamepad2);
+        gamepad2.SQUARE.onPress(()->{
+            robot.wrist.Open();
+        });
+        gamepad2.CROSS.onPress(()->{
+            robot.claw.update();
+        });
+        gamepad2.TRIANGLE.onPress(()->{
+            robot.wrist.Half();
+        });
+        gamepad2.CIRCLE.onPress(()->{
+            robot.wrist.Close();
+        });
 //        gamepad2.SQUARE.onPress(robot.claw::updateState);
 
         if (!robot.drive.isBusy()) robot.drive.setWeightedDrivePower(

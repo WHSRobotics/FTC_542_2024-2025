@@ -72,11 +72,10 @@ public class RobotImpl {
     public void update(){
         drive.update();
 //        ascend.update();
-        claw.update();
         claw.run();
-        wrist.update();
-        wrist.run();
-        rotationSlides.update();
+//        wrist.update();
+//        wrist.run();
+//        rotationSlides.update();
     }
 
 }

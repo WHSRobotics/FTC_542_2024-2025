@@ -3,8 +3,6 @@ package org.whitneyrobotics.ftc.teamcode.Subsystems;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.whitneyrobotics.ftc.teamcode.Extensions.OpModeEx.OpModeEx;
-
 
 public class Wrist{
     Servo wrist;
@@ -20,6 +18,9 @@ public class Wrist{
 
     public enum WristState {
         OPEN(0),
+
+        HALF(0.27),
+
         CLOSE(1);
 
         public final double positionnumber;
@@ -38,5 +39,16 @@ public class Wrist{
         wrist.setPosition(position.positionnumber);
     }
 
+    public void Open(){
+        wrist.setPosition(WristState.OPEN.positionnumber);
+    }
+    public void Half(){
+        wrist.setPosition(WristState.HALF.positionnumber);
+
+    }
+    public void Close(){
+        wrist.setPosition(WristState.CLOSE.positionnumber);
+
+    }
 
 }
