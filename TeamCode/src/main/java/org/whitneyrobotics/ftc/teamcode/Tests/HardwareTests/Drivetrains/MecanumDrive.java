@@ -19,7 +19,6 @@ public class MecanumDrive extends LinearOpMode {
 
         fR.setDirection(DcMotorSimple.Direction.REVERSE);
         bR.setDirection(DcMotorSimple.Direction.REVERSE);
-
         IMU imu = hardwareMap.get(IMU.class, "imu");
 
         IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
@@ -51,10 +50,10 @@ public class MecanumDrive extends LinearOpMode {
             double frontRightPower = (rotY - rotX - rx) / omega;
             double backRightPower = (rotY + rotX - rx) / omega;
 
-            fL.setPower(frontLeftPower);
-            bL.setPower(backLeftPower);
-            fR.setPower(frontRightPower);
-            bR.setPower(backRightPower);
+            fL.setPower((frontLeftPower));
+            bL.setPower((backLeftPower));
+            fR.setPower((frontRightPower));
+            bR.setPower((backRightPower));
         }
     }
 }

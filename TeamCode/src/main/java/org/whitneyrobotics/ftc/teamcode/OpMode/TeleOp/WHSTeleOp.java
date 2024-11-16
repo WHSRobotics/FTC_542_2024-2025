@@ -90,6 +90,7 @@ public class WHSTeleOp extends OpModeEx {
 
         robot.rotationSlides.rotatorSetPower(gamepad2);
         robot.rotationSlides.slidesSetPower(gamepad2);
+<<<<<<< HEAD
         gamepad2.SQUARE.onPress(()->{
             robot.wrist.Open();
         });
@@ -102,6 +103,8 @@ public class WHSTeleOp extends OpModeEx {
         gamepad2.CIRCLE.onPress(()->{
             robot.wrist.Close();
         });
+=======
+>>>>>>> c2f414f ([6:18] Meet 1 Final pending wrist enums)
 //        gamepad2.SQUARE.onPress(robot.claw::updateState);
 
         if (!robot.drive.isBusy()) robot.drive.setWeightedDrivePower(

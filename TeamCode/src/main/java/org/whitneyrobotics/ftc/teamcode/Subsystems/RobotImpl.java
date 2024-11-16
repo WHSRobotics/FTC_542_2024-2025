@@ -73,9 +73,15 @@ public class RobotImpl {
         drive.update();
 //        ascend.update();
         claw.run();
+<<<<<<< HEAD
 //        wrist.update();
 //        wrist.run();
 //        rotationSlides.update();
+=======
+        wrist.update();
+        wrist.run();
+        //rotationSlides.update();
+>>>>>>> c2f414f ([6:18] Meet 1 Final pending wrist enums)
     }
 
 }
