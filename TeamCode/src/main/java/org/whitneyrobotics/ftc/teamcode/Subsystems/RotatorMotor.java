@@ -20,7 +20,7 @@ public class RotatorMotor {
 
     public static double p = 0.005, i = 0, d = 0.00028;
     public static double f = 0;
-    public static double targetPosition = 0;
+    public static AngleTicks targetPosition = AngleTicks.ZERO;
 
     public static double V_MAX = 2350; // max velocity in degrees/s
     public static double A_MAX = 700; // max acceleration in degrees/s^2
@@ -65,15 +65,13 @@ public class RotatorMotor {
         armMotor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
     }
 
-    public void setState(double angle) {
-        isGamepad = false;
-        if (isGamepad == false) {
-            targetPosition = angle;
-            setGoal();
-        }
+    public void setState(AngleTicks angle) {
+        targetPosition = angle;
+        setGoal();
+
     }
 
-    public void setGamepadState(double angle){
+    public void setGamepadState(AngleTicks angle){
         targetPosition = angle;
         setGoal();
     }
@@ -81,26 +79,24 @@ public class RotatorMotor {
         isGamepad = isUsed;
     }
     private void setGoal() {
-        if (!isGamepad) {
-            stopwatch.reset();
-            initialPosition = -1 * armMotor.getCurrentPosition();
-            double error = (targetPosition - initialPosition) / ticksInDegrees;
-            motionProfile.setGoal(error);
-        }
+        stopwatch.reset();
+        initialPosition = -1 * armMotor.getCurrentPosition();
+        double error = (targetPosition.ticks - initialPosition) / ticksInDegrees;
+        motionProfile.setGoal(error);
+
     }
 
     public void update() {
-        if (!isGamepad) {
-            armMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-            double elapsedTime = stopwatch.seconds();
-            double desiredPosition = initialPosition + motionProfile.positionAt(elapsedTime) * ticksInDegrees;
-            int currentPos = -1 * armMotor.getCurrentPosition();
-            double error = desiredPosition - currentPos;
-            controller.calculate(error);
-            double pidOutput = controller.getOutput();
-            double ff = motionProfile.velocityAt(elapsedTime) * f;
-            armMotor.setPower(pidOutput + ff);
-        }
+        armMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        double elapsedTime = stopwatch.seconds();
+        double desiredPosition = initialPosition + motionProfile.positionAt(elapsedTime) * ticksInDegrees;
+        int currentPos = -1 * armMotor.getCurrentPosition();
+        double error = desiredPosition - currentPos;
+        controller.calculate(error);
+        double pidOutput = controller.getOutput();
+        double ff = motionProfile.velocityAt(elapsedTime) * f;
+        armMotor.setPower(pidOutput + ff);
+
 
     }
 
@@ -117,4 +113,3 @@ public class RotatorMotor {
         slides.setPower(gm.RIGHT_STICK_X.value());
     }
 }
-
