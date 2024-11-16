@@ -7,6 +7,9 @@ import com.qualcomm.robotcore.robot.Robot;
 import org.whitneyrobotics.ftc.teamcode.Constants.Alliance;
 import org.whitneyrobotics.ftc.teamcode.Roadrunner.drive.IntoTheDeepMecanumDrive;
 import org.whitneyrobotics.ftc.teamcode.Roadrunner.drive.StandardTrackingWheelLocalizer;
+import org.whitneyrobotics.ftc.teamcode.Subsystems.Claw;
+import org.whitneyrobotics.ftc.teamcode.Subsystems.Wrist;
+//import org.whitneyrobotics.ftc.teamcode.Subsystems.Ascend;
 
 import java.util.ArrayList;
 
@@ -22,7 +25,7 @@ public class RobotImpl {
 
     public Claw claw;
 
-    public Ascend ascend;
+//    public Ascend ascend;
     public Wrist wrist;
     public static RobotImpl getInstance(){
         return instance;
