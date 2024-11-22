@@ -5,8 +5,11 @@ import static org.whitneyrobotics.ftc.teamcode.Extensions.GamepadEx.RumbleEffect
 import static org.whitneyrobotics.ftc.teamcode.Extensions.GamepadEx.RumbleEffects.matchEnd;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.IMU;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
 import org.whitneyrobotics.ftc.teamcode.Extensions.OpModeEx.OpModeEx;
 import org.whitneyrobotics.ftc.teamcode.Extensions.TelemetryPro.LineItem;
@@ -23,6 +26,12 @@ public class WHSTeleOp extends OpModeEx {
     private final UnaryOperator<Float> scalingFunctionDefault = x -> (float)Math.pow(x, 3);
     public boolean change = true;
 
+    DcMotor fl;
+    DcMotor fr;
+    DcMotor bl;
+    DcMotor br;
+    IMU imu;
+
     RobotImpl robot;
     @Override
     public void initInternal() {
@@ -32,6 +41,19 @@ public class WHSTeleOp extends OpModeEx {
         dashboardTelemetry.setMsTransmissionInterval(25);
         telemetryPro.useDashboardTelemetry(dashboardTelemetry);
         gamepad1.SQUARE.onPress(robot::switchAlliance);
+//
+//        fl = hardwareMap.get(DcMotor.class, "fL");
+//        fr = hardwareMap.get(DcMotor.class, "fR");
+//        bl = hardwareMap.get(DcMotor.class, "bL");
+//        br = hardwareMap.get(DcMotor.class, "bR");
+//
+//        imu = hardwareMap.get(IMU.class,"imu");
+//
+//        IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
+//                RevHubOrientationOnRobot.LogoFacingDirection.UP,
+//                RevHubOrientationOnRobot.UsbFacingDirection.RIGHT));
+//
+//        imu.initialize(parameters);
 //
 //        robot.rotationSlides.slidesSetPower(gamepad1);
 //        robot.rotationSlides.rotatorSetPower(gamepad1);
@@ -45,6 +67,7 @@ public class WHSTeleOp extends OpModeEx {
             ));
         });
         robot.teleOpInit();
+        robot.rotationSlides.resetEncoders();
 
         gamepad1.BUMPER_RIGHT.onPress(() -> fieldCentric = !fieldCentric);
 //        robot.ascend.slidesInputPower(gamepad2.LEFT_STICK_Y.value());
@@ -90,7 +113,6 @@ public class WHSTeleOp extends OpModeEx {
 
         robot.rotationSlides.rotatorSetPower(gamepad2);
         robot.rotationSlides.slidesSetPower(gamepad2);
-<<<<<<< HEAD
         gamepad2.SQUARE.onPress(()->{
             robot.wrist.Open();
         });
@@ -103,17 +125,41 @@ public class WHSTeleOp extends OpModeEx {
         gamepad2.CIRCLE.onPress(()->{
             robot.wrist.Close();
         });
-=======
->>>>>>> c2f414f ([6:18] Meet 1 Final pending wrist enums)
-//        gamepad2.SQUARE.onPress(robot.claw::updateState);
+        telemetryPro.update();
 
+        robot.rotationSlides.useEncoders();
+
+        robot.rotationSlides.rotatorSetPower(gamepad2);
+        robot.rotationSlides.slidesSetPower(gamepad2);
+        telemetryPro.addData("Current Position of Rotator", robot.rotationSlides.getCurrentPosition());
+        telemetryPro.addData("Current Position of Slides", robot.rotationSlides.getSlidesTicks());
+        if(fieldCentric) telemetryPro.addLine("FIELD CENTRIC ENABLED", LineItem.Color.YELLOW, LineItem.RichTextFormat.BOLD);
+//        gamepad2.SQUARE.onPress(robot.claw::updateState);
+//
         if (!robot.drive.isBusy()) robot.drive.setWeightedDrivePower(
                 Functions.rotateVectorCounterclockwise(new Pose2d(
                         scaling.apply(gamepad1.LEFT_STICK_Y.value()),
-                        scaling.apply(-gamepad1.LEFT_STICK_X.value()),
+                        scaling.apply(gamepad1.LEFT_STICK_X.value()),
                         scaling.apply(-gamepad1.RIGHT_STICK_X.value())
                 ).times(1-brakePower), (fieldCentric ? -robot.drive.getPoseEstimate().getHeading()+robot.alliance.headingAngle : 0))
         );
+
+//        double robotHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
+//
+//        double rotX = x * Math.cos(-robotHeading) - y * Math.sin(-robotHeading);
+//        double rotY = x * Math.sin(-robotHeading) + y + Math.cos(-robotHeading);
+//
+//        rotX = rotX * 1.1;
+//
+//        double omega = Math.max(Math.abs(rotY) + Math.abs(rotX) + Math.abs(rx), 1);
+//        double flp = (rotY + rotX + rx) / omega;
+//        double blp = (rotY - rotX + rx) / omega;
+//        double frp = (rotY - rotX - rx) / omega;
+//        double brp = (rotY + rotX - rx) / omega;
+//
+//        fl.setPower(flp);
+//        bl.setPower(blp);
+//        fr.setPower(frp);
 
     }
 }
