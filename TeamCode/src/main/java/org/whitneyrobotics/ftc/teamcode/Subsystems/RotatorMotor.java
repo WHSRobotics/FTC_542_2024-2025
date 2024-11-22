@@ -1,6 +1,5 @@
 package org.whitneyrobotics.ftc.teamcode.Subsystems;
 
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -61,10 +60,16 @@ public class RotatorMotor {
     }
 
     public void resetEncoders() {
-        armMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-        armMotor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        slides.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        slides.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
     }
+    public void useEncoders(){
+        slides.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+    }
+    public double getSlidesTicks(){
+        return (-1*slides.getCurrentPosition());
 
+    }
     public void setState(AngleTicks angle) {
         targetPosition = angle;
         setGoal();
@@ -110,6 +115,10 @@ public class RotatorMotor {
         armMotor.setPower(gm.LEFT_STICK_X.value());
     }
     public void slidesSetPower(GamepadEx gm) {
-        slides.setPower(gm.RIGHT_STICK_X.value());
+//        if ((-1*slides.getCurrentPosition())<= 1000) {
+            slides.setPower(gm.RIGHT_STICK_X.value());
+////        }else{
+//            slides.setPower(0);
+//        }
     }
 }

@@ -25,7 +25,7 @@ public class RobotImpl {
 
     public Claw claw;
 
-//    public Ascend ascend;
+    //    public Ascend ascend;
     public Wrist wrist;
     public static RobotImpl getInstance(){
         return instance;
@@ -79,3 +79,4 @@ public class RobotImpl {
     }
 
 }
+
