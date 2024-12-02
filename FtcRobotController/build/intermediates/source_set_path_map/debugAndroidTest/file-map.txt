@@ -1,0 +1,20 @@
+com.qualcomm.ftcrobotcontroller.test.FtcRobotController-RobotServer-10.0.0-0 /Users/siddhantkhapra/.gradle/caches/transforms-3/02aee3f8e41bfad9028e0d1930293bb6/transformed/RobotServer-10.0.0/res
+com.qualcomm.ftcrobotcontroller.test.FtcRobotController-Inspection-10.0.0-1 /Users/siddhantkhapra/.gradle/caches/transforms-3/056b23694646cbb2996e07af1e3b3ee7/transformed/Inspection-10.0.0/res
+com.qualcomm.ftcrobotcontroller.test.FtcRobotController-appcompat-1.2.0-2 /Users/siddhantkhapra/.gradle/caches/transforms-3/30891a14132f501b0723920f18972b1c/transformed/appcompat-1.2.0/res
+com.qualcomm.ftcrobotcontroller.test.FtcRobotController-appcompat-resources-1.2.0-3 /Users/siddhantkhapra/.gradle/caches/transforms-3/3d269adc01123c25427887fe1346df90/transformed/appcompat-resources-1.2.0/res
+com.qualcomm.ftcrobotcontroller.test.FtcRobotController-opencv-repackaged-bundled-dylibs-4.10.0-A-4 /Users/siddhantkhapra/.gradle/caches/transforms-3/54c7e68deea53e8d1e904c70b1e3e94b/transformed/opencv-repackaged-bundled-dylibs-4.10.0-A/res
+com.qualcomm.ftcrobotcontroller.test.FtcRobotController-Blocks-10.0.0-5 /Users/siddhantkhapra/.gradle/caches/transforms-3/66ae7fb8d1795185d2fa220c28f3861e/transformed/Blocks-10.0.0/res
+com.qualcomm.ftcrobotcontroller.test.FtcRobotController-RobotCore-10.0.0-6 /Users/siddhantkhapra/.gradle/caches/transforms-3/8148f487de659eb1ad2977449d99bcb6/transformed/RobotCore-10.0.0/res
+com.qualcomm.ftcrobotcontroller.test.FtcRobotController-core-1.3.0-7 /Users/siddhantkhapra/.gradle/caches/transforms-3/87c712ceb280b89563e287f590257de7/transformed/core-1.3.0/res
+com.qualcomm.ftcrobotcontroller.test.FtcRobotController-OnBotJava-10.0.0-8 /Users/siddhantkhapra/.gradle/caches/transforms-3/b58f290672e2eabb4e756f316d20f4f8/transformed/OnBotJava-10.0.0/res
+com.qualcomm.ftcrobotcontroller.test.FtcRobotController-zxing-android-embedded-4.3.0-9 /Users/siddhantkhapra/.gradle/caches/transforms-3/ba51c786c9bba5e089e0f2bc76f289cf/transformed/zxing-android-embedded-4.3.0/res
+com.qualcomm.ftcrobotcontroller.test.FtcRobotController-dashboard-0.4.13-10 /Users/siddhantkhapra/.gradle/caches/transforms-3/cef8b3751fa7affa29ce121ad0166031/transformed/dashboard-0.4.13/res
+com.qualcomm.ftcrobotcontroller.test.FtcRobotController-Hardware-10.0.0-11 /Users/siddhantkhapra/.gradle/caches/transforms-3/d5a9bf87e48084ff125abf4525b81db7/transformed/Hardware-10.0.0/res
+com.qualcomm.ftcrobotcontroller.test.FtcRobotController-apriltag-2.1.0-12 /Users/siddhantkhapra/.gradle/caches/transforms-3/f2db857376cdfd3bf4cfe31fae0394e9/transformed/apriltag-2.1.0/res
+com.qualcomm.ftcrobotcontroller.test.FtcRobotController-FtcCommon-10.0.0-13 /Users/siddhantkhapra/.gradle/caches/transforms-3/f9c0ffa0e7be946476632fcaf4f0fd67/transformed/FtcCommon-10.0.0/res
+com.qualcomm.ftcrobotcontroller.test.FtcRobotController-androidTest-14 /Users/siddhantkhapra/Desktop/FTC Into The Deep/FTC_542_2024-2025/FtcRobotController/build/generated/res/resValues/androidTest/debug
+com.qualcomm.ftcrobotcontroller.test.FtcRobotController-androidTest-15 /Users/siddhantkhapra/Desktop/FTC Into The Deep/FTC_542_2024-2025/FtcRobotController/build/generated/res/rs/androidTest/debug
+com.qualcomm.ftcrobotcontroller.test.FtcRobotController-mergeDebugAndroidTestResources-16 /Users/siddhantkhapra/Desktop/FTC Into The Deep/FTC_542_2024-2025/FtcRobotController/build/intermediates/incremental/debugAndroidTest/mergeDebugAndroidTestResources/merged.dir
+com.qualcomm.ftcrobotcontroller.test.FtcRobotController-mergeDebugAndroidTestResources-17 /Users/siddhantkhapra/Desktop/FTC Into The Deep/FTC_542_2024-2025/FtcRobotController/build/intermediates/incremental/debugAndroidTest/mergeDebugAndroidTestResources/stripped.dir
+com.qualcomm.ftcrobotcontroller.test.FtcRobotController-merged_res-18 /Users/siddhantkhapra/Desktop/FTC Into The Deep/FTC_542_2024-2025/FtcRobotController/build/intermediates/merged_res/debugAndroidTest
+com.qualcomm.ftcrobotcontroller.test.FtcRobotController-packaged_res-19 /Users/siddhantkhapra/Desktop/FTC Into The Deep/FTC_542_2024-2025/FtcRobotController/build/intermediates/packaged_res/debug

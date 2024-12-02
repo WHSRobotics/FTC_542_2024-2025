@@ -21,7 +21,7 @@ import java.util.function.UnaryOperator;
 @TeleOp(name = "Into The Deep TeleOp", group = "A")
 public class WHSTeleOp extends OpModeEx {
 
-    boolean fieldCentric = true;
+    boolean fieldCentric = false;
 
     private final UnaryOperator<Float> scalingFunctionDefault = x -> (float)Math.pow(x, 3);
     public boolean change = true;
@@ -30,7 +30,7 @@ public class WHSTeleOp extends OpModeEx {
     DcMotor fr;
     DcMotor bl;
     DcMotor br;
-    IMU imu;
+//    IMU imu;
 
     RobotImpl robot;
     @Override
@@ -108,8 +108,9 @@ public class WHSTeleOp extends OpModeEx {
     @Override
     protected void loopInternal() {
         robot.update();
-        UnaryOperator<Float> scaling = scalingFunctionDefault;
         float brakePower = gamepad1.LEFT_TRIGGER.value();
+        UnaryOperator<Float> scaling = scalingFunctionDefault;
+
 
         robot.rotationSlides.rotatorSetPower(gamepad2);
         robot.rotationSlides.slidesSetPower(gamepad2);
@@ -136,13 +137,16 @@ public class WHSTeleOp extends OpModeEx {
         if(fieldCentric) telemetryPro.addLine("FIELD CENTRIC ENABLED", LineItem.Color.YELLOW, LineItem.RichTextFormat.BOLD);
 //        gamepad2.SQUARE.onPress(robot.claw::updateState);
 //
+        if(gamepad1.BUMPER_LEFT.value()) scaling = x -> x/2;
         if (!robot.drive.isBusy()) robot.drive.setWeightedDrivePower(
                 Functions.rotateVectorCounterclockwise(new Pose2d(
                         scaling.apply(gamepad1.LEFT_STICK_Y.value()),
-                        scaling.apply(gamepad1.LEFT_STICK_X.value()),
+                        scaling.apply(-gamepad1.LEFT_STICK_X.value()),
                         scaling.apply(-gamepad1.RIGHT_STICK_X.value())
                 ).times(1-brakePower), (fieldCentric ? -robot.drive.getPoseEstimate().getHeading()+robot.alliance.headingAngle : 0))
         );
+        telemetryPro.addData("brake", brakePower);
+        telemetryPro.addData("angle", Math.toDegrees(robot.drive.getPoseEstimate().getHeading()));
 
 //        double robotHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
 //

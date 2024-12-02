@@ -1,5 +1,7 @@
 package org.whitneyrobotics.ftc.teamcode.Subsystems;
 
+import static org.whitneyrobotics.ftc.teamcode.Libraries.Utilities.UnitConversion.DistanceUnit.TILE_WIDTH;
+
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.robot.Robot;
@@ -20,6 +22,7 @@ public class RobotImpl {
     private static RobotImpl instance = null;
 
     public Alliance alliance = Alliance.RED;
+
 
     public RotatorMotor rotationSlides;
 
@@ -73,15 +76,13 @@ public class RobotImpl {
         drive.update();
 //        ascend.update();
         claw.run();
-<<<<<<< HEAD
+
 //        wrist.update();
 //        wrist.run();
-//        rotationSlides.update();
-=======
+        rotationSlides.update();
         wrist.update();
         wrist.run();
         //rotationSlides.update();
->>>>>>> c2f414f ([6:18] Meet 1 Final pending wrist enums)
     }
 
 }
