@@ -1,16 +1,11 @@
 package org.whitneyrobotics.ftc.teamcode.Subsystems;
 
-import static org.whitneyrobotics.ftc.teamcode.Libraries.Utilities.UnitConversion.DistanceUnit.TILE_WIDTH;
-
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.robot.Robot;
 
 import org.whitneyrobotics.ftc.teamcode.Constants.Alliance;
 import org.whitneyrobotics.ftc.teamcode.Roadrunner.drive.IntoTheDeepMecanumDrive;
 import org.whitneyrobotics.ftc.teamcode.Roadrunner.drive.StandardTrackingWheelLocalizer;
-import org.whitneyrobotics.ftc.teamcode.Subsystems.Claw;
-import org.whitneyrobotics.ftc.teamcode.Subsystems.Wrist;
 //import org.whitneyrobotics.ftc.teamcode.Subsystems.Ascend;
 
 import java.util.ArrayList;
@@ -24,12 +19,12 @@ public class RobotImpl {
     public Alliance alliance = Alliance.RED;
 
 
-    public RotatorMotor rotationSlides;
-
-    public Claw claw;
-
-    //    public Ascend ascend;
-    public Wrist wrist;
+//    public RotatorMotor rotationSlides;
+//
+//    public Claw claw;
+//
+//    //    public Ascend ascend;
+//    public Wrist wrist;
     public static RobotImpl getInstance(){
         return instance;
     }
@@ -48,15 +43,25 @@ public class RobotImpl {
 
     public StandardTrackingWheelLocalizer localizer;
 
+    public HorizontalServo horizontalServo;
+
+    public VerticalSlides verticalSlides;
+
+    public intakeServo intakeServo;
+    public ClawWrist intakeWrist;
+    public ElbowWrist elbowWrist;
+    public outtakeServo OuttakeServo;
     private RobotImpl(HardwareMap hardwareMap) {
         drive = new IntoTheDeepMecanumDrive(hardwareMap);
 //        rotationSlides = new RotatorMotor(hardwareMap);
 //        claw = new IntakeClaw(hardwareMap)
+        verticalSlides = new VerticalSlides(hardwareMap);
         localizer = new StandardTrackingWheelLocalizer(hardwareMap, new ArrayList<>(), new ArrayList<>());
-//        ascend = new Ascend(hardwareMap);
-        claw = new Claw(hardwareMap);
-        wrist = new Wrist(hardwareMap);
-        rotationSlides = new RotatorMotor(hardwareMap);
+        horizontalServo = new HorizontalServo(hardwareMap);
+        intakeServo = new intakeServo(hardwareMap);
+        intakeWrist = new ClawWrist(hardwareMap);
+        elbowWrist = new ElbowWrist(hardwareMap);
+        OuttakeServo = new outtakeServo(hardwareMap);
 
     }
 
@@ -74,14 +79,20 @@ public class RobotImpl {
 
     public void update(){
         drive.update();
-//        ascend.update();
-        claw.run();
+        horizontalServo.run();
+        intakeServo.run();
+        intakeWrist.run();
+        elbowWrist.run();
+        OuttakeServo.run();
 
+        //ascend.update();
+//        claw.run();
+//
+////        wrist.update();
+////        wrist.run();
+//        rotationSlides.update();
 //        wrist.update();
 //        wrist.run();
-        rotationSlides.update();
-        wrist.update();
-        wrist.run();
         //rotationSlides.update();
     }
 

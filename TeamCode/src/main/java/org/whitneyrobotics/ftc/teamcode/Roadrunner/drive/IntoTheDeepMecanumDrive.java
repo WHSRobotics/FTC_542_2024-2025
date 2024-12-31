@@ -30,6 +30,8 @@ import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
 
+//import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.whitneyrobotics.ftc.teamcode.Libraries.Controllers.PIDCoefficientsNew;
 import org.whitneyrobotics.ftc.teamcode.Libraries.Controllers.PIDController;
 import org.whitneyrobotics.ftc.teamcode.Libraries.Controllers.PIDControllerNew;
@@ -317,14 +319,12 @@ public class IntoTheDeepMecanumDrive extends MecanumDrive {
 
     @Override
     public double getRawExternalHeading() {
-        return 0;
-        //return imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
+        return imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
     }
 
     @Override
     public Double getExternalHeadingVelocity() {
-        return 0d;
-        //return (double) imu.getRobotAngularVelocity(AngleUnit.RADIANS).zRotationRate;
+        return (double) imu.getRobotAngularVelocity(AngleUnit.RADIANS).zRotationRate;
     }
 
     public static TrajectoryVelocityConstraint getVelocityConstraint(double maxVel, double maxAngularVel, double trackWidth) {

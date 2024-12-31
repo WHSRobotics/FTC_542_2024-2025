@@ -1,20 +1,23 @@
 package org.whitneyrobotics.ftc.teamcode.Subsystems;
 
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.whitneyrobotics.ftc.teamcode.Extensions.OpModeEx.OpModeEx;
-
-@TeleOp(name = "Meet 1 Claw Test", group = "A")
-public class Clawtester extends OpModeEx {
+public class ClawWrist {
     Servo rightServo;
     Servo leftServo;
 
-    private ClawState position = ClawState.OPEN;
+    private ClawState position = ClawState.UP ;
+
+    public ClawWrist(HardwareMap hardwareMap) {
+        leftServo = hardwareMap.get(Servo.class,"wristLeft");
+        rightServo = hardwareMap.get(Servo.class, "wristRight");
+    }
 
     public enum ClawState{
-        OPEN(0,0.9),
-        CLOSE(0.4,0.5);
+        UP(0.995,0.1),
+//        MID(0.35,0.55),
+        DOWN(0,0.9);
 
         public final double positionright, positionleft;
 
@@ -33,21 +36,5 @@ public class Clawtester extends OpModeEx {
     public void run(){
         rightServo.setPosition(position.positionright);
         leftServo.setPosition(position.positionleft);
-    }
-    @Override
-    public void initInternal() {
-        rightServo = hardwareMap.servo.get("rightServo");
-        leftServo = hardwareMap.servo.get("leftServo");
-    }
-
-    @Override
-    protected void loopInternal() {
-
-        gamepad1.TRIANGLE.onPress(e -> {
-            update();
-            run();
-        });
-
-
     }
 }
