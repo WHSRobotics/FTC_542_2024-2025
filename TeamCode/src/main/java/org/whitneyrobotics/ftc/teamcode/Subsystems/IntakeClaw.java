@@ -4,18 +4,24 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.ServoController;
 
+import org.whitneyrobotics.ftc.teamcode.Extensions.GamepadEx.GamepadEx;
+
 public class IntakeClaw {
     public static Servo servo1;
     public static Servo servo2;
 
     //    public static int currentPos=1;
     public Positions currentState = Positions.OPEN;
+
+    public boolean override=false;
+
     public enum Positions{
         OPEN(0,0.9),
         CLOSED(0.4,0.5); //was 0.3 but vartype was bugging
 
         public double value1;
         public double value2;
+
 
         Positions(double pos1,double pos2){
             this.value1=pos1;
@@ -46,6 +52,25 @@ public class IntakeClaw {
         servo1.setPosition(currentState.value1);
         servo2.setPosition(currentState.value2);
     }
-
-
+    public void beamBreakUpdate(boolean beamState, GamepadEx gp){
+        if (!(override)) {
+            if (beamState) {
+                currentState = Positions.CLOSED;
+            }
+            gp.TRIANGLE.onPress(() -> {
+                if (currentState == Positions.CLOSED) {
+                    currentState = Positions.OPEN;
+                }
+            });
+        }else{
+            gp.TRIANGLE.onPress(()->{
+                currentState=Positions.values()[(currentState.ordinal() + 1) % 2];
+            });
+        }
+    }
+    public void setOverride(GamepadEx gp){
+        gp.CIRCLE.onPress(()->{
+            override=!(override);
+        });
+    }
 }

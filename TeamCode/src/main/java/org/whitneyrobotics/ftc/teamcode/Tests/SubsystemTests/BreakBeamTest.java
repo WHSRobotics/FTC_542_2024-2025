@@ -27,7 +27,7 @@ public class BreakBeamTest extends OpModeEx {
         state = beam.getState();
         telemetryPro.addData("State:",state);
         TelemetryPacket packet = new TelemetryPacket();
-        packet.put("State:",state ? "Beam not broken" : "Beam Broken");
+        packet.put("State:",state ? "Beam not broken" : "Beam Broken ");
         dashboard.sendTelemetryPacket(packet);
     }
 }

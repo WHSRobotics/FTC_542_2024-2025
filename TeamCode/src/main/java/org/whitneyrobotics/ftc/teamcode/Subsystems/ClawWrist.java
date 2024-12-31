@@ -7,7 +7,7 @@ public class ClawWrist {
     Servo rightServo;
     Servo leftServo;
 
-    private ClawState position = ClawState.UP ;
+    private ClawState position = ClawState.UP;
 
     public ClawWrist(HardwareMap hardwareMap) {
         leftServo = hardwareMap.get(Servo.class,"wristLeft");
