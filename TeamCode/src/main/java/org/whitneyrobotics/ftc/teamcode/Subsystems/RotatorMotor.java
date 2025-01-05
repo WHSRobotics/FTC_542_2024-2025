@@ -19,7 +19,7 @@ public class RotatorMotor {
 
     public static double p = 0.005, i = 0, d = 0.00028;
     public static double f = 0;
-    public static AngleTicks targetPosition = AngleTicks.ZERO;
+    public static double targetPosition = AngleTicks.ZERO.ordinal();
 
     public static double V_MAX = 2350; // max velocity in degrees/s
     public static double A_MAX = 700; // max acceleration in degrees/s^2
@@ -71,13 +71,13 @@ public class RotatorMotor {
 
     }
     public void setState(AngleTicks angle) {
-        targetPosition = angle;
+        targetPosition = angle.ordinal();
         setGoal();
 
     }
 
     public void setGamepadState(AngleTicks angle){
-        targetPosition = angle;
+        targetPosition = angle.ordinal();
         setGoal();
     }
     public void GamepadUsed(boolean isUsed){
@@ -86,7 +86,7 @@ public class RotatorMotor {
     private void setGoal() {
         stopwatch.reset();
         initialPosition = -1 * armMotor.getCurrentPosition();
-        double error = (targetPosition.ticks - initialPosition) / ticksInDegrees;
+        double error = (targetPosition - initialPosition) / ticksInDegrees;
         motionProfile.setGoal(error);
 
     }

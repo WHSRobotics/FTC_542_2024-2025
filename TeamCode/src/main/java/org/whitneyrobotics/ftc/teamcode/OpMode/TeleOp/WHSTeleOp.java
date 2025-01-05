@@ -31,7 +31,7 @@ public class WHSTeleOp extends OpModeEx {
     DcMotor fr;
     DcMotor bl;
     DcMotor br;
-//    IMU imu;
+    IMU imu;
 
     RobotImpl robot;
     @Override
@@ -64,7 +64,7 @@ public class WHSTeleOp extends OpModeEx {
             robot.drive.setPoseEstimate(new Pose2d(
                     previousPosition.getX(),
                     previousPosition.getY(),
-                    0 + (robot.alliance == Alliance.RED ? Math.PI/2 : -Math.PI/2)
+                    robot.alliance.headingAngle
             ));
         });
         robot.teleOpInit();
@@ -153,11 +153,15 @@ public class WHSTeleOp extends OpModeEx {
                         scaling.apply(-gamepad1.RIGHT_STICK_X.value())
                 ).times(1-brakePower), (fieldCentric ? -robot.drive.getPoseEstimate().getHeading()+robot.alliance.headingAngle : 0))
         );
+        telemetryPro.addData("Pose", robot.drive.getPoseEstimate());
+
         telemetryPro.addData("brake", brakePower);
-        telemetryPro.addData("angle", Math.toDegrees(robot.drive.getPoseEstimate().getHeading()));
+        telemetryPro.addData("angle", Math.toDegrees(robot.drive.getRawExternalHeading()));
 
 //        double robotHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
-//
+//        telemetryPro.addData("angle", Math.toDegrees(robot.drive.getPoseEstimate().getHeading()));
+//        telemetryPro.addData("angle", robotHeading);
+
 //        double rotX = x * Math.cos(-robotHeading) - y * Math.sin(-robotHeading);
 //        double rotY = x * Math.sin(-robotHeading) + y + Math.cos(-robotHeading);
 //
