@@ -7,7 +7,7 @@ public class ElbowWrist {
     Servo rightServo;
     Servo leftServo;
 
-    private ElbowState position = ElbowState.UP ;
+    public ElbowState position = ElbowState.UP ;
 
     public ElbowWrist(HardwareMap hardwareMap) {
         leftServo = hardwareMap.get(Servo.class,"elbowLeft");

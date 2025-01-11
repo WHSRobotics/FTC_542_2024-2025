@@ -154,7 +154,10 @@ public class WHSTeleOp extends OpModeEx {
                 ).times(1-brakePower), (fieldCentric ? -robot.drive.getPoseEstimate().getHeading()+robot.alliance.headingAngle : 0))
         );
         telemetryPro.addData("Pose", robot.drive.getPoseEstimate());
-
+        robot.intakeServo.beamBreakUpdate(!(robot.breakBeam.getState()),gamepad1);
+        robot.intakeServo.setOverride(gamepad1);
+        telemetryPro.addData("Override",robot.intakeServo.getOverride());
+        telemetryPro.update();
         telemetryPro.addData("brake", brakePower);
         telemetryPro.addData("angle", Math.toDegrees(robot.drive.getRawExternalHeading()));
 

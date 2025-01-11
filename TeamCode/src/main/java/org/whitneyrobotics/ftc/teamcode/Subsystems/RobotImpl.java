@@ -1,6 +1,7 @@
 package org.whitneyrobotics.ftc.teamcode.Subsystems;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.whitneyrobotics.ftc.teamcode.Constants.Alliance;
@@ -51,6 +52,7 @@ public class RobotImpl {
     public ClawWrist intakeWrist;
     public ElbowWrist elbowWrist;
     public outtakeServo OuttakeServo;
+    public DigitalChannel breakBeam;
     private RobotImpl(HardwareMap hardwareMap) {
         drive = new IntoTheDeepMecanumDrive(hardwareMap);
 //        rotationSlides = new RotatorMotor(hardwareMap);
@@ -62,6 +64,7 @@ public class RobotImpl {
         intakeWrist = new ClawWrist(hardwareMap);
         elbowWrist = new ElbowWrist(hardwareMap);
         OuttakeServo = new outtakeServo(hardwareMap);
+        breakBeam = hardwareMap.get(DigitalChannel.class,"breakBeam");
 
     }
 

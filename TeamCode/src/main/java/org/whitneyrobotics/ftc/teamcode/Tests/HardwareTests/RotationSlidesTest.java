@@ -6,6 +6,7 @@ import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import org.whitneyrobotics.ftc.teamcode.Libraries.Controllers.ControlConstants;
 import org.whitneyrobotics.ftc.teamcode.Libraries.Controllers.PIDController;
@@ -29,16 +30,16 @@ public class RotationSlidesTest extends OpMode {
     private static final double ticksInDegrees = 700 / 180.0;
 
     private ControlConstants controlConstants;
-    private DcMotorEx armMotor;
+    private DcMotorEx verticalSlides;
     private int initialPosition;
 
     @Override
     public void init() {
-        controlConstants = new ControlConstants(p, i, d);
-        controller = new PIDController(controlConstants);
-        armMotor = hardwareMap.get(DcMotorEx.class, "vertical");
-        armMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-        armMotor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        controller = new PIDController(new ControlConstants(p, i, d));
+        verticalSlides = hardwareMap.get(DcMotorEx.class,"vertical");
+//        verticalSlides.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        verticalSlides.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        motionProfile = new MotionProfileTrapezoidal(V_MAX, A_MAX);
         stopwatch = new NanoStopwatch();
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
 
@@ -49,39 +50,48 @@ public class RotationSlidesTest extends OpMode {
     @Override
     public void start() {
         // Reset stopwatch and create a new motion profile for the target
-        stopwatch.reset();
 
-        int currentPos = armMotor.getCurrentPosition();
-        double error = (targetPosition - currentPos) / ticksInDegrees;
+        stopwatch.reset();
+        initialPosition = verticalSlides.getCurrentPosition();
+        double error = (targetPosition - initialPosition) / ticksInDegrees;
         motionProfile.setGoal(error);
     }
 
     @Override
     public void loop() {
         // Update PID control constants
-        controlConstants = new ControlConstants(p, i, d);
-        controller.setConstants(controlConstants);
+//        controlConstants = new ControlConstants(p, i, d);
+//        controller.setConstants(controlConstants);
 
+//        double elapsedTime = stopwatch.seconds();
+//        double desiredPosition = initialPosition + motionProfile.positionAt(elapsedTime) * ticksInDegrees;
+//        double desiredVelocity = motionProfile.velocityAt(elapsedTime);
+//
+//        int currentPos = armMotor.getCurrentPosition();
+//        double error = (desiredPosition - currentPos);
+//        controller.calculate(error);
+//
+//        // Feedforward term for desired velocity
+//        double ff = desiredVelocity * f;
+//        double pid = controller.getOutput();
+//        double power = pid + ff;
+//
+//        armMotor.setPower(power);
+        controller.setConstants(new ControlConstants(p, i, d));
+        verticalSlides.setDirection(DcMotorSimple.Direction.FORWARD);
         double elapsedTime = stopwatch.seconds();
         double desiredPosition = initialPosition + motionProfile.positionAt(elapsedTime) * ticksInDegrees;
-        double desiredVelocity = motionProfile.velocityAt(elapsedTime);
-
-        int currentPos = armMotor.getCurrentPosition();
-        double error = (desiredPosition - currentPos);
+        int currentPos = verticalSlides.getCurrentPosition();
+        double error = desiredPosition - currentPos;
         controller.calculate(error);
-
-        // Feedforward term for desired velocity
-        double ff = desiredVelocity * f;
-        double pid = controller.getOutput();
-        double power = pid + ff;
-
-        armMotor.setPower(power);
-
+        double pidOutput = controller.getOutput();
+        double ff = motionProfile.velocityAt(elapsedTime) * f;
+        verticalSlides.setPower(pidOutput + ff);
         // Telemetry updates
         telemetry.addData("Current Position", currentPos);
         telemetry.addData("Target Position", targetPosition);
         telemetry.addData("Desired Position", desiredPosition);
-        telemetry.addData("Desired Velocity", desiredVelocity);
+//        telemetry.addData("Desired Velocity", desiredVelocity);
         telemetry.update();
     }
 }

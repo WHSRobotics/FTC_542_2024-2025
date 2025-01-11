@@ -33,16 +33,17 @@ import java.util.List;
  */
 public class StandardTrackingWheelLocalizer extends ThreeTrackingWheelLocalizer {
     public static double TICKS_PER_REV = 2048;
-    public static double WHEEL_RADIUS = DistanceUnit.MM.toInches(48)/2; // in
+    public static double WHEEL_RADIUS =0.75; // in
     public static double GEAR_RATIO = 1; // output (wheel) speed / input (encoder) speed
 
 
-    public static double X_MULTIPLIER = 1.02;
-    public static double Y_MULTIPLIER = 1.02;
+    public static double X_MULTIPLIER = 0.858;
+    public static double Y_MULTIPLIER = 0.853;
 
 
-    public static double LATERAL_DISTANCE = 14.85; // in; distance between the left and right wheels
-    public static double FORWARD_OFFSET = -7.8; // in; offset of the lateral wheel
+    public static double LATERAL_DISTANCE = 12; // in; distance between the left and right wheels
+    public static double FORWARD_OFFSET = -4; // in; offset of the lateral wheel
+    // maybe make negative
 
     private Encoder leftEncoder, rightEncoder, backEncoder;
 
@@ -58,13 +59,14 @@ public class StandardTrackingWheelLocalizer extends ThreeTrackingWheelLocalizer 
         lastEncPositions = lastTrackingEncPositions;
         lastEncVels = lastTrackingEncVels;
 
-        leftEncoder = new Encoder(hardwareMap.get(DcMotorEx.class, "fR"));
-        rightEncoder = new Encoder(hardwareMap.get(DcMotorEx.class, "bL"));
+        rightEncoder = new Encoder(hardwareMap.get(DcMotorEx.class, "fR"));
+        leftEncoder = new Encoder(hardwareMap.get(DcMotorEx.class, "bL"));
         backEncoder = new Encoder(hardwareMap.get(DcMotorEx.class, "fL"));
 
         // TODO: reverse any encoders using Encoder.setDirection(Encoder.Direction.REVERSE)
         leftEncoder.setDirection(Encoder.Direction.REVERSE);
-        //backEncoder.setDirection(Encoder.Direction.REVERSE);
+        rightEncoder.setDirection(Encoder.Direction.REVERSE);
+        backEncoder.setDirection(Encoder.Direction.REVERSE);
     }
 
     public static double encoderTicksToInches(double ticks) {

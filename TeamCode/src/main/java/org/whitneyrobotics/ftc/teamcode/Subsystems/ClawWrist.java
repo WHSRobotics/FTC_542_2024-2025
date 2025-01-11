@@ -4,10 +4,10 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 public class ClawWrist {
-    Servo rightServo;
-    Servo leftServo;
+    public static Servo rightServo;
+    public static Servo leftServo;
 
-    private ClawState position = ClawState.UP;
+    public ClawState position = ClawState.UP;
 
     public ClawWrist(HardwareMap hardwareMap) {
         leftServo = hardwareMap.get(Servo.class,"wristLeft");
@@ -19,7 +19,7 @@ public class ClawWrist {
 //        MID(0.35,0.55),
         DOWN(0,0.9);
 
-        public final double positionright, positionleft;
+        public double positionright, positionleft;
 
         ClawState(double positionright, double positionleft){
             this.positionright = positionright;
