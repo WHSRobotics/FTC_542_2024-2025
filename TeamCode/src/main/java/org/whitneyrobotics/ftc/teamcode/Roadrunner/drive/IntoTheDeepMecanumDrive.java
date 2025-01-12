@@ -173,7 +173,8 @@ public class IntoTheDeepMecanumDrive extends MecanumDrive {
         trajectorySequenceRunner.setIsDrawingRobot(false);
     }
 
-    public void enableRobotDrawing(){
+    public void enableRobotDrawing()
+    {
         trajectorySequenceRunner.setIsDrawingRobot(true);
     }
 

@@ -13,6 +13,8 @@ import java.util.ArrayList;
 
 public class RobotImpl {
 
+
+
     public static Pose2d poseMemory = new Pose2d(0, 0, 0);
 
     private static RobotImpl instance = null;
@@ -53,6 +55,7 @@ public class RobotImpl {
     public ElbowWrist elbowWrist;
     public outtakeServo OuttakeServo;
     public DigitalChannel breakBeam;
+    public CycleAutomationImpl cycleAutomation;
     private RobotImpl(HardwareMap hardwareMap) {
         drive = new IntoTheDeepMecanumDrive(hardwareMap);
 //        rotationSlides = new RotatorMotor(hardwareMap);
@@ -65,6 +68,7 @@ public class RobotImpl {
         elbowWrist = new ElbowWrist(hardwareMap);
         OuttakeServo = new outtakeServo(hardwareMap);
         breakBeam = hardwareMap.get(DigitalChannel.class,"breakBeam");
+        cycleAutomation = new CycleAutomationImpl(hardwareMap);
 
     }
 
@@ -82,6 +86,7 @@ public class RobotImpl {
 
     public void update(){
         drive.update();
+        cycleAutomation.update();
         horizontalServo.run();
         intakeServo.run();
         intakeWrist.run();

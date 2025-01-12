@@ -5,9 +5,10 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.whitneyrobotics.ftc.teamcode.Libraries.StateForge.StateForge;
 import org.whitneyrobotics.ftc.teamcode.Libraries.StateForge.StateMachine;
+
 import org.whitneyrobotics.ftc.teamcode.Libraries.StateForge.SubstateMachine;
 
-public class CycleSystemImpl {
+public class CycleAutomationImpl {
     public static ClawWrist intakeElbow;
     public static HorizontalServo horizontalextension;
     public static ElbowWrist outtakeElbow;
@@ -29,13 +30,13 @@ public class CycleSystemImpl {
 
     boolean substateCompleted = false;
 
-    public static StateMachine<CycleSystemStates> statemachine;
-    public CycleSystemImpl(HardwareMap hardwareMap){
+    public static StateMachine<CycleSystemStates> stateMachine;
+    public CycleAutomationImpl(HardwareMap hardwareMap){
         intakeElbow = new ClawWrist(hardwareMap);
         outtakeElbow = new ElbowWrist(hardwareMap);
         horizontalextension = new HorizontalServo(hardwareMap);
         intake = new intakeServo(hardwareMap);
-        statemachine = new StateForge.StateMachineBuilder<CycleSystemStates>()
+        stateMachine = new StateForge.StateMachineBuilder<CycleSystemStates>()
                 .substate(CycleSystemStates.INTAKE)
                 .transitionBehavior(SubstateMachine.TRANSITION_BEHAVIOR.RESET_INTERNAL_STATE)
                 .buildEmbeddedStateMachine(s ->
@@ -76,26 +77,44 @@ public class CycleSystemImpl {
                                 .onEntry(() -> outtakeElbow.position = ElbowWrist.ElbowState.UP)
                                 .timedTransitionLinear(0.1)
                                 .fin()
+                                .state(OUTTAKE_SUBSTATES.COMPLETE)
+                                .transitionLinear(() -> true)
+                                .fin()
                 )
                 .transitionWithEmbeddedStateMachine(s -> s.getMachineState() == OUTTAKE_SUBSTATES.COMPLETE)
                 .fin()
                 .build();
 
-        statemachine.start();
+        stateMachine.start();
     }
 
     public void toggle(){
-        if(statemachine.getState() instanceof SubstateMachine){
-            ((SubstateMachine<?,?>) statemachine.getState())
+        if(stateMachine.getState() instanceof SubstateMachine){
+           ((SubstateMachine<?,?>) stateMachine.getState())
                     .getEmbeddedStateMachine()
                     .transitionNextLinear();
+            toggle=!toggle;
+        } else {
+            stateMachine.transitionNextLinear();
         }
     }
     public void update(){
-        statemachine.update();
-        intakeElbow.update();
-        intake.updateState();
-        horizontalextension.update();
-        outtakeElbow.update();
+        stateMachine.update();
+        intakeElbow.run();
+        intake.run();
+        horizontalextension.run();
+        outtakeElbow.run();
+    }
+
+    public String getState(){
+        String s =  stateMachine.getMachineState().name();
+        if(stateMachine.getState() instanceof SubstateMachine){
+            s += ((SubstateMachine<?,?>) stateMachine.getState()).getSubstate().name();
+        }
+        return s;
+    }
+
+    public boolean getToggle(){
+        return toggle;
     }
 }

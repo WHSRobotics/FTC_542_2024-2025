@@ -5,16 +5,13 @@ import static org.whitneyrobotics.ftc.teamcode.Extensions.GamepadEx.RumbleEffect
 import static org.whitneyrobotics.ftc.teamcode.Extensions.GamepadEx.RumbleEffects.matchEnd;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
-import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.IMU;
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
-import org.whitneyrobotics.ftc.teamcode.Constants.Alliance;
 import org.whitneyrobotics.ftc.teamcode.Extensions.OpModeEx.OpModeEx;
 import org.whitneyrobotics.ftc.teamcode.Extensions.TelemetryPro.LineItem;
 import org.whitneyrobotics.ftc.teamcode.Libraries.Utilities.Functions;
+import org.whitneyrobotics.ftc.teamcode.Subsystems.CycleAutomationImpl;
 import org.whitneyrobotics.ftc.teamcode.Subsystems.RobotImpl;
 
 import java.util.function.UnaryOperator;
@@ -27,13 +24,14 @@ public class WHSTeleOp extends OpModeEx {
     private final UnaryOperator<Float> scalingFunctionDefault = x -> (float)Math.pow(x, 3);
     public boolean change = true;
 
-    DcMotor fl;
-    DcMotor fr;
-    DcMotor bl;
-    DcMotor br;
-    IMU imu;
+//    DcMotor fl;
+//    DcMotor fr;
+//    DcMotor bl;
+//    DcMotor br;
+//    IMU imu;
 
     RobotImpl robot;
+    CycleAutomationImpl cycleAutomation;
     @Override
     public void initInternal() {
         robot = RobotImpl.getInstance(hardwareMap);
@@ -42,6 +40,7 @@ public class WHSTeleOp extends OpModeEx {
         dashboardTelemetry.setMsTransmissionInterval(25);
         telemetryPro.useDashboardTelemetry(dashboardTelemetry);
         gamepad1.SQUARE.onPress(robot::switchAlliance);
+
 //
 //        fl = hardwareMap.get(DcMotor.class, "fL");
 //        fr = hardwareMap.get(DcMotor.class, "fR");
@@ -126,6 +125,9 @@ public class WHSTeleOp extends OpModeEx {
         gamepad2.DPAD_RIGHT.onPress(()->{
             robot.OuttakeServo.updateState();
         });
+
+        gamepad2.DPAD_UP.onPress(robot.cycleAutomation::toggle);
+
         float brakePower = gamepad1.LEFT_TRIGGER.value();
         UnaryOperator<Float> scaling = scalingFunctionDefault;
 
@@ -160,6 +162,7 @@ public class WHSTeleOp extends OpModeEx {
         telemetryPro.update();
         telemetryPro.addData("brake", brakePower);
         telemetryPro.addData("angle", Math.toDegrees(robot.drive.getRawExternalHeading()));
+        if(!robot.cycleAutomation.getToggle()) telemetryPro.addLine("Toggle is true", LineItem.Color.BLUE, LineItem.RichTextFormat.BOLD);
 
 //        double robotHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
 //        telemetryPro.addData("angle", Math.toDegrees(robot.drive.getPoseEstimate().getHeading()));

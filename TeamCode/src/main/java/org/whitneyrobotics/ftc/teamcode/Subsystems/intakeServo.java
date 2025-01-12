@@ -16,7 +16,7 @@ public class intakeServo {
 
     public enum Positions {
         OPEN(0),
-        CLOSED(0.5);
+        CLOSED(0.6);
 
         public double value1;
 
@@ -38,13 +38,7 @@ public class intakeServo {
     }
 
 
-    public void OPEN() {
-        intakeServo.setPosition(Positions.OPEN.value1);
-    }
 
-    public void CLOSED() {
-        intakeServo.setPosition(Positions.CLOSED.value1);
-    }
     public void beamBreakUpdate(boolean beamState, GamepadEx gp){
         if (!(override)) {
             //beam is not broken.
