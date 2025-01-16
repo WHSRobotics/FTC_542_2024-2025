@@ -11,16 +11,13 @@ public class MeepMeepTesting {
     public static void main(String[] args) {
         MeepMeep meepMeep = new MeepMeep(600);
 
-        //assuming using rotating slides (intake and outtake is the same)
         RoadRunnerBotEntity bot4 = new DefaultBotBuilder(meepMeep)
                 // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
                 .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 15)
                 .followTrajectorySequence(drive -> drive.trajectorySequenceBuilder(new Pose2d(18, -60, Math.toRadians(90)))
                         .lineTo(new Vector2d(0,-35))
-                        .waitSeconds(5)
-                        .addTemporalMarker(1.5, () ->{
-//                            extend 26 inches vertical (idk how much horizontal), open claw, unextend
-                        })
+                        .waitSeconds(3)
+//                        extend 26 inches vertical, move forward, unextend
                         .lineToLinearHeading(new Pose2d(30,-35, Math.toRadians(-90)))
                         .lineTo(new Vector2d(30,-10))
                         .lineTo(new Vector2d(42,-10))
@@ -32,18 +29,11 @@ public class MeepMeepTesting {
                         .lineTo(new Vector2d(56,-55))
                         .turn(Math.toRadians(45))
                         .waitSeconds(3)
-                        .addTemporalMarker(17.6, () -> {
-//                            extend slides (not sure abt distance), close claw when have specimen
-                        })
+//                       extend slides (not sure abt distance), close claw when have specimen
                         .lineToLinearHeading(new Pose2d(0,-35, Math.toRadians(90)))
-                        .waitSeconds(5)
-                        .addTemporalMarker(24, () ->{
+                        .waitSeconds(3)
 //                            extend 26 inches vertical (idk how much horizontal), open claw, unextend
-                        })
                         .lineTo(new Vector2d(58,-58))
-//                        .lineTo(new Vector2d(62,-10))
-//                        .waitSeconds(1)
-//                        .lineTo(new Vector2d(62,-60))
                         .build());
 
 
@@ -130,9 +120,7 @@ public class MeepMeepTesting {
                 .followTrajectorySequence(drive -> drive.trajectorySequenceBuilder(new Pose2d(18, -60, Math.toRadians(90)))
                         .lineTo(new Vector2d(0,-35))
                         .waitSeconds(3)
-                        .addTemporalMarker(1.5, () ->{
-//                            extend 26 inches vertical (idk how much horizontal), open claw, unextend
-                        })
+//                      extend 26 inches vertical (idk how much horizontal), open claw, unextend
                         .lineToLinearHeading(new Pose2d(30,-40, Math.toRadians(180)))
                         .lineToLinearHeading(new Pose2d(36,-10, Math.toRadians(270)))
                         .lineTo(new Vector2d(42,-10))
@@ -142,15 +130,13 @@ public class MeepMeepTesting {
                         .lineTo(new Vector2d(52,-10))
                         .waitSeconds(1)
                         .lineTo(new Vector2d(55,-55))
-                        .waitSeconds(3)
-                        .addTemporalMarker(16, () -> {
-//                            extend slides (not sure abt distance), close claw when have specimen
-                        })
+                        .lineTo(new Vector2d(55,-50))
+                        .waitSeconds(1)
+                        .lineTo(new Vector2d(55,-55))
+//                      extend slides (not sure abt distance), close claw when have specimen
                         .lineToLinearHeading(new Pose2d(0,-35, Math.toRadians(90)))
                         .waitSeconds(3)
-                        .addTemporalMarker(21.6, () ->{
-//                            extend 26 inches vertical (idk how much horizontal), open claw, unextend
-                        })
+//                      extend 26 inches vertical (idk how much horizontal), open claw, unextend
                         .lineTo(new Vector2d(58,-58))
                         .build());
         meepMeep.setBackground(MeepMeep.Background.FIELD_INTOTHEDEEP_JUICE_DARK)
