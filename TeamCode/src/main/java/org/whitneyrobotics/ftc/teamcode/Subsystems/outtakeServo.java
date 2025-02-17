@@ -9,8 +9,8 @@ public class outtakeServo {
     public Positions currentState = Positions.CLOSED;
 
     public enum Positions {
-        OPEN(0.7),
-        CLOSED(0.95);
+        OPEN(0.35),
+        CLOSED(0.6 );
 
         public double value1;
 

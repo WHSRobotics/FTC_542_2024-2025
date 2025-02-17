@@ -8,6 +8,7 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
+import org.whitneyrobotics.ftc.teamcode.Constants.Alliance;
 import org.whitneyrobotics.ftc.teamcode.Extensions.OpModeEx.OpModeEx;
 import org.whitneyrobotics.ftc.teamcode.Extensions.TelemetryPro.LineItem;
 import org.whitneyrobotics.ftc.teamcode.Libraries.Utilities.Functions;
@@ -16,7 +17,7 @@ import org.whitneyrobotics.ftc.teamcode.Subsystems.RobotImpl;
 
 import java.util.function.UnaryOperator;
 
-@TeleOp(name = "Into The Deep TeleOp", group = "A")
+@TeleOp(name = "AInto The Deep TeleOp")
 public class WHSTeleOp extends OpModeEx {
 
     boolean fieldCentric = false;
@@ -37,8 +38,8 @@ public class WHSTeleOp extends OpModeEx {
         robot = RobotImpl.getInstance(hardwareMap);
         robot.drive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.drive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        dashboardTelemetry.setMsTransmissionInterval(25);
-        telemetryPro.useDashboardTelemetry(dashboardTelemetry);
+//        dashboardTelemetry.setMsTransmissionInterval(25);
+//        telemetryPro.useDashboardTelemetry(dashboardTelemetry);
         gamepad1.SQUARE.onPress(robot::switchAlliance);
 
 //
@@ -69,7 +70,6 @@ public class WHSTeleOp extends OpModeEx {
         robot.teleOpInit();
 //        robot.rotationSlides.resetEncoders();
 
-        gamepad1.BUMPER_RIGHT.onPress(() -> fieldCentric = !fieldCentric);
 //        robot.ascend.slidesInputPower(gamepad2.LEFT_STICK_Y.value());
 //        robot.ascend.rotatorInputPower(gamepad2.LEFT_STICK_X.value());
 
@@ -107,8 +107,16 @@ public class WHSTeleOp extends OpModeEx {
 
     @Override
     protected void loopInternal() {
-        robot.update();
-        robot.verticalSlides.setPower(gamepad2);
+        robot.elbowWrist.run();
+        robot.horizontalServo.run();
+        robot.intakeServo.run();
+        robot.intakeWrist.run();
+        robot.elbowWrist.run();
+        robot.OuttakeServo.run();
+
+//        robot.verticalSlides.updateToggleState(gamepad2);
+//        robot.verticalSlides.updateJoystick(gamepad2);
+//        robot.verticalSlides.update(gamepad2);
 
         gamepad2.SQUARE.onPress(()->{
             robot.horizontalServo.update();
@@ -122,11 +130,12 @@ public class WHSTeleOp extends OpModeEx {
         gamepad2.DPAD_LEFT.onPress(()->{
             robot.intakeServo.updateState();
         });
-        gamepad2.DPAD_RIGHT.onPress(()->{
+        gamepad2.CROSS.onPress(()->{
             robot.OuttakeServo.updateState();
         });
+        gamepad1.BUMPER_RIGHT.onPress(() -> fieldCentric = !fieldCentric);
 
-        gamepad2.DPAD_UP.onPress(robot.cycleAutomation::toggle);
+//        gamepad2.DPAD_UP.onPress(robot.cycleAutomation::toggle);
 
         float brakePower = gamepad1.LEFT_TRIGGER.value();
         UnaryOperator<Float> scaling = scalingFunctionDefault;
@@ -144,25 +153,30 @@ public class WHSTeleOp extends OpModeEx {
 //        telemetryPro.addData("Current Position of Rotator", robot.rotationSlides.getCurrentPosition());
 //        telemetryPro.addData("Current Position of Slides", robot.rotationSlides.getSlidesTicks());
         if(fieldCentric) telemetryPro.addLine("FIELD CENTRIC ENABLED", LineItem.Color.YELLOW, LineItem.RichTextFormat.BOLD);
-        telemetryPro.addData("Add Data:", robot.alliance);
-//        gamepad2.SQUARE.onPress(robot.claw::updateState);
+        if (robot.alliance == Alliance.RED)  telemetryPro.addLine("Robot Alliance:", LineItem.Color.RED, LineItem.RichTextFormat.BOLD);
+        if (robot.alliance == Alliance.BLUE)  telemetryPro.addLine("Robot Alliance:", LineItem.Color.BLUE, LineItem.RichTextFormat.BOLD);
+
+        //        gamepad2.SQUARE.onPress(robot.claw::updateState);
 //
         if(gamepad1.BUMPER_LEFT.value()) scaling = x -> x/2;
         if (!robot.drive.isBusy()) robot.drive.setWeightedDrivePower(
                 Functions.rotateVectorCounterclockwise(new Pose2d(
-                        scaling.apply(gamepad1.LEFT_STICK_Y.value()),
-                        scaling.apply(-gamepad1.LEFT_STICK_X.value()),
-                        scaling.apply(-gamepad1.RIGHT_STICK_X.value())
+                        scaling.apply((float) (gamepad1.LEFT_STICK_Y.value()*0.9)),
+                        scaling.apply((float) (-gamepad1.LEFT_STICK_X.value()*0.9)),
+                        scaling.apply((float) (-gamepad1.RIGHT_STICK_X.value()*0.9))
                 ).times(1-brakePower), (fieldCentric ? -robot.drive.getPoseEstimate().getHeading()+robot.alliance.headingAngle : 0))
         );
-        telemetryPro.addData("Pose", robot.drive.getPoseEstimate());
+//        telemetryPro.addData("Pose", robot.drive.getPoseEstimate());
+//        telemetryPro.addData("State",robot.breakBeam.getState());
         robot.intakeServo.beamBreakUpdate(!(robot.breakBeam.getState()),gamepad1);
         robot.intakeServo.setOverride(gamepad1);
-        telemetryPro.addData("Override",robot.intakeServo.getOverride());
+        if(robot.intakeServo.getOverride()) telemetryPro.addLine("BREAK BEAM ENABLED", LineItem.Color.RED, LineItem.RichTextFormat.BOLD);
+        telemetryPro.addData("OUTTAKE CLAW POSITION",robot.OuttakeServo.currentState);
+//        telemetryPro.addData("Target Position",robot.verticalSlides.getTargetPosition());
         telemetryPro.update();
-        telemetryPro.addData("brake", brakePower);
-        telemetryPro.addData("angle", Math.toDegrees(robot.drive.getRawExternalHeading()));
-        if(!robot.cycleAutomation.getToggle()) telemetryPro.addLine("Toggle is true", LineItem.Color.BLUE, LineItem.RichTextFormat.BOLD);
+//        telemetryPro.addData("brake", brakePower);
+//        telemetryPro.addData("angle", Math.toDegrees(robot.drive.getRawExternalHeading()));
+//        if(!robot.cycleAutomation.getToggle()) telemetryPro.addLine("Toggle is true", LineItem.Color.BLUE, LineItem.RichTextFormat.BOLD);
 
 //        double robotHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
 //        telemetryPro.addData("angle", Math.toDegrees(robot.drive.getPoseEstimate().getHeading()));

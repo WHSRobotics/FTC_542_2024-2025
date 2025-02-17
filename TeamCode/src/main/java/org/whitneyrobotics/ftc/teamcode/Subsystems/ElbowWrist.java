@@ -7,7 +7,10 @@ public class ElbowWrist {
     Servo rightServo;
     Servo leftServo;
 
-    public ElbowState position = ElbowState.UP ;
+    public ElbowState position = ElbowState.DOWN ;
+
+    public AutoElbowState positionAuto = AutoElbowState.UP ;
+
 
     public ElbowWrist(HardwareMap hardwareMap) {
         leftServo = hardwareMap.get(Servo.class,"elbowLeft");
@@ -15,7 +18,7 @@ public class ElbowWrist {
     }
 
     public enum ElbowState{
-        DOWN(0,1),
+        DOWN(0,0.9),
         UP(1,0);
 
         public final double positionright, positionleft;
@@ -36,4 +39,26 @@ public class ElbowWrist {
         rightServo.setPosition(position.positionright);
         leftServo.setPosition(position.positionleft);
     }
+
+    public enum AutoElbowState{
+        DOWN(0.1,0.9),
+        UP(1,0);
+
+        public final double positionright, positionleft;
+
+        AutoElbowState(double positionright, double positionleft){
+            this.positionright = positionright;
+            this.positionleft = positionleft;
+        }
+
+    }
+
+    public void updateAuto(){
+        positionAuto = AutoElbowState.values()[(positionAuto.ordinal() + 1) % 2];
+    }
+    public void runAuto(){
+        rightServo.setPosition(positionAuto.positionright);
+        leftServo.setPosition(positionAuto.positionleft);
+    }
+
 }

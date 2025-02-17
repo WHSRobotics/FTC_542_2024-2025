@@ -16,7 +16,7 @@ public class intakeServo {
 
     public enum Positions {
         OPEN(0),
-        CLOSED(0.6);
+        CLOSED(0.17);
 
         public double value1;
 
