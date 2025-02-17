@@ -114,9 +114,9 @@ public class WHSTeleOp extends OpModeEx {
         robot.elbowWrist.run();
         robot.OuttakeServo.run();
 
-//        robot.verticalSlides.updateToggleState(gamepad2);
-//        robot.verticalSlides.updateJoystick(gamepad2);
-//        robot.verticalSlides.update(gamepad2);
+        robot.verticalSlides.updateToggleState(gamepad2);
+        robot.verticalSlides.updateJoystick(gamepad2);
+        robot.verticalSlides.update(gamepad2);
 
         gamepad2.SQUARE.onPress(()->{
             robot.horizontalServo.update();
@@ -172,7 +172,7 @@ public class WHSTeleOp extends OpModeEx {
         robot.intakeServo.setOverride(gamepad1);
         if(robot.intakeServo.getOverride()) telemetryPro.addLine("BREAK BEAM ENABLED", LineItem.Color.RED, LineItem.RichTextFormat.BOLD);
         telemetryPro.addData("OUTTAKE CLAW POSITION",robot.OuttakeServo.currentState);
-//        telemetryPro.addData("Target Position",robot.verticalSlides.getTargetPosition());
+        telemetryPro.addData("Target Position",robot.verticalSlides.getTargetPosition());
         telemetryPro.update();
 //        telemetryPro.addData("brake", brakePower);
 //        telemetryPro.addData("angle", Math.toDegrees(robot.drive.getRawExternalHeading()));

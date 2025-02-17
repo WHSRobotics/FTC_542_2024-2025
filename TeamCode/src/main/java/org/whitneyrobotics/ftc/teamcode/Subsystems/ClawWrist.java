@@ -15,9 +15,9 @@ public class ClawWrist {
     }
 
     public enum ClawState{
-        UP(1,0),
+        UP(0.75,0.21),
         //        MID(0.35,0.55),
-        DOWN(0,1);
+        DOWN(0.2,0.8);
 
         public double positionright, positionleft;
 
