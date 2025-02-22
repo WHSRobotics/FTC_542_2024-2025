@@ -6,6 +6,7 @@ import org.whitneyrobotics.ftc.teamcode.Roadrunner.drive.IntoTheDeepMecanumDrive
 import org.whitneyrobotics.ftc.teamcode.Roadrunner.trajectorysequence.TrajectorySequence;
 import org.whitneyrobotics.ftc.teamcode.Subsystems.ElbowWrist;
 import org.whitneyrobotics.ftc.teamcode.Subsystems.RotatorMotor;
+import org.whitneyrobotics.ftc.teamcode.Subsystems.VerticalSlides;
 import org.whitneyrobotics.ftc.teamcode.Subsystems.outtakeServo;
 
 public class AutoPaths {
@@ -13,8 +14,8 @@ public class AutoPaths {
     public static ElbowWrist elbow;
     public static outtakeServo OuttakeServo;
 
-    public static RotatorMotor verticalSlides;
-    public static void setAutoSubsystems(ElbowWrist el, outtakeServo out, RotatorMotor slides) {
+    public static VerticalSlides verticalSlides;
+    public static void setAutoSubsystems(ElbowWrist el, outtakeServo out, VerticalSlides slides) {
         elbow = el;
         OuttakeServo = out;
         verticalSlides = slides;
@@ -24,13 +25,13 @@ public class AutoPaths {
                 .waitSeconds(2)
                 .addTemporalMarker(0.5,()->{
                     elbow.update();
-                    verticalSlides.setState(RotatorMotor.AngleTicks.ONE);
+                    verticalSlides.setState(VerticalSlides.AngleTicks.ONE);
 
                 })
 
                 .lineToLinearHeading(new Pose2d(-4, 37, Math.toRadians(90)))
                 .addTemporalMarker(5,()->{
-                    verticalSlides.setState(RotatorMotor.AngleTicks.ZERO);
+                    verticalSlides.setState(VerticalSlides.AngleTicks.ZERO);
                 })
 
                 .addTemporalMarker(7,()->{
@@ -58,12 +59,12 @@ public class AutoPaths {
                 })
                 .addTemporalMarker(22,()->{
 
-                    verticalSlides.setState(RotatorMotor.AngleTicks.ONE);
+                    verticalSlides.setState(VerticalSlides.AngleTicks.ONE);
                 })
                 .lineToLinearHeading(new Pose2d(0, 43, Math.toRadians(90)))
                 .lineToLinearHeading(new Pose2d(5, 40, Math.toRadians(90)))
                 .addTemporalMarker(27,()->{
-                    verticalSlides.setState(RotatorMotor.AngleTicks.ZERO);
+                    verticalSlides.setState(VerticalSlides.AngleTicks.ZERO);
                 })
                 .waitSeconds(3)
 
@@ -76,13 +77,13 @@ public class AutoPaths {
                 .waitSeconds(2)
                 .addTemporalMarker(0.5,()->{
                     elbow.update();
-                    verticalSlides.setState(RotatorMotor.AngleTicks.ONE);
+                    verticalSlides.setState(VerticalSlides.AngleTicks.ONE);
 
                 })
 
                 .lineToLinearHeading(new Pose2d(4, -38, Math.toRadians(-90)))
                 .addTemporalMarker(5,()->{
-                    verticalSlides.setState(RotatorMotor.AngleTicks.ZERO);
+                    verticalSlides.setState(VerticalSlides.AngleTicks.ZERO);
                 })
 
                 .addTemporalMarker(7,()->{
@@ -107,14 +108,14 @@ public class AutoPaths {
                 .addTemporalMarker(21,()->{
                     OuttakeServo.updateState();
 
-                    verticalSlides.setState(RotatorMotor.AngleTicks.ONE);
+                    verticalSlides.setState(VerticalSlides.AngleTicks.ONE);
                 })
                 .lineToLinearHeading(new Pose2d(0, -43, Math.toRadians(-90)))
                 .lineToLinearHeading(new Pose2d(5, -35, Math.toRadians(-90)))
 
                 .waitSeconds(1)
                 .addTemporalMarker(28,()->{
-                    verticalSlides.setState(RotatorMotor.AngleTicks.ZERO);
+                    verticalSlides.setState(VerticalSlides.AngleTicks.ZERO);
                 })
 
 

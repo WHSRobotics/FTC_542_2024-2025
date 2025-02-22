@@ -14,7 +14,7 @@ public class HorizontalServo {
     public Positions currentState = Positions.RETRACT;
     public enum Positions{
         RETRACT(0,0.83),
-        EXTEND(0.45,0.31); //was 0.3 but vartype was bugging
+        EXTEND(0.45,0.7); //was 0.3 but vartype was bugging
 
         public double value1;
         public double value2;

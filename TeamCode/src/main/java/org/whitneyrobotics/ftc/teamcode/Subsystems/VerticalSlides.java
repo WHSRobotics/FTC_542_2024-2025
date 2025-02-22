@@ -107,6 +107,21 @@ public class VerticalSlides {
             vertical.setPower(sum);
         }
     }
+    public void autoUpdate() {
+        vertical.setDirection(DcMotorSimple.Direction.FORWARD);
+        double elapsedTime = stopwatch.seconds();
+        double desiredPosition = initialPosition + motionProfile.positionAt(elapsedTime) * ticksInDegrees;
+        int currentPos = vertical.getCurrentPosition();
+        double error = desiredPosition - currentPos;
+        controller.calculate(error);
+        double pidOutput = controller.getOutput();
+        double ff = motionProfile.velocityAt(elapsedTime) * f;
+        double sum = pidOutput+ff;
+        if(targetPosition!=AngleTicks.ZERO.ticks && targetPosition!=AngleTicks.ONE.ticks){
+            sum=0;
+        }
+        vertical.setPower(sum);
+    }
 
     public void updateJoystick(GamepadEx gm){
         if(gm.LEFT_STICK_Y.value()!=0){

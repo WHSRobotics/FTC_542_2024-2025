@@ -51,7 +51,7 @@ public class RobotImpl {
 
 
     public VerticalSlides verticalSlides;
-    public RotatorMotor autoVerticalSlides;
+//    public RotatorMotor autoVerticalSlides;
 
     public intakeServo intakeServo;
     public ClawWrist intakeWrist;
@@ -66,7 +66,7 @@ public class RobotImpl {
         verticalSlides = new VerticalSlides(hardwareMap);
         localizer = new StandardTrackingWheelLocalizer(hardwareMap, new ArrayList<>(), new ArrayList<>());
         horizontalServo = new HorizontalServo(hardwareMap);
-        autoVerticalSlides = new RotatorMotor(hardwareMap);
+//        autoVerticalSlides = new RotatorMotor(hardwareMap);
         intakeServo = new intakeServo(hardwareMap);
         intakeWrist = new ClawWrist(hardwareMap);
         elbowWrist = new ElbowWrist(hardwareMap);
@@ -107,15 +107,15 @@ public class RobotImpl {
 //        wrist.run();
         //rotationSlides.update();
     }
-    public void updateAuto() {
-        drive.update();
-        cycleAutomation.update();
-        horizontalServo.run();
-        intakeServo.run();
-        intakeWrist.run();
-        elbowWrist.run();
-        OuttakeServo.run();
-    }
+//    public void updateAuto() {
+//        drive.update();
+//        cycleAutomation.update();
+//        horizontalServo.run();
+//        intakeServo.run();
+//        intakeWrist.run();
+//        elbowWrist.run();
+//        OuttakeServo.run();
+//    }
 
 }
 

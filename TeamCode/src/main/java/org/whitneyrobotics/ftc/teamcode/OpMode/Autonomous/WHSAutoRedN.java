@@ -16,6 +16,7 @@ import org.whitneyrobotics.ftc.teamcode.Roadrunner.drive.IntoTheDeepMecanumDrive
 import org.whitneyrobotics.ftc.teamcode.Roadrunner.trajectorysequence.TrajectorySequence;
 import org.whitneyrobotics.ftc.teamcode.Subsystems.RobotImpl;
 import org.whitneyrobotics.ftc.teamcode.Subsystems.RotatorMotor;
+import org.whitneyrobotics.ftc.teamcode.Subsystems.VerticalSlides;
 
 @Autonomous(name = "AutoWHSRed")
 public class WHSAutoRedN extends OpModeEx {
@@ -49,8 +50,8 @@ public class WHSAutoRedN extends OpModeEx {
 
     @Override
     public void initInternalLoop(){
-        robot.autoVerticalSlides.resetEncoders();
-        robot.autoVerticalSlides.setState(RotatorMotor.AngleTicks.ZERO);
+        robot.verticalSlides.resetEncoders();
+        robot.verticalSlides.setState(VerticalSlides.AngleTicks.ZERO);
         telemetryPro.addData("Alliance", robot.alliance.name(), (robot.alliance == Alliance.RED ? LineItem.Color.RED : LineItem.Color.BLUE));
 
     }
@@ -71,7 +72,7 @@ public class WHSAutoRedN extends OpModeEx {
     @Override
     protected void loopInternal() {
 
-        AutoPaths.setAutoSubsystems(robot.elbowWrist,robot.OuttakeServo,robot.autoVerticalSlides);
+        AutoPaths.setAutoSubsystems(robot.elbowWrist,robot.OuttakeServo,robot.verticalSlides);
 
         telemetryPro.addData("Trajectory",selectedTrajectory);
         telemetryPro.addData("TIME RIGHT NOW: ", System.currentTimeMillis()/1000);
@@ -79,7 +80,7 @@ public class WHSAutoRedN extends OpModeEx {
         robot.update();
         telemetryPro.update();
         RobotImpl.poseMemory = robot.drive.getPoseEstimate();
-        robot.autoVerticalSlides.update();
+        robot.verticalSlides.autoUpdate();
 
 
 
