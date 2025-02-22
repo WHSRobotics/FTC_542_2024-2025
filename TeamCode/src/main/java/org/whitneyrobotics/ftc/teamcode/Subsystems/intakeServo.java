@@ -16,7 +16,7 @@ public class intakeServo {
 
     public enum Positions {
         OPEN(0),
-        CLOSED(0.17);
+        CLOSED(1);
 
         public double value1;
 
@@ -29,7 +29,7 @@ public class intakeServo {
         intakeServo = map.get(Servo.class, "intakeServo");
     }
 
-    public void updateState() {
+    public void update() {
         currentState = Positions.values()[(currentState.ordinal() + 1) % 2];
     }
 

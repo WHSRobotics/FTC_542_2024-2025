@@ -1,22 +1,22 @@
-org.firstinspires.ftc.teamcode.TeamCode-debug-0 /Users/mohnishsivakumar/AndroidStudioProjects/FTC_542_2024-2025/FtcRobotController/build/intermediates/packaged_res/debug/packageDebugResources
-org.firstinspires.ftc.teamcode.TeamCode-pngs-1 /Users/mohnishsivakumar/AndroidStudioProjects/FTC_542_2024-2025/TeamCode/build/generated/res/pngs/debug
-org.firstinspires.ftc.teamcode.TeamCode-resValues-2 /Users/mohnishsivakumar/AndroidStudioProjects/FTC_542_2024-2025/TeamCode/build/generated/res/resValues/debug
-org.firstinspires.ftc.teamcode.TeamCode-mergeDebugResources-3 /Users/mohnishsivakumar/AndroidStudioProjects/FTC_542_2024-2025/TeamCode/build/intermediates/incremental/debug/mergeDebugResources/merged.dir
-org.firstinspires.ftc.teamcode.TeamCode-mergeDebugResources-4 /Users/mohnishsivakumar/AndroidStudioProjects/FTC_542_2024-2025/TeamCode/build/intermediates/incremental/debug/mergeDebugResources/stripped.dir
-org.firstinspires.ftc.teamcode.TeamCode-debug-5 /Users/mohnishsivakumar/AndroidStudioProjects/FTC_542_2024-2025/TeamCode/build/intermediates/merged_res/debug/mergeDebugResources
-org.firstinspires.ftc.teamcode.TeamCode-debug-6 /Users/mohnishsivakumar/AndroidStudioProjects/FTC_542_2024-2025/TeamCode/src/debug/res
-org.firstinspires.ftc.teamcode.TeamCode-main-7 /Users/mohnishsivakumar/AndroidStudioProjects/FTC_542_2024-2025/TeamCode/src/main/res
-org.firstinspires.ftc.teamcode.TeamCode-core-1.3.0-8 /Users/mohnishsivakumar/gradle/caches/8.10.2/transforms/1ce99f797f09063180691e97c698ae60/transformed/core-1.3.0/res
-org.firstinspires.ftc.teamcode.TeamCode-appcompat-1.2.0-9 /Users/mohnishsivakumar/gradle/caches/8.10.2/transforms/313d434fd5d7ef9fa862fe51d14f0993/transformed/appcompat-1.2.0/res
-org.firstinspires.ftc.teamcode.TeamCode-Hardware-10.1.1-10 /Users/mohnishsivakumar/gradle/caches/8.10.2/transforms/3734046d6db1cb877b73b0713dc5bc25/transformed/Hardware-10.1.1/res
-org.firstinspires.ftc.teamcode.TeamCode-RobotServer-10.1.1-11 /Users/mohnishsivakumar/gradle/caches/8.10.2/transforms/46950c930cef691b6c40d7dd3c3be100/transformed/RobotServer-10.1.1/res
-org.firstinspires.ftc.teamcode.TeamCode-opencv-repackaged-bundled-dylibs-4.10.0-A-12 /Users/mohnishsivakumar/gradle/caches/8.10.2/transforms/75f4ef0e9df6ad60f318f202a983a8e4/transformed/opencv-repackaged-bundled-dylibs-4.10.0-A/res
-org.firstinspires.ftc.teamcode.TeamCode-appcompat-resources-1.2.0-13 /Users/mohnishsivakumar/gradle/caches/8.10.2/transforms/79a836ec61eb3181f977f786607d0ea5/transformed/appcompat-resources-1.2.0/res
-org.firstinspires.ftc.teamcode.TeamCode-RobotCore-10.1.1-14 /Users/mohnishsivakumar/gradle/caches/8.10.2/transforms/855b76fb1305d8c31ad03e11beb98fe2/transformed/RobotCore-10.1.1/res
-org.firstinspires.ftc.teamcode.TeamCode-FtcCommon-10.1.1-15 /Users/mohnishsivakumar/gradle/caches/8.10.2/transforms/92d4e24823d5b84e7edcdb51ef8106fc/transformed/FtcCommon-10.1.1/res
-org.firstinspires.ftc.teamcode.TeamCode-Blocks-10.1.1-16 /Users/mohnishsivakumar/gradle/caches/8.10.2/transforms/b78c9268a663fe67e70317844a79f137/transformed/Blocks-10.1.1/res
-org.firstinspires.ftc.teamcode.TeamCode-apriltag-2.1.0-17 /Users/mohnishsivakumar/gradle/caches/8.10.2/transforms/c21332932695d9fc4ec61c3981d29d4c/transformed/apriltag-2.1.0/res
-org.firstinspires.ftc.teamcode.TeamCode-dashboard-0.4.13-18 /Users/mohnishsivakumar/gradle/caches/8.10.2/transforms/d4510547de1e1a3d8e858ef6d2933522/transformed/dashboard-0.4.13/res
-org.firstinspires.ftc.teamcode.TeamCode-zxing-android-embedded-4.3.0-19 /Users/mohnishsivakumar/gradle/caches/8.10.2/transforms/dbe63a5ec02d1fce2e941dfdb2dfcc0a/transformed/zxing-android-embedded-4.3.0/res
-org.firstinspires.ftc.teamcode.TeamCode-Inspection-10.1.1-20 /Users/mohnishsivakumar/gradle/caches/8.10.2/transforms/ea090fbf2d0b7754cb586293e1108a8f/transformed/Inspection-10.1.1/res
-org.firstinspires.ftc.teamcode.TeamCode-OnBotJava-10.1.1-21 /Users/mohnishsivakumar/gradle/caches/8.10.2/transforms/f02c01fcda7a47dcd4fec452c1529a9c/transformed/OnBotJava-10.1.1/res
+org.firstinspires.ftc.teamcode.TeamCode-core-1.3.0-0 /Users/siddhantkhapra/.gradle/caches/8.10.2/transforms/1ce99f797f09063180691e97c698ae60/transformed/core-1.3.0/res
+org.firstinspires.ftc.teamcode.TeamCode-appcompat-1.2.0-1 /Users/siddhantkhapra/.gradle/caches/8.10.2/transforms/313d434fd5d7ef9fa862fe51d14f0993/transformed/appcompat-1.2.0/res
+org.firstinspires.ftc.teamcode.TeamCode-Hardware-10.1.1-2 /Users/siddhantkhapra/.gradle/caches/8.10.2/transforms/3734046d6db1cb877b73b0713dc5bc25/transformed/Hardware-10.1.1/res
+org.firstinspires.ftc.teamcode.TeamCode-RobotServer-10.1.1-3 /Users/siddhantkhapra/.gradle/caches/8.10.2/transforms/46950c930cef691b6c40d7dd3c3be100/transformed/RobotServer-10.1.1/res
+org.firstinspires.ftc.teamcode.TeamCode-opencv-repackaged-bundled-dylibs-4.10.0-A-4 /Users/siddhantkhapra/.gradle/caches/8.10.2/transforms/75f4ef0e9df6ad60f318f202a983a8e4/transformed/opencv-repackaged-bundled-dylibs-4.10.0-A/res
+org.firstinspires.ftc.teamcode.TeamCode-appcompat-resources-1.2.0-5 /Users/siddhantkhapra/.gradle/caches/8.10.2/transforms/79a836ec61eb3181f977f786607d0ea5/transformed/appcompat-resources-1.2.0/res
+org.firstinspires.ftc.teamcode.TeamCode-RobotCore-10.1.1-6 /Users/siddhantkhapra/.gradle/caches/8.10.2/transforms/855b76fb1305d8c31ad03e11beb98fe2/transformed/RobotCore-10.1.1/res
+org.firstinspires.ftc.teamcode.TeamCode-FtcCommon-10.1.1-7 /Users/siddhantkhapra/.gradle/caches/8.10.2/transforms/92d4e24823d5b84e7edcdb51ef8106fc/transformed/FtcCommon-10.1.1/res
+org.firstinspires.ftc.teamcode.TeamCode-Blocks-10.1.1-8 /Users/siddhantkhapra/.gradle/caches/8.10.2/transforms/b78c9268a663fe67e70317844a79f137/transformed/Blocks-10.1.1/res
+org.firstinspires.ftc.teamcode.TeamCode-apriltag-2.1.0-9 /Users/siddhantkhapra/.gradle/caches/8.10.2/transforms/c21332932695d9fc4ec61c3981d29d4c/transformed/apriltag-2.1.0/res
+org.firstinspires.ftc.teamcode.TeamCode-dashboard-0.4.13-10 /Users/siddhantkhapra/.gradle/caches/8.10.2/transforms/d4510547de1e1a3d8e858ef6d2933522/transformed/dashboard-0.4.13/res
+org.firstinspires.ftc.teamcode.TeamCode-zxing-android-embedded-4.3.0-11 /Users/siddhantkhapra/.gradle/caches/8.10.2/transforms/dbe63a5ec02d1fce2e941dfdb2dfcc0a/transformed/zxing-android-embedded-4.3.0/res
+org.firstinspires.ftc.teamcode.TeamCode-Inspection-10.1.1-12 /Users/siddhantkhapra/.gradle/caches/8.10.2/transforms/ea090fbf2d0b7754cb586293e1108a8f/transformed/Inspection-10.1.1/res
+org.firstinspires.ftc.teamcode.TeamCode-OnBotJava-10.1.1-13 /Users/siddhantkhapra/.gradle/caches/8.10.2/transforms/f02c01fcda7a47dcd4fec452c1529a9c/transformed/OnBotJava-10.1.1/res
+org.firstinspires.ftc.teamcode.TeamCode-debug-14 /Users/siddhantkhapra/Desktop/FTC Into The Deep/FTC_542_2024-2025/FtcRobotController/build/intermediates/packaged_res/debug/packageDebugResources
+org.firstinspires.ftc.teamcode.TeamCode-pngs-15 /Users/siddhantkhapra/Desktop/FTC Into The Deep/FTC_542_2024-2025/TeamCode/build/generated/res/pngs/debug
+org.firstinspires.ftc.teamcode.TeamCode-resValues-16 /Users/siddhantkhapra/Desktop/FTC Into The Deep/FTC_542_2024-2025/TeamCode/build/generated/res/resValues/debug
+org.firstinspires.ftc.teamcode.TeamCode-mergeDebugResources-17 /Users/siddhantkhapra/Desktop/FTC Into The Deep/FTC_542_2024-2025/TeamCode/build/intermediates/incremental/debug/mergeDebugResources/merged.dir
+org.firstinspires.ftc.teamcode.TeamCode-mergeDebugResources-18 /Users/siddhantkhapra/Desktop/FTC Into The Deep/FTC_542_2024-2025/TeamCode/build/intermediates/incremental/debug/mergeDebugResources/stripped.dir
+org.firstinspires.ftc.teamcode.TeamCode-debug-19 /Users/siddhantkhapra/Desktop/FTC Into The Deep/FTC_542_2024-2025/TeamCode/build/intermediates/merged_res/debug/mergeDebugResources
+org.firstinspires.ftc.teamcode.TeamCode-debug-20 /Users/siddhantkhapra/Desktop/FTC Into The Deep/FTC_542_2024-2025/TeamCode/src/debug/res
+org.firstinspires.ftc.teamcode.TeamCode-main-21 /Users/siddhantkhapra/Desktop/FTC Into The Deep/FTC_542_2024-2025/TeamCode/src/main/res

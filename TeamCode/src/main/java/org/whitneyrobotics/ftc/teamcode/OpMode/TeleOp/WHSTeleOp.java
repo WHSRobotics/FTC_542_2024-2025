@@ -1,6 +1,5 @@
 package org.whitneyrobotics.ftc.teamcode.OpMode.TeleOp;
 
-
 import static org.whitneyrobotics.ftc.teamcode.Extensions.GamepadEx.RumbleEffects.endgame;
 import static org.whitneyrobotics.ftc.teamcode.Extensions.GamepadEx.RumbleEffects.matchEnd;
 
@@ -12,8 +11,8 @@ import org.whitneyrobotics.ftc.teamcode.Constants.Alliance;
 import org.whitneyrobotics.ftc.teamcode.Extensions.OpModeEx.OpModeEx;
 import org.whitneyrobotics.ftc.teamcode.Extensions.TelemetryPro.LineItem;
 import org.whitneyrobotics.ftc.teamcode.Libraries.Utilities.Functions;
-import org.whitneyrobotics.ftc.teamcode.Subsystems.CycleAutomationImpl;
 import org.whitneyrobotics.ftc.teamcode.Subsystems.RobotImpl;
+import org.whitneyrobotics.ftc.teamcode.Subsystems.CycleAutomationStateMachine;
 
 import java.util.function.UnaryOperator;
 
@@ -21,43 +20,41 @@ import java.util.function.UnaryOperator;
 public class WHSTeleOp extends OpModeEx {
 
     boolean fieldCentric = false;
-
     private final UnaryOperator<Float> scalingFunctionDefault = x -> (float)Math.pow(x, 3);
     public boolean change = true;
 
-//    DcMotor fl;
-//    DcMotor fr;
-//    DcMotor bl;
-//    DcMotor br;
-//    IMU imu;
+    //    DcMotor fl;
+    //    DcMotor fr;
+    //    DcMotor bl;
+    //    DcMotor br;
+    //    IMU imu;
 
     RobotImpl robot;
-    CycleAutomationImpl cycleAutomation;
+    CycleAutomationStateMachine cycleStateMachine;
+
     @Override
     public void initInternal() {
         robot = RobotImpl.getInstance(hardwareMap);
         robot.drive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.drive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-//        dashboardTelemetry.setMsTransmissionInterval(25);
-//        telemetryPro.useDashboardTelemetry(dashboardTelemetry);
+        //        dashboardTelemetry.setMsTransmissionInterval(25);
+        //        telemetryPro.useDashboardTelemetry(dashboardTelemetry);
         gamepad1.SQUARE.onPress(robot::switchAlliance);
 
-//
-//        fl = hardwareMap.get(DcMotor.class, "fL");
-//        fr = hardwareMap.get(DcMotor.class, "fR");
-//        bl = hardwareMap.get(DcMotor.class, "bL");
-//        br = hardwareMap.get(DcMotor.class, "bR");
-//
-//        imu = hardwareMap.get(IMU.class,"imu");
-//
-//        IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
-//                RevHubOrientationOnRobot.LogoFacingDirection.UP,
-//                RevHubOrientationOnRobot.UsbFacingDirection.RIGHT));
-//
-//        imu.initialize(parameters);
-//
-//        robot.rotationSlides.slidesSetPower(gamepad1);
-//        robot.rotationSlides.rotatorSetPower(gamepad1);
+        //        fl = hardwareMap.get(DcMotor.class, "fL");
+        //        fr = hardwareMap.get(DcMotor.class, "fR");
+        //        bl = hardwareMap.get(DcMotor.class, "bL");
+        //        br = hardwareMap.get(DcMotor.class, "bR");
+        //
+        //        imu = hardwareMap.get(IMU.class,"imu");
+        //
+        //        IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
+        //                RevHubOrientationOnRobot.LogoFacingDirection.UP,
+        //                RevHubOrientationOnRobot.UsbFacingDirection.RIGHT));
+        //        imu.initialize(parameters);
+        //
+        //        robot.rotationSlides.slidesSetPower(gamepad1);
+        //        robot.rotationSlides.rotatorSetPower(gamepad1);
 
         gamepad1.START.onPress(() -> {
             Pose2d previousPosition = robot.drive.getPoseEstimate();
@@ -68,12 +65,12 @@ public class WHSTeleOp extends OpModeEx {
             ));
         });
         robot.teleOpInit();
-//        robot.rotationSlides.resetEncoders();
-
-//        robot.ascend.slidesInputPower(gamepad2.LEFT_STICK_Y.value());
-//        robot.ascend.rotatorInputPower(gamepad2.LEFT_STICK_X.value());
-
-
+        //        robot.rotationSlides.resetEncoders();
+        //
+        //        robot.ascend.slidesInputPower(gamepad2.LEFT_STICK_Y.value());
+        //        robot.ascend.rotatorInputPower(gamepad2.LEFT_STICK_X.value());
+        cycleStateMachine = new CycleAutomationStateMachine(robot);
+        setupNotifications();
     }
 
     void setupNotifications() {
@@ -81,7 +78,8 @@ public class WHSTeleOp extends OpModeEx {
             gamepad1.getEncapsulatedGamepad().runRumbleEffect(endgame);
             gamepad2.getEncapsulatedGamepad().runRumbleEffect(endgame);
             telemetryPro.addLine("Endgame approaching soon!", LineItem.Color.ROBOTICS, LineItem.RichTextFormat.BOLD).persistent();
-            resolve.accept(!gamepad1.getEncapsulatedGamepad().isRumbling() && gamepad2.getEncapsulatedGamepad().isRumbling());
+            resolve.accept(!gamepad1.getEncapsulatedGamepad().isRumbling() &&
+                    gamepad2.getEncapsulatedGamepad().isRumbling());
         }, 85000);
 
         addTemporalCallback(resolve -> {
@@ -94,7 +92,8 @@ public class WHSTeleOp extends OpModeEx {
             gamepad1.getEncapsulatedGamepad().runRumbleEffect(matchEnd);
             gamepad2.getEncapsulatedGamepad().runRumbleEffect(matchEnd);
             telemetryPro.addLine("Match ends in 5 seconds!", LineItem.Color.FUCHSIA, LineItem.RichTextFormat.BOLD).persistent();
-            resolve.accept(!gamepad1.getEncapsulatedGamepad().isRumbling() && gamepad2.getEncapsulatedGamepad().isRumbling());
+            resolve.accept(!gamepad1.getEncapsulatedGamepad().isRumbling() &&
+                    gamepad2.getEncapsulatedGamepad().isRumbling());
         }, 113000);
 
         addTemporalCallback(resolve -> {
@@ -118,84 +117,57 @@ public class WHSTeleOp extends OpModeEx {
         robot.verticalSlides.updateJoystick(gamepad2);
         robot.verticalSlides.update(gamepad2);
 
-        gamepad2.SQUARE.onPress(()->{
-            robot.horizontalServo.update();
-        });
-        gamepad2.TRIANGLE.onPress(()->{
-            robot.intakeWrist.update();
-        });
-        gamepad2.CIRCLE.onPress(()->{
-            robot.elbowWrist.update();
-        });
-        gamepad2.DPAD_LEFT.onPress(()->{
-            robot.intakeServo.updateState();
-        });
-        gamepad2.CROSS.onPress(()->{
-            robot.OuttakeServo.updateState();
-        });
-        gamepad1.BUMPER_RIGHT.onPress(() -> fieldCentric = !fieldCentric);
+        gamepad2.SQUARE.onPress(() -> robot.horizontalServo.update());
+        gamepad2.TRIANGLE.onPress(() -> robot.intakeWrist.update());
+        gamepad2.CIRCLE.onPress(() -> robot.elbowWrist.update());
+        //        gamepad2.DPAD_LEFT.onPress(() -> {
+        //            robot.intakeServo.update();
+        //        });
 
-//        gamepad2.DPAD_UP.onPress(robot.cycleAutomation::toggle);
+        gamepad2.BUMPER_LEFT.onPress(e -> robot.intakeServo.update());
+        gamepad2.CROSS.onPress(() -> robot.OuttakeServo.updateState());
+        gamepad1.BUMPER_RIGHT.onPress(() -> fieldCentric = !fieldCentric);
 
         float brakePower = gamepad1.LEFT_TRIGGER.value();
         UnaryOperator<Float> scaling = scalingFunctionDefault;
 
-
         telemetryPro.update();
-//
-//        robot.rotationSlides.useEncoders();
-        gamepad2.SQUARE.onPress(e -> {
-            robot.horizontalServo.update();
-        });
-//
-//        robot.rotationSlides.rotatorSetPower(gamepad2);
-//        robot.rotationSlides.slidesSetPower(gamepad2);
-//        telemetryPro.addData("Current Position of Rotator", robot.rotationSlides.getCurrentPosition());
-//        telemetryPro.addData("Current Position of Slides", robot.rotationSlides.getSlidesTicks());
-        if(fieldCentric) telemetryPro.addLine("FIELD CENTRIC ENABLED", LineItem.Color.YELLOW, LineItem.RichTextFormat.BOLD);
-        if (robot.alliance == Alliance.RED)  telemetryPro.addLine("Robot Alliance:", LineItem.Color.RED, LineItem.RichTextFormat.BOLD);
-        if (robot.alliance == Alliance.BLUE)  telemetryPro.addLine("Robot Alliance:", LineItem.Color.BLUE, LineItem.RichTextFormat.BOLD);
+        //        robot.rotationSlides.useEncoders();
+        gamepad2.SQUARE.onPress(e -> robot.horizontalServo.update());
+        //        robot.rotationSlides.rotatorSetPower(gamepad2);
+        //        robot.rotationSlides.slidesSetPower(gamepad2);
+        //        telemetryPro.addData("Current Position of Rotator", robot.rotationSlides.getCurrentPosition());
+        //        telemetryPro.addData("Current Position of Slides", robot.rotationSlides.getSlidesTicks());
+        if (fieldCentric) telemetryPro.addLine("FIELD CENTRIC ENABLED", LineItem.Color.YELLOW, LineItem.RichTextFormat.BOLD);
+        if (robot.alliance == Alliance.RED) telemetryPro.addLine("Robot Alliance:", LineItem.Color.RED, LineItem.RichTextFormat.BOLD);
+        if (robot.alliance == Alliance.BLUE) telemetryPro.addLine("Robot Alliance:", LineItem.Color.BLUE, LineItem.RichTextFormat.BOLD);
 
         //        gamepad2.SQUARE.onPress(robot.claw::updateState);
-//
-        if(gamepad1.BUMPER_LEFT.value()) scaling = x -> x/2;
+        //
+        if (gamepad1.BUMPER_LEFT.value()) scaling = x -> x / 2;
         if (!robot.drive.isBusy()) robot.drive.setWeightedDrivePower(
                 Functions.rotateVectorCounterclockwise(new Pose2d(
-                        scaling.apply((float) (gamepad1.LEFT_STICK_Y.value()*0.9)),
-                        scaling.apply((float) (-gamepad1.LEFT_STICK_X.value()*0.9)),
-                        scaling.apply((float) (-gamepad1.RIGHT_STICK_X.value()*0.9))
-                ).times(1-brakePower), (fieldCentric ? -robot.drive.getPoseEstimate().getHeading()+robot.alliance.headingAngle : 0))
+                        scaling.apply((float) (gamepad1.LEFT_STICK_Y.value() * 0.9)),
+                        scaling.apply((float) (-gamepad1.LEFT_STICK_X.value() * 0.9)),
+                        scaling.apply((float) (-gamepad1.RIGHT_STICK_X.value() * 0.9))
+                ).times(1 - brakePower), (fieldCentric ? -robot.drive.getPoseEstimate().getHeading() + robot.alliance.headingAngle : 0))
         );
-//        telemetryPro.addData("Pose", robot.drive.getPoseEstimate());
-//        telemetryPro.addData("State",robot.breakBeam.getState());
-        robot.intakeServo.beamBreakUpdate(!(robot.breakBeam.getState()),gamepad1);
+        //        telemetryPro.addData("Pose", robot.drive.getPoseEstimate());
+        //        telemetryPro.addData("State", robot.breakBeam.getState());
+        robot.intakeServo.beamBreakUpdate(!(robot.breakBeam.getState()), gamepad1);
         robot.intakeServo.setOverride(gamepad1);
-        if(robot.intakeServo.getOverride()) telemetryPro.addLine("BREAK BEAM ENABLED", LineItem.Color.RED, LineItem.RichTextFormat.BOLD);
-        telemetryPro.addData("OUTTAKE CLAW POSITION",robot.OuttakeServo.currentState);
-        telemetryPro.addData("Target Position",robot.verticalSlides.getTargetPosition());
+        if (robot.intakeServo.getOverride()) telemetryPro.addLine("BREAK BEAM ENABLED", LineItem.Color.RED, LineItem.RichTextFormat.BOLD);
+        telemetryPro.addData("OUTTAKE CLAW POSITION", robot.OuttakeServo.currentState);
+        telemetryPro.addData("INTAKE CLAW POSITION", robot.intakeServo.currentState);
+        telemetryPro.addData("Stateforge current state:", cycleStateMachine.getState());
+        telemetryPro.addData("Target Position", robot.verticalSlides.getTargetPosition());
+        telemetryPro.addData("Cycle State", cycleStateMachine.getState());
+        telemetryPro.addData("clawwrist dump state", robot.intakeWrist.position);
         telemetryPro.update();
-//        telemetryPro.addData("brake", brakePower);
-//        telemetryPro.addData("angle", Math.toDegrees(robot.drive.getRawExternalHeading()));
-//        if(!robot.cycleAutomation.getToggle()) telemetryPro.addLine("Toggle is true", LineItem.Color.BLUE, LineItem.RichTextFormat.BOLD);
 
-//        double robotHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
-//        telemetryPro.addData("angle", Math.toDegrees(robot.drive.getPoseEstimate().getHeading()));
-//        telemetryPro.addData("angle", robotHeading);
-
-//        double rotX = x * Math.cos(-robotHeading) - y * Math.sin(-robotHeading);
-//        double rotY = x * Math.sin(-robotHeading) + y + Math.cos(-robotHeading);
-//
-//        rotX = rotX * 1.1;
-//
-//        double omega = Math.max(Math.abs(rotY) + Math.abs(rotX) + Math.abs(rx), 1);
-//        double flp = (rotY + rotX + rx) / omega;
-//        double blp = (rotY - rotX + rx) / omega;
-//        double frp = (rotY - rotX - rx) / omega;
-//        double brp = (rotY + rotX - rx) / omega;
-//
-//        fl.setPower(flp);
-//        bl.setPower(blp);
-//        fr.setPower(frp);
-
+        gamepad2.BUMPER_RIGHT.onPress(() -> {
+            cycleStateMachine.toggle();
+        });
+        cycleStateMachine.update();
     }
 }

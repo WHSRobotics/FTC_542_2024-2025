@@ -58,7 +58,6 @@ public class RobotImpl {
     public ElbowWrist elbowWrist;
     public outtakeServo OuttakeServo;
     public DigitalChannel breakBeam;
-    public CycleAutomationImpl cycleAutomation;
     private RobotImpl(HardwareMap hardwareMap) {
         drive = new IntoTheDeepMecanumDrive(hardwareMap);
 //        rotationSlides = new RotatorMotor(hardwareMap);
@@ -72,7 +71,6 @@ public class RobotImpl {
         elbowWrist = new ElbowWrist(hardwareMap);
         OuttakeServo = new outtakeServo(hardwareMap);
         breakBeam = hardwareMap.get(DigitalChannel.class,"breakBeam");
-        cycleAutomation = new CycleAutomationImpl(hardwareMap);
 
     }
 
