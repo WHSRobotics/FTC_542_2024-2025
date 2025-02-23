@@ -29,14 +29,14 @@ public class AutoPaths {
                     verticalSlides.setState(VerticalSlides.AngleTicks.HALF);
                     verticalSlides.setGoal();
                 })
-                .lineToLinearHeading(new Pose2d(-4, 34.5, Math.toRadians(90)))
+                .lineToLinearHeading(new Pose2d(-4, 35, Math.toRadians(90)))
                 .addTemporalMarker(2.5,()->{ // Reduced time delay
                     verticalSlides.setState(VerticalSlides.AngleTicks.ONE);
                 })
-                .addTemporalMarker(3,()->{
+                .addTemporalMarker(4,()->{
                     OuttakeServo.updateState();
                 })
-                .addTemporalMarker(4,()->{
+                .addTemporalMarker(4.5,()->{
                     elbow.updateAuto();
                     elbow.runAuto();
                     verticalSlides.setState(VerticalSlides.AngleTicks.ZERO);
@@ -48,20 +48,21 @@ public class AutoPaths {
                 .setVelConstraint((v, pose2d, pose2d1, pose2d2) -> 100)
                 .lineToLinearHeading(new Pose2d(-45, 0, Math.toRadians(-90)))
                 .lineToLinearHeading(new Pose2d(-45, 50, Math.toRadians(-90)))
-                .lineToLinearHeading(new Pose2d(-45, 35, Math.toRadians(-90)))
                 .lineToLinearHeading(new Pose2d(-45, 0, Math.toRadians(-90)))
-                .lineToLinearHeading(new Pose2d(-55, 0, Math.toRadians(-90)))
-                .lineToLinearHeading(new Pose2d(-55, 50, Math.toRadians(-90)))
-                .lineToLinearHeading(new Pose2d(-55, 30, Math.toRadians(-90)))
+                .lineToLinearHeading(new Pose2d(-45, 35, Math.toRadians(-90)))
+//                .lineToLinearHeading(new Pose2d(-45, 0, Math.toRadians(-90)))
+//                .lineToLinearHeading(new Pose2d(-55, 0, Math.toRadians(-90)))
+//                .lineToLinearHeading(new Pose2d(-55, 50, Math.toRadians(-90)))
+//                .lineToLinearHeading(new Pose2d(-55, 30, Math.toRadians(-90)))
                 .addTemporalMarker(15,()->{ // Adjusted timing
                     elbow.wallAutoUpdate();
                     elbow.wallAutoRun();
                     OuttakeServo.updateState();
                 })
                 .setVelConstraint((v, pose2d, pose2d1, pose2d2) -> 40) // Increased speed slightly
-                .lineToLinearHeading(new Pose2d(-55, 50, Math.toRadians(-90)))
+                .lineToLinearHeading(new Pose2d(-45, 50, Math.toRadians(-90)))
                 .waitSeconds(2) // Reduced from 3 seconds
-                .addTemporalMarker(18,()->{ // Adjusted timing
+                .addTemporalMarker(15,()->{ // Adjusted timing
                     elbow.updateAuto();
                     elbow.runAuto();
                 })

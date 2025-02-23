@@ -81,7 +81,7 @@ public class WHSAutoBlueN extends OpModeEx {
         AutoPaths.setAutoSubsystems(robot.autoElbowWrist,robot.OuttakeServo,robot.verticalSlides);
         telemetryPro.addData("Trajectory",selectedTrajectory);
         telemetryPro.addData("TIME RIGHT NOW: ", System.currentTimeMillis()/1000);
-        telemetryPro.addData("Positon of Elbow AUTO: ", robot.elbowWrist.positionAuto);
+        telemetryPro.addData("Positon of Elbow AUTO: ", robot.autoElbowWrist.positionAuto);
         telemetryPro.addData("Positon of Elbow TELE: ", robot.elbowWrist.position);
 
 

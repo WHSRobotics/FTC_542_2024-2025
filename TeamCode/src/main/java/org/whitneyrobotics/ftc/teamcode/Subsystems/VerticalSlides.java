@@ -36,7 +36,7 @@ public class VerticalSlides {
 
         ZERO(0),
         HALF(1500),
-        ONE(3000);
+        ONE(3100);
 
         double ticks;
 

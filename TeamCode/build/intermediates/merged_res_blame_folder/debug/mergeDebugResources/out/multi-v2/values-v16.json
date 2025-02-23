@@ -4,7 +4,17 @@
             "outputFile": "org.firstinspires.ftc.teamcode.TeamCode-mergeDebugResources-17:/values-v16/values-v16.xml",
             "map": [
                 {
-                    "source": "/Users/siddhantkhapra/.gradle/caches/8.10.2/transforms/313d434fd5d7ef9fa862fe51d14f0993/transformed/appcompat-1.2.0/res/values-v16/values-v16.xml",
+                    "source": "C:\\Users\\diyab\\.gradle\\caches\\8.10.2\\transforms\\fa0aec543f37a8484a78087f22e8eee6\\transformed\\core-1.3.0\\res\\values-v16\\values-v16.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "65",
+                        "endOffsets": "116"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\diyab\\.gradle\\caches\\8.10.2\\transforms\\73e677c6d68dca8948fd226d650819bc\\transformed\\appcompat-1.2.0\\res\\values-v16\\values-v16.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -20,16 +30,6 @@
                         "endLines": "6",
                         "endColumns": "12",
                         "endOffsets": "289"
-                    }
-                },
-                {
-                    "source": "/Users/siddhantkhapra/.gradle/caches/8.10.2/transforms/1ce99f797f09063180691e97c698ae60/transformed/core-1.3.0/res/values-v16/values-v16.xml",
-                    "from": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "55",
-                        "endColumns": "65",
-                        "endOffsets": "116"
                     }
                 }
             ]

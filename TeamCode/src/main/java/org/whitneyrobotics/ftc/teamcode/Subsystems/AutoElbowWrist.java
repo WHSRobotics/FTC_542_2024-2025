@@ -15,8 +15,8 @@ public class AutoElbowWrist {
         rightServo = hardwareMap.get(Servo.class, "elbowRight");
     }
     public enum ElbowPositions{
-        DOWN(0,0.9),
-        UP(0.8,0.2);
+        DOWN(0.1,0.9),
+        UP(0.7,0.3);
 
         public final double positionright, positionleft;
 
@@ -28,7 +28,7 @@ public class AutoElbowWrist {
     }
 
     public enum WallPositions{
-        DOWN(0.9,0.1);
+        DOWN(1,0);
 
         public final double positionright, positionleft;
 
