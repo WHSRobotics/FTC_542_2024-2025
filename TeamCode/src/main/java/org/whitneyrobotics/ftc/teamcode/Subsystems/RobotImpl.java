@@ -56,6 +56,8 @@ public class RobotImpl {
     public intakeServo intakeServo;
     public ClawWrist intakeWrist;
     public ElbowWrist elbowWrist;
+    public AutoElbowWrist autoElbowWrist;
+
     public outtakeServo OuttakeServo;
     public DigitalChannel breakBeam;
     private RobotImpl(HardwareMap hardwareMap) {
@@ -69,6 +71,8 @@ public class RobotImpl {
         intakeServo = new intakeServo(hardwareMap);
         intakeWrist = new ClawWrist(hardwareMap);
         elbowWrist = new ElbowWrist(hardwareMap);
+        autoElbowWrist = new AutoElbowWrist(hardwareMap);
+
         OuttakeServo = new outtakeServo(hardwareMap);
         breakBeam = hardwareMap.get(DigitalChannel.class,"breakBeam");
 

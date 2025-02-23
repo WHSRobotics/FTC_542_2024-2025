@@ -23,8 +23,8 @@ public class VerticalSlides {
     public static double p = 0.005, i = 0, d = 0.00028;
     public static double f = 0;
     public static double targetPosition;
-    public static double V_MAX = 1000; // max velocity in degrees/s
-    public static double A_MAX = 900; // max acceleration in degrees/s^2
+    public static double V_MAX = 1500; // max velocity in degrees/s
+    public static double A_MAX = 1200; // max acceleration in degrees/s^2
     private static final double ticksInDegrees = 700 / 180.0;
 
     private ControlConstants controlConstants;
@@ -35,7 +35,8 @@ public class VerticalSlides {
     public enum AngleTicks {
 
         ZERO(0),
-        ONE(2650);
+        HALF(1500),
+        ONE(3000);
 
         double ticks;
 
@@ -69,7 +70,7 @@ public class VerticalSlides {
         setGoal();
 
     }
-    private void setGoal() {
+    public void setGoal() {
         stopwatch.reset();
         initialPosition = vertical.getCurrentPosition();
         double error = (targetPosition - initialPosition) / ticksInDegrees;
@@ -117,9 +118,6 @@ public class VerticalSlides {
         double pidOutput = controller.getOutput();
         double ff = motionProfile.velocityAt(elapsedTime) * f;
         double sum = pidOutput+ff;
-        if(targetPosition!=AngleTicks.ZERO.ticks && targetPosition!=AngleTicks.ONE.ticks){
-            sum=0;
-        }
         vertical.setPower(sum);
     }
 

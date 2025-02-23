@@ -106,11 +106,10 @@ public class WHSTeleOp extends OpModeEx {
 
     @Override
     protected void loopInternal() {
-        robot.elbowWrist.run();
+        robot.autoElbowWrist.runAuto();
         robot.horizontalServo.run();
         robot.intakeServo.run();
         robot.intakeWrist.run();
-        robot.elbowWrist.run();
         robot.OuttakeServo.run();
 
         robot.verticalSlides.updateToggleState(gamepad2);
@@ -119,7 +118,7 @@ public class WHSTeleOp extends OpModeEx {
 
         gamepad2.SQUARE.onPress(() -> robot.horizontalServo.update());
         gamepad2.TRIANGLE.onPress(() -> robot.intakeWrist.update());
-        gamepad2.CIRCLE.onPress(() -> robot.elbowWrist.update());
+        gamepad2.CIRCLE.onPress(() -> robot.autoElbowWrist.updateAuto());
         //        gamepad2.DPAD_LEFT.onPress(() -> {
         //            robot.intakeServo.update();
         //        });
@@ -147,9 +146,9 @@ public class WHSTeleOp extends OpModeEx {
         if (gamepad1.BUMPER_LEFT.value()) scaling = x -> x / 2;
         if (!robot.drive.isBusy()) robot.drive.setWeightedDrivePower(
                 Functions.rotateVectorCounterclockwise(new Pose2d(
-                        scaling.apply((float) (gamepad1.LEFT_STICK_Y.value() * 0.9)),
-                        scaling.apply((float) (-gamepad1.LEFT_STICK_X.value() * 0.9)),
-                        scaling.apply((float) (-gamepad1.RIGHT_STICK_X.value() * 0.9))
+                        scaling.apply((float) (gamepad1.LEFT_STICK_Y.value() )),
+                        scaling.apply((float) (-gamepad1.LEFT_STICK_X.value())),
+                        scaling.apply((float) (-gamepad1.RIGHT_STICK_X.value()))
                 ).times(1 - brakePower), (fieldCentric ? -robot.drive.getPoseEstimate().getHeading() + robot.alliance.headingAngle : 0))
         );
         //        telemetryPro.addData("Pose", robot.drive.getPoseEstimate());

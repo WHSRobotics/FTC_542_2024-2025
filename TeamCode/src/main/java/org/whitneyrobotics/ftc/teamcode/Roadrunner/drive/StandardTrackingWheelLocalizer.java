@@ -32,12 +32,12 @@ import java.util.List;
  * FROZEN: DO NOT TOUCH
  */
 public class StandardTrackingWheelLocalizer extends ThreeTrackingWheelLocalizer {
-    public static double TICKS_PER_REV = 2300;
+    public static double TICKS_PER_REV = 2270;
     public static double WHEEL_RADIUS =0.75; // in
     public static double GEAR_RATIO = 1; // output (wheel) speed / input (encoder) speed
 
 
-    public static double X_MULTIPLIER = 0.88;
+    public static double X_MULTIPLIER = 0.98;
     public static double Y_MULTIPLIER = 0.9792;
 
 
