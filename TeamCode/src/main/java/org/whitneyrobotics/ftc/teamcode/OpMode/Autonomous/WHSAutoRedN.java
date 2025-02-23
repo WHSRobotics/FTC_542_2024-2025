@@ -14,6 +14,7 @@ import org.whitneyrobotics.ftc.teamcode.Extensions.TelemetryPro.LineItem;
 import org.whitneyrobotics.ftc.teamcode.Extensions.TelemetryPro.MultipleChoicePoll;
 import org.whitneyrobotics.ftc.teamcode.Roadrunner.drive.IntoTheDeepMecanumDrive;
 import org.whitneyrobotics.ftc.teamcode.Roadrunner.trajectorysequence.TrajectorySequence;
+import org.whitneyrobotics.ftc.teamcode.Subsystems.ElbowWrist;
 import org.whitneyrobotics.ftc.teamcode.Subsystems.RobotImpl;
 import org.whitneyrobotics.ftc.teamcode.Subsystems.RotatorMotor;
 import org.whitneyrobotics.ftc.teamcode.Subsystems.VerticalSlides;
@@ -39,11 +40,16 @@ public class WHSAutoRedN extends OpModeEx {
                 .addTest("Battery voltage test", () -> Tests.assertBatteryCharged(hardwareMap.get(LynxModule.class, "Control Hub")));
 
         drive = new IntoTheDeepMecanumDrive(hardwareMap);
-        if (robot.alliance == BLUE){
-            robot.alliance = RED;
+        if (robot.alliance == RED){
+            robot.alliance = BLUE;
         }else{
-            robot.alliance = RED;
+            robot.alliance = BLUE;
         }
+//        gamepad1.CIRCLE.onPress(() -> {
+//            robot.switchAlliance();
+//            telemetryPro.addData("Alliance manually changed to", robot.alliance.name(), robot.alliance == RED ? LineItem.Color.RED : LineItem.Color.BLUE, LineItem.RichTextFormat.ITALICS).persistent();
+//
+//        });
         robot.drive.sendPacket(packet);
 
     }
@@ -60,9 +66,9 @@ public class WHSAutoRedN extends OpModeEx {
     public void startInternal(){
         TrajectorySequence desiredTrajectory = null;
         switch (robot.alliance){
-            case RED:
+            case BLUE:
                 desiredTrajectory = AutoPaths.RedBackstageLeft(robot.drive);
-                robot.drive.getLocalizer().setPoseEstimate(new Pose2d(15, -60, Math.toRadians(-90)));
+                robot.drive.getLocalizer().setPoseEstimate(new Pose2d(15, -59.5, Math.toRadians(-90)));
                 selectedTrajectory = "RED AUDIENCE";
 
         }
@@ -73,18 +79,22 @@ public class WHSAutoRedN extends OpModeEx {
     protected void loopInternal() {
 
         AutoPaths.setAutoSubsystems(robot.autoElbowWrist,robot.OuttakeServo,robot.verticalSlides);
-
         telemetryPro.addData("Trajectory",selectedTrajectory);
         telemetryPro.addData("TIME RIGHT NOW: ", System.currentTimeMillis()/1000);
+        telemetryPro.addData("Positon of Elbow AUTO: ", robot.autoElbowWrist.positionAuto);
+        telemetryPro.addData("Positon of Elbow TELE: ", robot.elbowWrist.position);
 
-        robot.autoElbowWrist.runAuto();
+
+        robot.drive.update();
         robot.horizontalServo.run();
         robot.intakeServo.run();
         robot.intakeWrist.run();
         robot.OuttakeServo.run();
+        robot.verticalSlides.autoUpdate();
+
+//        robot.updateAuto();
         telemetryPro.update();
         RobotImpl.poseMemory = robot.drive.getPoseEstimate();
-        robot.verticalSlides.autoUpdate();
 
 
 
