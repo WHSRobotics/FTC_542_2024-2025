@@ -106,7 +106,8 @@ public class WHSTeleOp extends OpModeEx {
 
     @Override
     protected void loopInternal() {
-        robot.autoElbowWrist.runAuto();
+//        robot.autoElbowWrist.runAuto();
+        robot.elbowWrist.run();
         robot.horizontalServo.run();
         robot.intakeServo.run();
         robot.intakeWrist.run();
@@ -118,7 +119,7 @@ public class WHSTeleOp extends OpModeEx {
 
         gamepad2.SQUARE.onPress(() -> robot.horizontalServo.update());
         gamepad2.TRIANGLE.onPress(() -> robot.intakeWrist.update());
-        gamepad2.CIRCLE.onPress(() -> robot.autoElbowWrist.updateAuto());
+        gamepad2.CIRCLE.onPress(() -> robot.elbowWrist.update());
         //        gamepad2.DPAD_LEFT.onPress(() -> {
         //            robot.intakeServo.update();
         //        });

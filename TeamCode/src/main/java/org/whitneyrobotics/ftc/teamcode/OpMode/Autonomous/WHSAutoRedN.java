@@ -72,16 +72,18 @@ public class WHSAutoRedN extends OpModeEx {
     @Override
     protected void loopInternal() {
 
-        AutoPaths.setAutoSubsystems(robot.autoElbowWrist,robot.OuttakeServo,robot.verticalSlides);
+        AutoPaths.setAutoSubsystems(robot.elbowWrist,robot.OuttakeServo,robot.verticalSlides);
 
         telemetryPro.addData("Trajectory",selectedTrajectory);
         telemetryPro.addData("TIME RIGHT NOW: ", System.currentTimeMillis()/1000);
-
-        robot.autoElbowWrist.runAuto();
+        robot.drive.update();
+        robot.elbowWrist.run();
         robot.horizontalServo.run();
         robot.intakeServo.run();
         robot.intakeWrist.run();
         robot.OuttakeServo.run();
+        robot.verticalSlides.autoUpdate();
+
         telemetryPro.update();
         RobotImpl.poseMemory = robot.drive.getPoseEstimate();
         robot.verticalSlides.autoUpdate();
