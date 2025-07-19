@@ -74,8 +74,8 @@ public class LiveAuto extends OpMode {
                             .append(".point-box {background-color:#fff;border-radius:30px;padding:20px;border:1px solid #ddd;box-shadow:0 0 10px rgba(0,0,0,0.2);font-size:12px;margin:10px;height:240px;width:300px;}")
                             .append(".input-field {width:80px;height:30px;padding:5px;border:1px solid #ccc;border-radius:5px;font-size:14px;}")
                             .append(".input-row {display:flex;flex-direction:column;align-items:flex-start;margin-bottom:10px;}")
-                            .append("#push-button {background-color:#4CAF50;color:#fff;padding:10px 20px;font-size:15px;border:none;border-radius:20px;width:180px;height:150px;cursor:pointer;margin:10px;position:absolute;top:95%}")
-                            .append("#update-button {background-color:#FF5733;color:#fff;padding:10px 20px;font-size:15px;border:none;border-radius:20px;width:180px;height:150px;cursor:pointer;margin:10px;position:absolute;top:95%;left:200px;}") // Updated button styles
+                            .append("#push-button {background-color:#4CAF50;color:#fff;padding:5px 10px;font-size:15px;border:none;border-radius:20px;width:180px;height:150px;cursor:pointer;margin:10px;position:absolute;top:95%}")
+                            .append("#update-button {background-color:#FF5733;color:#fff;padding:5px 10px;font-size:15px;border:none;border-radius:20px;width:180px;height:150px;cursor:pointer;margin:10px;position:absolute;top:95%;left:200px;}") // Updated button styles
                             .append(".point-row {display:grid;grid-template-columns: repeat(3, 1fr);grid-gap: 10px;margin-bottom:20px;}")
                             .append("#trajectory-sequence {background-color:#fff;border-radius:30px;height:500px;padding:15px;border:1px solid #ddd;box-shadow:0 0 10px rgba(0,0,0,0.2);width:630px;font-size:12px;margin:20px;position:absolute;right:20%;top:85%;height:200px}")
                             .append("#trajectory-sequence-text {width:100%;height:100%;resize:none;}")
@@ -162,6 +162,7 @@ public class LiveAuto extends OpMode {
     @Override
     public void loop() {
         // Only proceed if "Run" has been pressed and no trajectory is currently running
+
         if (runButtonPressed && !trajectoryRunning) {
             try {
                 // Clear the filteredPoints list to update with new points
@@ -216,9 +217,16 @@ public class LiveAuto extends OpMode {
                 runButtonPressed = false; // Reset the run button flag to allow retrying
             }
         }
-
+        if (!trajectoryRunning){
+            if (gamepad1.x){
+                TrajectorySequenceBuilder start = drive.trajectorySequenceBuilder(filteredPoints.get(filteredPoints.size()-1))
+                        .lineToLinearHeading(filteredPoints.get(0));
+                drive.followTrajectorySequenceAsync(start.build());
+                trajectoryRunning = true;
+            }
+        }
         // If a trajectory is currently running, update the drive and check for completion
-        if (trajectoryRunning) {
+        if (trajectoryRunning ) {
             drive.update();
 
             if (!drive.isBusy()) {  // Only reset when the drive is truly idle
@@ -262,4 +270,3 @@ public class LiveAuto extends OpMode {
         trajectoryRunning = false;
     }
 }
-

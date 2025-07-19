@@ -35,6 +35,8 @@ public class VerticalSlides {
     public enum AngleTicks {
 
         ZERO(0),
+
+        MIN(300),
         HALF(1500),
         ONE(3000);
 

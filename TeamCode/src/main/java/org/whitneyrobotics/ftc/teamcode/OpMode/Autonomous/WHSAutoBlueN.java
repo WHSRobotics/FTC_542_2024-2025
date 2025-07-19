@@ -87,6 +87,7 @@ public class WHSAutoBlueN extends OpModeEx {
 
         robot.drive.update();
         robot.horizontalServo.run();
+
         robot.intakeServo.run();
         robot.intakeWrist.run();
         robot.OuttakeServo.run();

@@ -41,8 +41,8 @@ public class ElbowWrist {
     }
 
     public enum AutoElbowState{
-        DOWN(0,0.9),
-        UP(0.7,0.3);
+        DOWN(0,1),
+        UP(1,0);
 
         public final double positionright, positionleft;
 

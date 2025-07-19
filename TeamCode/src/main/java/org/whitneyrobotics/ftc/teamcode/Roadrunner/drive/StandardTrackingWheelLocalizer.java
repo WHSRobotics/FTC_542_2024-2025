@@ -32,13 +32,13 @@ import java.util.List;
  * FROZEN: DO NOT TOUCH
  */
 public class StandardTrackingWheelLocalizer extends ThreeTrackingWheelLocalizer {
-    public static double TICKS_PER_REV = 2270;
+    public static double TICKS_PER_REV = 2100;
     public static double WHEEL_RADIUS =0.75; // in
     public static double GEAR_RATIO = 1; // output (wheel) speed / input (encoder) speed
 
 
-    public static double X_MULTIPLIER = 0.969;
-    public static double Y_MULTIPLIER = 0.985;
+    public static double X_MULTIPLIER = 0.9;
+    public static double Y_MULTIPLIER = 0.9;
 
 
     public static double LATERAL_DISTANCE = 12; // in; distance between the left and right wheels

@@ -4,7 +4,6 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
 
 import org.whitneyrobotics.ftc.teamcode.Roadrunner.drive.IntoTheDeepMecanumDrive;
 import org.whitneyrobotics.ftc.teamcode.Roadrunner.trajectorysequence.TrajectorySequence;
-import org.whitneyrobotics.ftc.teamcode.Subsystems.AutoElbowWrist;
 import org.whitneyrobotics.ftc.teamcode.Subsystems.ElbowWrist;
 import org.whitneyrobotics.ftc.teamcode.Subsystems.VerticalSlides;
 import org.whitneyrobotics.ftc.teamcode.Subsystems.outtakeServo;
@@ -22,103 +21,112 @@ public class AutoPaths {
     }
     public static final TrajectorySequence BlueBackstageLeft(IntoTheDeepMecanumDrive drivetrain){
         return drivetrain.trajectorySequenceBuilder(new Pose2d(-15, 60, Math.toRadians(90)))
-                .waitSeconds(1) // Reduced from 2 seconds
-                .addTemporalMarker(0.5,()->{
-                    elbow.updateAuto();
-                    elbow.runAuto();
+                .setVelConstraint((v, pose2d, pose2d1, pose2d2) -> 50)
+                .waitSeconds(3) // Increased wait time to allow initial subsystems to move
+                .addTemporalMarker(0.5, () -> { // Slightly delayed to ensure execution
                     verticalSlides.setState(VerticalSlides.AngleTicks.ONE);
                     verticalSlides.setGoal();
+                    elbow.updateAuto();
+                    elbow.runAuto();
                 })
-                .lineToLinearHeading(new Pose2d(-4, 34.5, Math.toRadians(90)))
-                .addTemporalMarker(2.5,()->{ // Reduced time delay
+
+                .lineToLinearHeading(new Pose2d(-4, 35, Math.toRadians(90)))
+                .addTemporalMarker(4, () -> { // Extended timing for slides to reset
+                    verticalSlides.setState(VerticalSlides.AngleTicks.ZERO);
+                    verticalSlides.setGoal();
+                })
+                .addTemporalMarker(5.1, () -> { // Extended timing for slides to reset
+                    OuttakeServo.updateState();
+                })
+                .waitSeconds(2.5)
+                .lineToLinearHeading(new Pose2d(-33, 50, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(-33, 0, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(-45, 0, Math.toRadians(-85)))
+                .lineToLinearHeading(new Pose2d(-45, 50, Math.toRadians(-85)))
+                .lineToLinearHeading(new Pose2d(-45, 35, Math.toRadians(-85)))
+                .waitSeconds(2) // Increased wait for subsystems to catch up
+                .setVelConstraint((v, pose2d, pose2d1, pose2d2) -> 25)
+                .lineToLinearHeading(new Pose2d(-45, 54.5, Math.toRadians(-85)))
+                .waitSeconds(2) // Extended for slides to complete motion
+                .addTemporalMarker(15, () -> { // More time for slides transition
+                    verticalSlides.setState(VerticalSlides.AngleTicks.MIN);
+                })
+                .addTemporalMarker(17, () -> { // More time for slides transition
+                    OuttakeServo.updateState();
+                })
+                .addTemporalMarker(18.5, () -> { // More time for slides transition
+                    verticalSlides.setState(VerticalSlides.AngleTicks.HALF);
+                })
+                .setVelConstraint((v, pose2d, pose2d1, pose2d2) -> 45)
+                .lineToLinearHeading(new Pose2d(0, 43, Math.toRadians(0)))
+                .waitSeconds(1)
+                .lineToLinearHeading(new Pose2d(-7, 37.5, Math.toRadians(90)))
+                .addTemporalMarker(21, () -> { // Extended slide movement buffer
+                    verticalSlides.setState(VerticalSlides.AngleTicks.ONE);
+                })
+                .waitSeconds(1.2) // Allow slides to fully reach ONE
+                .addTemporalMarker(23, () -> { // Adjusted timing
                     verticalSlides.setState(VerticalSlides.AngleTicks.ZERO);
                 })
-//                .addTemporalMarker(3,()->{
-//                    OuttakeServo.updateState();
-//                })
-//                .addTemporalMarker(4,()->{
-//                    elbow.updateAuto();
-//                    elbow.runAuto();
-//                    verticalSlides.setState(VerticalSlides.AngleTicks.ZERO);
-//                    verticalSlides.setGoal();
-//                })
-//                .waitSeconds(1) // Reduced from 2 seconds
-//                .lineToLinearHeading(new Pose2d(-33, 50, Math.toRadians(0)))
-//                .lineToLinearHeading(new Pose2d(-33, 0, Math.toRadians(0)))
-//                .setVelConstraint((v, pose2d, pose2d1, pose2d2) -> 100)
-//                .lineToLinearHeading(new Pose2d(-45, 0, Math.toRadians(-90)))
-//                .lineToLinearHeading(new Pose2d(-45, 50, Math.toRadians(-90)))
-//                .lineToLinearHeading(new Pose2d(-45, 35, Math.toRadians(-90)))
-//                .lineToLinearHeading(new Pose2d(-45, 0, Math.toRadians(-90)))
-//                .lineToLinearHeading(new Pose2d(-55, 0, Math.toRadians(-90)))
-//                .lineToLinearHeading(new Pose2d(-55, 50, Math.toRadians(-90)))
-//                .lineToLinearHeading(new Pose2d(-55, 30, Math.toRadians(-90)))
-//                .addTemporalMarker(15,()->{ // Adjusted timing
-//                    elbow.wallAutoUpdate();
-//                    elbow.wallAutoRun();
-//                    OuttakeServo.updateState();
-//                })
-//                .setVelConstraint((v, pose2d, pose2d1, pose2d2) -> 40) // Increased speed slightly
-//                .lineToLinearHeading(new Pose2d(-55, 50, Math.toRadians(-90)))
-//                .waitSeconds(2) // Reduced from 3 seconds
-//                .addTemporalMarker(18,()->{ // Adjusted timing
-//                    elbow.updateAuto();
-//                    elbow.runAuto();
-//                })
-//                .setVelConstraint((v, pose2d, pose2d1, pose2d2) -> 60) // Increased speed
-//                .lineToLinearHeading(new Pose2d(-4, 45, Math.toRadians(90)))
+                .addTemporalMarker(23.7, () -> { // Adjusted timing
+                    OuttakeServo.updateState();
+                })
+                .waitSeconds(2)
+//                .lineToLinearHeading(new Pose2d(-42, 56, Math.toRadians(-85)))
+
                 .build();
     }
     public static final TrajectorySequence RedBackstageLeft(IntoTheDeepMecanumDrive drivetrain){
         return drivetrain.trajectorySequenceBuilder(new Pose2d(15, -60, Math.toRadians(-90)))
-                .waitSeconds(2)
-                .addTemporalMarker(0.5,()->{
-                    elbow.update();
+                .setVelConstraint((v, pose2d, pose2d1, pose2d2) -> 50)
+                .waitSeconds(3) // Increased wait time to allow initial subsystems to move
+                .addTemporalMarker(0.5, () -> { // Slightly delayed to ensure execution
+
                     verticalSlides.setState(VerticalSlides.AngleTicks.ONE);
                     verticalSlides.setGoal();
                 })
 
-                .lineToLinearHeading(new Pose2d(4, -34, Math.toRadians(-90)))
-                .addTemporalMarker(5,()->{
+                .lineToLinearHeading(new Pose2d(4, -35, Math.toRadians(-90)))
+                .addTemporalMarker(4, () -> { // Extended timing for slides to reset
                     verticalSlides.setState(VerticalSlides.AngleTicks.ZERO);
                     verticalSlides.setGoal();
                 })
-                .addTemporalMarker(5.7,()->{
+                .addTemporalMarker(5.1, () -> { // Extended timing for slides to reset
                     OuttakeServo.updateState();
                 })
-//
-//                .addTemporalMarker(7,()->{
-//                    elbow.updateAuto();
-//                })
-                .waitSeconds(4.5)
-//
-//                .lineToLinearHeading(new Pose2d(37, -50, Math.toRadians(0)))
-//                .lineToLinearHeading(new Pose2d(37, 0, Math.toRadians(0)))
-//                .lineToLinearHeading(new Pose2d(45, 0, Math.toRadians(85)))
-//                .lineToLinearHeading(new Pose2d(45, -50, Math.toRadians(85)))
-//                .lineToLinearHeading(new Pose2d(45, -35, Math.toRadians(85)))
-//                .addTemporalMarker(15,()->{
-//                    elbow.updateAuto();
-//                    OuttakeServo.updateState();
-//                })
-//                .waitSeconds(5)
-//                .setVelConstraint((v, pose2d, pose2d1, pose2d2) -> 20)
-//                .lineToLinearHeading(new Pose2d(45, -56, Math.toRadians(90)))
-//                .waitSeconds(3.5)
-//
-//                .addTemporalMarker(21,()->{
-//                    OuttakeServo.updateState();
-//
-//                    verticalSlides.setState(VerticalSlides.AngleTicks.ONE);
-//                })
-//                .lineToLinearHeading(new Pose2d(0, -43, Math.toRadians(-90)))
-//                .lineToLinearHeading(new Pose2d(5, -35, Math.toRadians(-90)))
-//
-//                .waitSeconds(1)
-//                .addTemporalMarker(28,()->{
-//                    verticalSlides.setState(VerticalSlides.AngleTicks.ZERO);
-//                })
-//
+                .waitSeconds(2.5)
+                .lineToLinearHeading(new Pose2d(37, -50, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(37, 0, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(45, 0, Math.toRadians(85)))
+                .lineToLinearHeading(new Pose2d(45, -50, Math.toRadians(85)))
+                .lineToLinearHeading(new Pose2d(45, -35, Math.toRadians(85)))
+                .waitSeconds(2) // Increased wait for subsystems to catch up
+                .setVelConstraint((v, pose2d, pose2d1, pose2d2) -> 25)
+                .lineToLinearHeading(new Pose2d(42, -56, Math.toRadians(85)))
+                .waitSeconds(2) // Extended for slides to complete motion
+                .addTemporalMarker(17, () -> { // More time for slides transition
+                    OuttakeServo.updateState();
+                })
+                .addTemporalMarker(18.5, () -> { // More time for slides transition
+                    verticalSlides.setState(VerticalSlides.AngleTicks.HALF);
+                })
+                .setVelConstraint((v, pose2d, pose2d1, pose2d2) -> 45)
+                .lineToLinearHeading(new Pose2d(0, -43, Math.toRadians(0)))
+                .waitSeconds(1)
+                .lineToLinearHeading(new Pose2d(6, -31, Math.toRadians(-90)))
+                .addTemporalMarker(21, () -> { // Extended slide movement buffer
+                    verticalSlides.setState(VerticalSlides.AngleTicks.ONE);
+
+                })
+                .waitSeconds(2) // Allow slides to fully reach ONE
+                .addTemporalMarker(23, () -> { // Adjusted timing
+                    verticalSlides.setState(VerticalSlides.AngleTicks.ZERO);
+                })
+                .addTemporalMarker(25, () -> { // Adjusted timing
+                    OuttakeServo.updateState();
+                })
+                .waitSeconds(1.5)
+//                .lineToLinearHeading(new Pose2d(42, -56, Math.toRadians(85)))
 
                 .build();
     }

@@ -77,7 +77,7 @@ public class WHSAutoRedN extends OpModeEx {
         telemetryPro.addData("Trajectory",selectedTrajectory);
         telemetryPro.addData("TIME RIGHT NOW: ", System.currentTimeMillis()/1000);
         robot.drive.update();
-        robot.elbowWrist.run();
+        robot.elbowWrist.runAuto();
         robot.horizontalServo.run();
         robot.intakeServo.run();
         robot.intakeWrist.run();

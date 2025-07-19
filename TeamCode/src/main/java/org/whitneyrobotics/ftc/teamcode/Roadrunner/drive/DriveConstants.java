@@ -24,7 +24,7 @@ public class DriveConstants {
      * These are motor constants that should be listed online for your motors.
      */
     public static final double TICKS_PER_REV = 2048;
-    public static final double MAX_RPM = 435;
+    public static final double MAX_RPM = 312;
 
     /*
      * Set RUN_USING_ENCODER to true to enable built-in hub velocity control using drive encoders.
@@ -56,9 +56,12 @@ public class DriveConstants {
      * motor encoders or have elected not to use them for velocity control, these values should be
      * empirically tuned.
      */
-    public static double kV = 0.0098;//1.0 / rpmToVelocity(MAX_RPM);
+    public static double kV = 0.015;//1.0 / rpmToVelocity(MAX_RPM);
+    //0.000509
     public static double kA = 0.002;//0;
+    //0.00017
     public static double kStatic = 0.12075;
+    //1.55
 
     /*
      * These values are used to generate the trajectories for you robot. To ensure proper operation,
@@ -88,7 +91,7 @@ public class DriveConstants {
      * You are free to raise this on your own if you would like. It is best determined through experimentation.
 
      */
-    public static double MAX_VEL = 50;
+    public static double MAX_VEL = 40;
     public static double MAX_ACCEL = 60;
     public static double MAX_ANG_ACCEL = 6;//Math.toRadians(288.7552360511267);
     public static double MAX_ANG_VEL = 5;//Math.toRadians(288.7552360511267);

@@ -71,7 +71,7 @@ public class RobotImpl {
         intakeServo = new intakeServo(hardwareMap);
         intakeWrist = new ClawWrist(hardwareMap);
         elbowWrist = new ElbowWrist(hardwareMap);
-        autoElbowWrist = new AutoElbowWrist(hardwareMap);
+//        autoElbowWrist = new AutoElbowWrist(hardwareMap);
 
         OuttakeServo = new outtakeServo(hardwareMap);
         breakBeam = hardwareMap.get(DigitalChannel.class,"breakBeam");
@@ -85,13 +85,12 @@ public class RobotImpl {
     public void teleOpInit(){
         Pose2d poseMemory = localizer.getPoseEstimate();
 
-        drive.setPoseEstimate(poseMemory);
-
+;
 
     }
 
     public void update(){
-        drive.update();
+//        drive.update();
 //        cycleAutomation.update();
         horizontalServo.run();
         intakeServo.run();
