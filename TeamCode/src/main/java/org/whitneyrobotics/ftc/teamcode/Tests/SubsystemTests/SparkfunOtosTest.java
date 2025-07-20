@@ -33,14 +33,15 @@ public class SparkfunOtosTest extends OpModeEx {
 
     @Override
     protected void loopInternal() {
-        telemetryPro.addData("position: ", otos.myOtos.getPosition());
+        telemetryPro.addData("x-posit", otos.myOtos.getPosition().x);
+        telemetryPro.addData("y-posit", otos.myOtos.getPosition().y);
         double robotHeading = otos.myOtos.getPosition().h;
 
         telemetryPro.addData("HEADING: ", robotHeading);
 
 
         double y = gamepad1.LEFT_STICK_Y.value();
-        double x = gamepad1.LEFT_STICK_X.value() * 1.1;
+        double x = gamepad1.LEFT_STICK_X.value();
         double rx = gamepad1.RIGHT_STICK_X.value();
 
         double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
