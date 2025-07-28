@@ -54,5 +54,7 @@ public class SparkfunOtosTest extends OpModeEx {
         bL.setPower(backLeftPower);
         fR.setPower(frontRightPower);
         bR.setPower(backRightPower);
+
+        telemetryPro.update();
     }
 }
