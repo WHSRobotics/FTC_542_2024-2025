@@ -40,7 +40,6 @@ public class GoToPoint extends OpMode {
     @Override
     public void loop() {
         follower.update();
-
         if (state == 0 && !follower.isBusy()) {
             telemetry.addLine("Arrived at destination.");
             state = 1;
