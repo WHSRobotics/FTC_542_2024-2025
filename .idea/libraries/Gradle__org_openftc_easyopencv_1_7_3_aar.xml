@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="Gradle: org.openftc:easyopencv:1.7.3@aar" external-system-id="GRADLE">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../FTC_542_2025_2026/.gradle/caches/8.10.2/transforms/c2b54186c46a53d6be6d177dae5e0577/transformed/easyopencv-1.7.3/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../FTC_542_2025_2026/.gradle/caches/8.10.2/transforms/c2b54186c46a53d6be6d177dae5e0577/transformed/easyopencv-1.7.3/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/../FTC_542_2025_2026/.gradle/caches/modules-2/files-2.1/org.openftc/easyopencv/1.7.3/7320f70dba202f41a07b7c635b9dba46f92eea3b/easyopencv-1.7.3-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../FTC_542_2025_2026/.gradle/caches/modules-2/files-2.1/org.openftc/easyopencv/1.7.3/5e65c0294e062c84b24ccc3f2cacb924f8e0f709/easyopencv-1.7.3-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

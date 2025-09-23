@@ -550,6 +550,8 @@ function addReservedWordsForJavaScriptRuntime() {
   Blockly.JavaScript.addReservedWords('getObjectViaJson');
   Blockly.JavaScript.addReservedWords('updateObjectViaJson');
   Blockly.JavaScript.addReservedWords('getJavaObject');
+  Blockly.JavaScript.addReservedWords('colorBlobsFilterByCriteria');
+  Blockly.JavaScript.addReservedWords('colorBlobsSortByCriteria');
   Blockly.JavaScript.addReservedWords('colorBlobsFilterByArea');
   Blockly.JavaScript.addReservedWords('colorBlobsSortByArea');
   Blockly.JavaScript.addReservedWords('colorBlobsFilterByDensity');
@@ -585,10 +587,7 @@ function initializeToolbox() {
 }
 
 function loadBlocks(blkFileContent, opt_blocksLoaded_callback) {
-  // The blocks content is up to and including the first </xml>.
-  var i = blkFileContent.indexOf('</xml>');
-  var blocksContent = blkFileContent.substring(0, i + 6);
-
+  const blocksContent = extractBlockContent(blkFileContent);
   var extra = parseExtraXml(blkFileContent);
   var flavorSelect = document.getElementById('project_flavor');
   for (var i = 0; i < flavorSelect.options.length; i++) {

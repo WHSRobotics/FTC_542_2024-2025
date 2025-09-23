@@ -100,6 +100,29 @@
     <block type="navigation_typedEnum_axis"><field name="AXIS">Y</field></block>
     <block type="navigation_typedEnum_axis"><field name="AXIS">Z</field></block>
   </category>
+  <category name="Blackboard">
+    <block type="blackboard_clear">
+    </block>
+    <block type="blackboard_containsKey">
+      <value name="KEY"><shadow type="text"><field name="TEXT">key</field></shadow></value>
+    </block>
+    <block type="blackboard_get">
+      <value name="KEY"><shadow type="text"><field name="TEXT">key</field></shadow></value>
+    </block>
+    <block type="blackboard_getOrDefault">
+      <value name="KEY"><shadow type="text"><field name="TEXT">key</field></shadow></value>
+    </block>
+    <block type="blackboard_isEmpty">
+    </block>
+    <block type="blackboard_put">
+      <value name="KEY"><shadow type="text"><field name="TEXT">key</field></shadow></value>
+    </block>
+    <block type="blackboard_remove">
+      <value name="KEY"><shadow type="text"><field name="TEXT">key</field></shadow></value>
+    </block>
+    <block type="blackboard_size">
+    </block>
+  </category>
   <category name="Color">
     <block type="color_rgbToHue">
       <value name="RED"><shadow type="math_number"><field name="NUM">255</field></shadow></value>
@@ -667,6 +690,33 @@
     </block>
     <block type="pidfCoefficients_toText">
       <value name="PIDF_COEFFICIENTS"><block type="variables_get"><field name="VAR">myPidfCoefficients</field></block></value>
+    </block>
+  </category>
+  <category name="Pose2D">
+    <block type="pose2D_getPropertyWithDistanceUnit_Number">
+      <field name="PROP">X</field>
+      <value name="POSE2D"><block type="variables_get"><field name="VAR">myPose2D</field></block></value>
+      <value name="UNIT"><shadow type="navigation_typedEnum_distanceUnit"></shadow></value>
+    </block>
+    <block type="pose2D_getPropertyWithDistanceUnit_Number">
+      <field name="PROP">Y</field>
+      <value name="POSE2D"><block type="variables_get"><field name="VAR">myPose2D</field></block></value>
+      <value name="UNIT"><shadow type="navigation_typedEnum_distanceUnit"></shadow></value>
+    </block>
+    <block type="pose2D_getPropertyWithAngleUnit_Number">
+      <field name="PROP">Heading</field>
+      <value name="POSE2D"><block type="variables_get"><field name="VAR">myPose2D</field></block></value>
+      <value name="UNIT"><shadow type="navigation_typedEnum_angleUnit"></shadow></value>
+    </block>
+    <block type="pose2D_toText">
+      <value name="POSE2D"><block type="variables_get"><field name="VAR">myPose2D</field></block></value>
+    </block>
+    <block type="pose2D_create">
+      <value name="DISTANCE_UNIT"><shadow type="navigation_typedEnum_distanceUnit"></shadow></value>
+      <value name="X"><shadow type="math_number"><field name="NUM">10</field></shadow></value>
+      <value name="Y"><shadow type="math_number"><field name="NUM">20</field></shadow></value>
+      <value name="HEADING_UNIT"><shadow type="navigation_typedEnum_angleUnit"></shadow></value>
+      <value name="HEADING"><shadow type="math_number"><field name="NUM">30</field></shadow></value>
     </block>
   </category>
   <category name="Position">

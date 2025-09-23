@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.rh-robotics:MeepMeep:v1.0.0" type="java-imported" external-system-id="GRADLE">
+    <properties groupId="com.github.rh-robotics" artifactId="MeepMeep" version="v1.0.0" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../FTC_542_2025_2026/.gradle/caches/modules-2/files-2.1/com.github.rh-robotics/MeepMeep/v1.0.0/5b9808fa4585f18ee5779bed88c04e727befd79/MeepMeep-v1.0.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../FTC_542_2025_2026/.gradle/caches/modules-2/files-2.1/com.github.rh-robotics/MeepMeep/v1.0.0/5895eb1d5db449749d79cbca6596677eb7938b3b/MeepMeep-v1.0.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

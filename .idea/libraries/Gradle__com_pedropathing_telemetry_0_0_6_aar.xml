@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="Gradle: com.pedropathing:telemetry:0.0.6@aar" external-system-id="GRADLE">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../FTC_542_2025_2026/.gradle/caches/8.10.2/transforms/010629627c6748dc0733b39ac767cb29/transformed/telemetry-0.0.6/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../FTC_542_2025_2026/.gradle/caches/8.10.2/transforms/010629627c6748dc0733b39ac767cb29/transformed/telemetry-0.0.6/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/../FTC_542_2025_2026/.gradle/caches/modules-2/files-2.1/com.pedropathing/telemetry/0.0.6/94623c6db14911f915b630825fe86a056801be5/telemetry-0.0.6-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../FTC_542_2025_2026/.gradle/caches/modules-2/files-2.1/com.pedropathing/telemetry/0.0.6/fa8fd9971cc19d99b956ab6d1632a5392e5b25a9/telemetry-0.0.6-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

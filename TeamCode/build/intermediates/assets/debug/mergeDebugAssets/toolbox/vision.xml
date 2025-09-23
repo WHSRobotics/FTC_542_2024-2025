@@ -512,8 +512,8 @@ detections multiple times.
       <block type="variables_set">
         <field name="VAR">myAprilTagLibrary</field>
         <value name="VALUE">
-          <block type="aprilTagGameDatabase_getIntoTheDeepTagLibrary">
-            <comment pinned="false" h="150" w="325">Get the AprilTagLibrary for the Into The Deep FTC game.
+          <block type="aprilTagGameDatabase_DecodeTagLibrary">
+            <comment pinned="false" h="150" w="325">Get the AprilTagLibrary for the Decode FTC game.
             </comment>
           </block>
         </value>
@@ -675,6 +675,17 @@ detections multiple times.
           </block>
         </value>
       </block>
+      <block type="colorBlobLocatorProcessorBuilder_setCircleFitColor">
+        <field name="COLOR_BLOB_LOCATOR_PROCESSOR_BUILDER" variabletype="ColorBlobLocatorProcessor.Builder">myColorBlobLocatorProcessorBuilder</field>
+        <value name="COLOR">
+          <shadow type="color_constant_Number"><field name="CONSTANT">WHITE</field></shadow>
+          <block type="color_rgbToColor_Number">
+            <value name="RED"><shadow type="math_number"><field name="NUM">255</field></shadow></value>
+            <value name="GREEN"><shadow type="math_number"><field name="NUM">255</field></shadow></value>
+            <value name="BLUE"><shadow type="math_number"><field name="NUM">0</field></shadow></value>
+          </block>
+        </value>
+      </block>
       <block type="colorBlobLocatorProcessorBuilder_setRoiColor">
         <field name="COLOR_BLOB_LOCATOR_PROCESSOR_BUILDER" variabletype="ColorBlobLocatorProcessor.Builder">myColorBlobLocatorProcessorBuilder</field>
         <value name="COLOR">
@@ -695,6 +706,18 @@ detections multiple times.
             <value name="GREEN"><shadow type="math_number"><field name="NUM">227</field></shadow></value>
             <value name="BLUE"><shadow type="math_number"><field name="NUM">252</field></shadow></value>
           </block>
+        </value>
+      </block>
+      <block type="colorBlobLocatorProcessorBuilder_setTargetColorRange">
+        <field name="COLOR_BLOB_LOCATOR_PROCESSOR_BUILDER" variabletype="ColorBlobLocatorProcessor.Builder">myColorBlobLocatorProcessorBuilder</field>
+        <value name="COLOR_RANGE">
+          <shadow type="colorRange_constant_ColorRange"><field name="CONSTANT">ARTIFACT_GREEN</field></shadow>
+        </value>
+      </block>
+      <block type="colorBlobLocatorProcessorBuilder_setTargetColorRange">
+        <field name="COLOR_BLOB_LOCATOR_PROCESSOR_BUILDER" variabletype="ColorBlobLocatorProcessor.Builder">myColorBlobLocatorProcessorBuilder</field>
+        <value name="COLOR_RANGE">
+          <shadow type="colorRange_constant_ColorRange"><field name="CONSTANT">ARTIFACT_PURPLE</field></shadow>
         </value>
       </block>
       <block type="colorBlobLocatorProcessorBuilder_setTargetColorRange">
@@ -737,6 +760,10 @@ detections multiple times.
       <block type="colorBlobLocatorProcessorBuilder_setBlurSize">
         <field name="COLOR_BLOB_LOCATOR_PROCESSOR_BUILDER" variabletype="ColorBlobLocatorProcessor.Builder">myColorBlobLocatorProcessorBuilder</field>
         <value name="BLUR_SIZE"><shadow type="math_number"><field name="NUM">5</field></shadow></value>
+      </block>
+      <block type="colorBlobLocatorProcessorBuilder_setMorphOperationType">
+        <field name="COLOR_BLOB_LOCATOR_PROCESSOR_BUILDER" variabletype="ColorBlobLocatorProcessor.Builder">myColorBlobLocatorProcessorBuilder</field>
+        <value name="MORPH_OPERATION_TYPE"><shadow type="colorBlobLocator_typedEnum_morphOperationType"><field name="MORPH_OPERATION_TYPE">EXTERNAL_ONLY</field></shadow></value>
       </block>
       <block type="colorBlobLocatorProcessorBuilder_setErodeSize">
         <field name="COLOR_BLOB_LOCATOR_PROCESSOR_BUILDER" variabletype="ColorBlobLocatorProcessor.Builder">myColorBlobLocatorProcessorBuilder</field>
@@ -843,30 +870,47 @@ detections multiple times.
       </block>
     </category>
     <category name="Post-processing">
-      <block type="colorBlobLocatorProcessorUtil_filterByArea">
-        <value name="MIN_AREA"><shadow type="math_number"><field name="NUM">50</field></shadow></value>
-        <value name="MAX_AREA"><shadow type="math_number"><field name="NUM">20000</field></shadow></value>
+      <block type="colorBlobLocatorProcessorUtil_filterByCriteria">
+        <value name="CRITERIA"><shadow type="colorBlobLocator_typedEnum_blobCriteria"><field name="CRITERIA">BY_CONTOUR_AREA</field></shadow></value>
+        <value name="MIN_VALUE"><shadow type="math_number"><field name="NUM">50</field></shadow></value>
+        <value name="MAX_VALUE"><shadow type="math_number"><field name="NUM">20000</field></shadow></value>
         <value name="BLOBS"><block type="variables_get"><field name="VAR">myBlobs</field></block></value>
       </block>
-      <block type="colorBlobLocatorProcessorUtil_sortByArea">
+      <block type="colorBlobLocatorProcessorUtil_sortByCriteria">
+        <value name="CRITERIA"><shadow type="colorBlobLocator_typedEnum_blobCriteria"><field name="CRITERIA">BY_CONTOUR_AREA</field></shadow></value>
         <value name="SORT_ORDER"><shadow type="util_typedEnum_sortOrder"><field name="SORT_ORDER">DESCENDING</field></shadow></value>
         <value name="BLOBS"><block type="variables_get"><field name="VAR">myBlobs</field></block></value>
       </block>
-      <block type="colorBlobLocatorProcessorUtil_filterByDensity">
-        <value name="MIN_DENSITY"><shadow type="math_number"><field name="NUM">0.5</field></shadow></value>
-        <value name="MAX_DENSITY"><shadow type="math_number"><field name="NUM">1.0</field></shadow></value>
+      <block type="colorBlobLocatorProcessorUtil_filterByCriteria">
+        <value name="CRITERIA"><shadow type="colorBlobLocator_typedEnum_blobCriteria"><field name="CRITERIA">BY_DENSITY</field></shadow></value>
+        <value name="MIN_VALUE"><shadow type="math_number"><field name="NUM">0.5</field></shadow></value>
+        <value name="MAX_VALUE"><shadow type="math_number"><field name="NUM">1.0</field></shadow></value>
         <value name="BLOBS"><block type="variables_get"><field name="VAR">myBlobs</field></block></value>
       </block>
-      <block type="colorBlobLocatorProcessorUtil_sortByDensity">
+      <block type="colorBlobLocatorProcessorUtil_sortByCriteria">
+        <value name="CRITERIA"><shadow type="colorBlobLocator_typedEnum_blobCriteria"><field name="CRITERIA">BY_DENSITY</field></shadow></value>
         <value name="SORT_ORDER"><shadow type="util_typedEnum_sortOrder"><field name="SORT_ORDER">DESCENDING</field></shadow></value>
         <value name="BLOBS"><block type="variables_get"><field name="VAR">myBlobs</field></block></value>
       </block>
-      <block type="colorBlobLocatorProcessorUtil_filterByAspectRatio">
-        <value name="MIN_ASPECT_RATIO"><shadow type="math_number"><field name="NUM">1.0</field></shadow></value>
-        <value name="MAX_ASPECT_RATIO"><shadow type="math_number"><field name="NUM">3.0</field></shadow></value>
+      <block type="colorBlobLocatorProcessorUtil_filterByCriteria">
+        <value name="CRITERIA"><shadow type="colorBlobLocator_typedEnum_blobCriteria"><field name="CRITERIA">BY_ASPECT_RATIO</field></shadow></value>
+        <value name="MIN_VALUE"><shadow type="math_number"><field name="NUM">1.0</field></shadow></value>
+        <value name="MAX_VALUE"><shadow type="math_number"><field name="NUM">3.0</field></shadow></value>
         <value name="BLOBS"><block type="variables_get"><field name="VAR">myBlobs</field></block></value>
       </block>
-      <block type="colorBlobLocatorProcessorUtil_sortByAspectRatio">
+      <block type="colorBlobLocatorProcessorUtil_sortByCriteria">
+        <value name="CRITERIA"><shadow type="colorBlobLocator_typedEnum_blobCriteria"><field name="CRITERIA">BY_ASPECT_RATIO</field></shadow></value>
+        <value name="SORT_ORDER"><shadow type="util_typedEnum_sortOrder"><field name="SORT_ORDER">DESCENDING</field></shadow></value>
+        <value name="BLOBS"><block type="variables_get"><field name="VAR">myBlobs</field></block></value>
+      </block>
+      <block type="colorBlobLocatorProcessorUtil_filterByCriteria">
+        <value name="CRITERIA"><shadow type="colorBlobLocator_typedEnum_blobCriteria"><field name="CRITERIA">BY_CIRCULARITY</field></shadow></value>
+        <value name="MIN_VALUE"><shadow type="math_number"><field name="NUM">0.9</field></shadow></value>
+        <value name="MAX_VALUE"><shadow type="math_number"><field name="NUM">1.01</field></shadow></value>
+        <value name="BLOBS"><block type="variables_get"><field name="VAR">myBlobs</field></block></value>
+      </block>
+      <block type="colorBlobLocatorProcessorUtil_sortByCriteria">
+        <value name="CRITERIA"><shadow type="colorBlobLocator_typedEnum_blobCriteria"><field name="CRITERIA">BY_CIRCULARITY</field></shadow></value>
         <value name="SORT_ORDER"><shadow type="util_typedEnum_sortOrder"><field name="SORT_ORDER">DESCENDING</field></shadow></value>
         <value name="BLOBS"><block type="variables_get"><field name="VAR">myBlobs</field></block></value>
       </block>
@@ -890,10 +934,22 @@ detections multiple times.
         <data>{"commentPositionLeft":-18,"commentPositionTop":-84}</data>
         <value name="BLOB"><block type="variables_get"><field name="VAR">myBlob</field></block></value>
       </block>
+      <block type="colorBlobLocatorProcessorBlob_getProperty_Number">
+        <field name="PROP">ArcLength</field>
+        <value name="BLOB"><block type="variables_get"><field name="VAR">myBlob</field></block></value>
+      </block>
+      <block type="colorBlobLocatorProcessorBlob_getProperty_Number">
+        <field name="PROP">Circularity</field>
+        <value name="BLOB"><block type="variables_get"><field name="VAR">myBlob</field></block></value>
+      </block>
       <block type="colorBlobLocatorProcessorBlob_getProperty_RotatedRect">
         <field name="PROP">BoxFit</field>
         <comment pinned="false" h="55" w="424">Get a "best-fit" bounding box (called "boxFit", of type RotatedRect) for this blob.</comment>
         <data>{"commentPositionLeft":-19,"commentPositionTop":-75}</data>
+        <value name="BLOB"><block type="variables_get"><field name="VAR">myBlob</field></block></value>
+      </block>
+      <block type="colorBlobLocatorProcessorBlob_getProperty_Circle">
+        <field name="PROP">Circle</field>
         <value name="BLOB"><block type="variables_get"><field name="VAR">myBlob</field></block></value>
       </block>
       <sep gap="32"></sep>
@@ -961,6 +1017,15 @@ detections multiple times.
         <data>{"commentPositionLeft":-19,"commentPositionTop":-60}</data>
         <value name="RECT"><block type="variables_get"><field name="VAR">myHorizontalBoxFit</field></block></value>
       </block>
+      <sep gap="32"></sep>
+      <block type="circle_getProperty_Number">
+        <field name="PROP">Radius</field>
+        <value name="CIRCLE"><block type="variables_get"><field name="VAR">myCircle</field></block></value>
+      </block>
+      <block type="circle_getProperty_Point">
+        <field name="PROP">Center</field>
+        <value name="CIRCLE"><block type="variables_get"><field name="VAR">myCircle</field></block></value>
+      </block>
     </category>
   </category>
   <category name="PredominantColor">
@@ -992,6 +1057,12 @@ detections multiple times.
             <field name="SWATCH">BLUE</field>
           </block>
         </value>
+      </block>
+      <block type="predominantColor_typedEnum_swatch">
+        <field name="SWATCH">ARTIFACT_GREEN</field>
+      </block>
+      <block type="predominantColor_typedEnum_swatch">
+        <field name="SWATCH">ARTIFACT_PURPLE</field>
       </block>
       <block type="predominantColor_typedEnum_swatch">
         <field name="SWATCH">RED</field>

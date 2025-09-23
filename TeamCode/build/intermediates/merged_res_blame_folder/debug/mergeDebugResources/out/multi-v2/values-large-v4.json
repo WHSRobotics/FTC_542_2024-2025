@@ -1,10 +1,27 @@
 {
     "logs": [
         {
-            "outputFile": "org.firstinspires.ftc.teamcode.TeamCode-mergeDebugResources-17:/values-large-v4/values-large-v4.xml",
+            "outputFile": "org.firstinspires.ftc.teamcode.TeamCode-mergeDebugResources-3:/values-large-v4/values-large-v4.xml",
             "map": [
                 {
-                    "source": "/Users/niranjanj/.gradle/caches/8.10.2/transforms/313d434fd5d7ef9fa862fe51d14f0993/transformed/appcompat-1.2.0/res/values-large-v4/values-large-v4.xml",
+                    "source": "C:\\Users\\diyab\\FTC_542_2025_2026\\.gradle\\caches\\8.10.2\\transforms\\5a9116b66a57be32bd5b8957ddc7f7ab\\transformed\\material-1.12.0\\res\\values-large-v4\\values-large-v4.xml",
+                    "from": {
+                        "startLines": "2,3,4,5",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "55,169,285,407",
+                        "endColumns": "113,115,121,133",
+                        "endOffsets": "164,280,402,536"
+                    },
+                    "to": {
+                        "startLines": "11,12,13,14",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "752,866,982,1104",
+                        "endColumns": "113,115,121,133",
+                        "endOffsets": "861,977,1099,1233"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\diyab\\FTC_542_2025_2026\\.gradle\\caches\\8.10.2\\transforms\\3f5c227d4f2b56954934b3215d6e6f6e\\transformed\\appcompat-1.6.1\\res\\values-large-v4\\values-large-v4.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10",
                         "startColumns": "4,4,4,4,4,4,4,4,4",

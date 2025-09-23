@@ -40,8 +40,11 @@
   <script type="text/javascript" src="blocks/android_orientation.js"></script>
   <script type="text/javascript" src="blocks/android_sound_pool.js"></script>
   <script type="text/javascript" src="blocks/android_text_to_speech.js"></script>
+  <script type="text/javascript" src="blocks/andymark_imu_orientation_on_robot.js"></script>
+  <script type="text/javascript" src="blocks/andy_mark_color_sensor.js"></script>
   <script type="text/javascript" src="blocks/angular_velocity.js"></script>
   <script type="text/javascript" src="blocks/april_tag.js"></script>
+  <script type="text/javascript" src="blocks/blackboard.js"></script>
   <script type="text/javascript" src="blocks/bno055imu.js"></script>
   <script type="text/javascript" src="blocks/bno055imu_parameters.js"></script>
   <script type="text/javascript" src="blocks/clipboard_util.js"></script>
@@ -60,6 +63,7 @@
   <script type="text/javascript" src="blocks/focus_control.js"></script>
   <script type="text/javascript" src="blocks/gain_control.js"></script>
   <script type="text/javascript" src="blocks/gamepad.js"></script>
+  <script type="text/javascript" src="blocks/gobilda_pinpoint.js"></script>
   <script type="text/javascript" src="blocks/gyro_sensor.js"></script>
   <script type="text/javascript" src="blocks/hardware_util.js"></script>
   <script type="text/javascript" src="blocks/husky_lens.js"></script>
@@ -85,6 +89,7 @@
   <script type="text/javascript" src="blocks/optical_distance_sensor.js"></script>
   <script type="text/javascript" src="blocks/orientation.js"></script>
   <script type="text/javascript" src="blocks/pidf_coefficients.js"></script>
+  <script type="text/javascript" src="blocks/pose2d.js"></script>
   <script type="text/javascript" src="blocks/position.js"></script>
   <script type="text/javascript" src="blocks/predominant_color.js"></script>
   <script type="text/javascript" src="blocks/project_util.js"></script>
@@ -137,7 +142,7 @@
 
   <title>FTC</title>
 </head>
-<body onload="initializeFtcBlocks()">
+<body onload="initialize()">
 <div class="vertical_area" style="height:100%; padding: 0;">
   <table class="top" width="100%">
     <tr>
@@ -224,7 +229,10 @@
 </div>
 
 <script type="text/javascript">
-
+  function initialize(){
+     setOnline(false);
+     initializeFtcBlocks();
+  }
   function exportJavaButtonClicked() {
     var javaCode = generateJavaCode();
     if (javaCode) {

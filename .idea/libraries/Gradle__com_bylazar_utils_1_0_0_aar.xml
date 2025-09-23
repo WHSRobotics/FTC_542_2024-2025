@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.bylazar:utils:1.0.0@aar" external-system-id="GRADLE">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../FTC_542_2025_2026/.gradle/caches/8.10.2/transforms/2e2c47430ca386b78e183390ab3de71d/transformed/utils-1.0.0/AndroidManifest.xml" />
+      <root url="jar://$PROJECT_DIR$/../FTC_542_2025_2026/.gradle/caches/8.10.2/transforms/2e2c47430ca386b78e183390ab3de71d/transformed/utils-1.0.0/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../FTC_542_2025_2026/.gradle/caches/modules-2/files-2.1/com.bylazar/utils/1.0.0/ecc2be3b71b0735ec6c29360e184dd938c15f7dc/utils-1.0.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

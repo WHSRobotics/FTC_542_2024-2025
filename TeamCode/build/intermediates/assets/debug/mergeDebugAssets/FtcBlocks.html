@@ -73,8 +73,11 @@
       "blocks/android_orientation.js",
       "blocks/android_sound_pool.js",
       "blocks/android_text_to_speech.js",
+      "blocks/andymark_imu_orientation_on_robot.js",
+      "blocks/andy_mark_color_sensor.js",
       "blocks/angular_velocity.js",
       "blocks/april_tag.js",
+      "blocks/blackboard.js",
       "blocks/bno055imu.js",
       "blocks/bno055imu_parameters.js",
       "blocks/clipboard_util.js",
@@ -93,6 +96,7 @@
       "blocks/focus_control.js",
       "blocks/gain_control.js",
       "blocks/gamepad.js",
+      "blocks/gobilda_pinpoint.js",
       "blocks/gyro_sensor.js",
       "blocks/hardware_util.js",
       "blocks/husky_lens.js",
@@ -118,6 +122,7 @@
       "blocks/optical_distance_sensor.js",
       "blocks/orientation.js",
       "blocks/pidf_coefficients.js",
+      "blocks/pose2d.js",
       "blocks/position.js",
       "blocks/predominant_color.js",
       "blocks/project_util.js",
@@ -269,6 +274,7 @@
   less.pageLoadFinished.then(function() {
     loadBlocklyScripts(function() {
       Blockly.prompt = parent.showPrompt; // https://blockly-demo.appspot.com/static/demos/custom-dialogs/index.html
+      setOnline(true);
       initializeFtcBlocks();
     });
   });

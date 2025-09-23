@@ -1,0 +1,19 @@
+<component name="libraryTable">
+  <library name="Gradle: org.firstinspires.ftc:RobotCore:11.0.0@aar" external-system-id="GRADLE">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../FTC_542_2025_2026/.gradle/caches/8.10.2/transforms/3b56eb3e7ca917f3a3ee7e834f61feb8/transformed/RobotCore-11.0.0/jars/classes.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../FTC_542_2025_2026/.gradle/caches/8.10.2/transforms/3b56eb3e7ca917f3a3ee7e834f61feb8/transformed/RobotCore-11.0.0/jars/libs/gson-2.8.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../FTC_542_2025_2026/.gradle/caches/8.10.2/transforms/3b56eb3e7ca917f3a3ee7e834f61feb8/transformed/RobotCore-11.0.0/jars/libs/gson-extras-0.2.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../FTC_542_2025_2026/.gradle/caches/8.10.2/transforms/3b56eb3e7ca917f3a3ee7e834f61feb8/transformed/RobotCore-11.0.0/jars/libs/slf4j-api-1.7.26.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../FTC_542_2025_2026/.gradle/caches/8.10.2/transforms/3b56eb3e7ca917f3a3ee7e834f61feb8/transformed/RobotCore-11.0.0/jars/libs/slf4j-handroid-1.7.27.jar!/" />
+      <root url="file://$PROJECT_DIR$/../FTC_542_2025_2026/.gradle/caches/8.10.2/transforms/3b56eb3e7ca917f3a3ee7e834f61feb8/transformed/RobotCore-11.0.0/res" />
+      <root url="file://$PROJECT_DIR$/../FTC_542_2025_2026/.gradle/caches/8.10.2/transforms/3b56eb3e7ca917f3a3ee7e834f61feb8/transformed/RobotCore-11.0.0/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/../FTC_542_2025_2026/.gradle/caches/modules-2/files-2.1/org.firstinspires.ftc/RobotCore/11.0.0/7082efe06ad8f49f46d817f122e12b449179d380/RobotCore-11.0.0-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../FTC_542_2025_2026/.gradle/caches/modules-2/files-2.1/org.firstinspires.ftc/RobotCore/11.0.0/64acb572a4e69f85f92b6765457af498176a73c0/RobotCore-11.0.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

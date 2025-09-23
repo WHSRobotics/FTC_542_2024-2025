@@ -59,6 +59,20 @@ var commentColor = 200;
 
 var identifierFieldNames = ['IDENTIFIER', 'IDENTIFIER1', 'IDENTIFIER2'];
 
+var isOnlineVariable = true;
+
+/**
+  * This returns true if the blocks environment is being served by the on-robot server.
+  */
+function isOnline() {
+    return isOnlineVariable;
+}
+/**
+  * this specifies whether the blocks environment is being served by the on-robot server.
+  */
+function setOnline(value) {
+    isOnlineVariable = value;
+}
 
 // TODO(Noah): Replace this placeholder function used to enable time syncing with correct implementation
 function setUpWebSocket() {
@@ -152,11 +166,24 @@ function escapeHtml(text) {
 }
 
 function formatExtraXml(flavor, group, autoTransition, enabled) {
-  return '<?xml version=\'1.0\' encoding=\'UTF-8\' standalone=\'yes\' ?>' +
+  return XML_EXTRA_START +
       '<Extra>' +
       '<OpModeMeta flavor="' + flavor + '" group="' + group + '" autoTransition="' + autoTransition + '" />' +
       '<Enabled value="' + enabled + '" />' +
       '</Extra> ';
+}
+
+function findExtraXml(blkFileContent) {
+  // The blocks file content contains the blocks xml followed by the extra xml.
+  let i = blkFileContent.indexOf(XML_END_TAG);
+  if (i !== -1) {
+    return i + XML_END_TAG.length;
+  }
+  i = blkFileContent.lastIndexOf(XML_EXTRA_START);
+  if (i !== -1) {
+    return i;
+  }
+  return -1;
 }
 
 function parseExtraXml(blkFileContent) {
@@ -166,249 +193,49 @@ function parseExtraXml(blkFileContent) {
   extra['autoTransition'] = '';
   extra['enabled'] = true;
 
-  // The blocks content is up to and including the first </xml>.
-  var i = blkFileContent.indexOf('</xml>');
-  // The extra xml content is after the first </xml>.
-  // Set OpModeMeta and Enabled UI components.
-  var extraXml = blkFileContent.substring(i + 6); // 6 is length of </xml>
-  if (extraXml.length > 0) {
-    var parser = new DOMParser();
-    var xmlDoc = parser.parseFromString(extraXml.trim(), 'text/xml');
-    var opModeMetaElements = xmlDoc.getElementsByTagName('OpModeMeta');
-    if (opModeMetaElements.length >= 1) {
-      extra['flavor'] = opModeMetaElements[0].getAttribute('flavor');
-      extra['group'] = opModeMetaElements[0].getAttribute('group');
-      extra['autoTransition'] = opModeMetaElements[0].getAttribute('autoTransition');
-    }
-    var enabledElements = xmlDoc.getElementsByTagName('Enabled');
-    if (enabledElements.length >= 1) {
-      var enabledString = enabledElements[0].getAttribute('value');
-      if (enabledString) {
-        extra['enabled'] = (enabledString == 'true');
+  try {
+    // The blocks file content contains the blocks xml followed by the extra xml.
+    var i = findExtraXml(blkFileContent);
+    if (i !== -1) {
+      var extraXml = blkFileContent.substring(i);
+      if (extraXml.length > 0) {
+        var parser = new DOMParser();
+        var xmlDoc = parser.parseFromString(extraXml.trim(), 'text/xml');
+        // Set OpModeMeta and Enabled UI components.
+        var opModeMetaElements = xmlDoc.getElementsByTagName('OpModeMeta');
+        if (opModeMetaElements.length >= 1) {
+          extra['flavor'] = opModeMetaElements[0].getAttribute('flavor');
+          extra['group'] = opModeMetaElements[0].getAttribute('group');
+          extra['autoTransition'] = opModeMetaElements[0].getAttribute('autoTransition');
+        }
+        var enabledElements = xmlDoc.getElementsByTagName('Enabled');
+        if (enabledElements.length >= 1) {
+          var enabledString = enabledElements[0].getAttribute('value');
+          if (enabledString) {
+            extra['enabled'] = (enabledString == 'true');
+          }
+        }
       }
+    } else {
+      // Be tolerant if the extra xml is missing.
+      console.log('Warning: Block file is missing extra xml.');
     }
+  } catch (e) {
+    console.log('Unable to parseExtraXml.');
+    console.log(e);
   }
   return extra;
 }
 
-function knownTypeToClassName(type) {
-  // NOTE(lizlooney): If you add a case to this switch, you should also add that type to
-  // HardwareUtil.buildReservedWordsForFtcJava.
-  switch (type) {
-    case 'Color':
-      return 'android.graphics.' + type;
-    case 'Size':
-      return 'android.util.' + type;
-    case 'SoundPlayer':
-      return 'com.qualcomm.ftccommon.' + type;
-    case 'BNO055IMU':
-    case 'BNO055IMU.AccelerationIntegrator':
-    case 'BNO055IMU.AccelUnit':
-    case 'BNO055IMU.Parameters':
-    case 'BNO055IMU.SensorMode':
-    case 'BNO055IMU.SystemStatus':
-    case 'JustLoggingAccelerationIntegrator':
-      return 'com.qualcomm.hardware.bosch.' + type;
-    case 'HuskyLens':
-      return 'com.qualcomm.hardware.dfrobot.' + type;
-    case 'CachingOctoQuad':
-    case 'OctoQuadBase':
-    case 'OctoQuad':
-      return 'com.qualcomm.hardware.digitalchickenlabs.' + type;
-    case 'Limelight3A':
-    case 'LLResult':
-    case 'LLResultTypes':
-    case 'LLResultTypes.FiducialResult':
-    case 'LLResultTypes.ColorResult':
-    case 'LLStatus':
-      return 'com.qualcomm.hardware.limelightvision.' + type;
-    case 'MaxSonarI2CXL':
-      return 'com.qualcomm.hardware.maxbotix.' + type;
-    case 'ModernRoboticsI2cCompassSensor':
-    case 'ModernRoboticsI2cGyro':
-    case 'ModernRoboticsI2cGyro.HeadingMode':
-    case 'ModernRoboticsI2cRangeSensor':
-      return 'com.qualcomm.hardware.modernrobotics.' + type;
-    case 'RevBlinkinLedDriver':
-    case 'RevBlinkinLedDriver.BlinkinPattern':
-    case 'RevHubOrientationOnRobot':
-    case 'RevHubOrientationOnRobot.LogoFacingDirection':
-    case 'RevHubOrientationOnRobot.UsbFacingDirection':
-    case 'Rev9AxisImuOrientationOnRobot':
-    case 'Rev9AxisImuOrientationOnRobot.I2cPortFacingDirection':
-    case 'Rev9AxisImuOrientationOnRobot.LogoFacingDirection':
-      return 'com.qualcomm.hardware.rev.' + type;
-    case 'SparkFunLEDStick':
-    case 'SparkFunOTOS':
-    case 'SparkFunOTOS.Pose2D':
-    case 'SparkFunOTOS.SelfTestConfig':
-    case 'SparkFunOTOS.SignalProcessConfig':
-    case 'SparkFunOTOS.Status':
-    case 'SparkFunOTOS.Version':
-      return 'com.qualcomm.hardware.sparkfun.' + type;
-    case 'Autonomous':
-    case 'Disabled':
-    case 'LinearOpMode':
-    case 'TeleOp':
-      return 'com.qualcomm.robotcore.eventloop.opmode.' + type;
-    case 'AccelerationSensor':
-    case 'AnalogInput':
-    case 'CRServo':
-    case 'CRServo.Direction':
-    case 'ColorSensor':
-    case 'CompassSensor':
-    case 'CompassSensor.CompassMode':
-    case 'DcMotor':
-    case 'DcMotor.Direction':
-    case 'DcMotor.RunMode':
-    case 'DcMotor.ZeroPowerBehavior':
-    case 'DcMotorEx':
-    case 'DcMotorSimple':
-    case 'DcMotorSimple.Direction':
-    case 'DigitalChannel':
-    case 'DigitalChannel.Mode':
-    case 'DistanceSensor':
-    case 'Gamepad':
-    case 'Gamepad.LedEffect':
-    case 'Gamepad.LedEffect.Builder':
-    case 'Gamepad.RumbleEffect':
-    case 'Gamepad.RumbleEffect.Builder':
-    case 'GyroSensor':
-    case 'Gyroscope':
-    case 'I2cAddr':
-    case 'I2cAddrConfig':
-    case 'I2cAddressableDevice':
-    case 'IrSeekerSensor':
-    case 'IrSeekerSensor.Mode':
-    case 'IMU':
-    case 'IMU.Parameters':
-    case 'ImuOrientationOnRobot':
-    case 'LED':
-    case 'Light':
-    case 'LightSensor':
-    case 'MotorControlAlgorithm':
-    case 'NormalizedColorSensor':
-    case 'NormalizedRGBA':
-    case 'OpticalDistanceSensor':
-    case 'OrientationSensor':
-    case 'PIDCoefficients':
-    case 'PIDFCoefficients':
-    case 'PWMOutput':
-    case 'Servo':
-    case 'Servo.Direction':
-    case 'ServoController':
-    case 'ServoController.PwmStatus':
-    case 'SwitchableLight':
-    case 'TouchSensor':
-    case 'UltrasonicSensor':
-    case 'VoltageSensor':
-      return 'com.qualcomm.robotcore.hardware.' + type;
-    case 'ElapsedTime':
-    case 'ElapsedTime.Resolution':
-    case 'Range':
-    case 'ReadWriteFile':
-    case 'RobotLog':
-    case 'SortOrder':
-      return 'com.qualcomm.robotcore.util.' + type;
-    case 'Boolean':
-    case 'Byte':
-    case 'Character':
-    case 'Double':
-    case 'Float':
-    case 'Integer':
-    case 'Long':
-    case 'Number':
-    case 'Object':
-    case 'Short':
-    case 'String':
-      return 'java.lang.' + type;
-    case 'ArrayList':
-    case 'Collections':
-    case 'List':
-      return 'java.util.' + type;
-    case 'TimeUnit':
-      return 'java.util.concurrent.' + type;
-    case 'VisionPortal':
-    case 'VisionProcessor':
-      return 'org.firstinspires.ftc.vision.' + type;
-    case 'AprilTagDetection':
-    case 'AprilTagGameDatabase':
-    case 'AprilTagLibrary':
-    case 'AprilTagMetadata':
-    case 'AprilTagPoseFtc':
-    case 'AprilTagPoseRaw':
-    case 'AprilTagProcessor':
-      return 'org.firstinspires.ftc.vision.apriltag.' + type;
-    case 'ColorBlobLocatorProcessor':
-    case 'ColorRange':
-    case 'ColorSpace':
-    case 'ImageRegion':
-    case 'PredominantColorProcessor':
-      return 'org.firstinspires.ftc.vision.opencv.' + type;
-    case 'ClassFactory':
-    case 'JavaUtil':
-    case 'Telemetry':
-    case 'Telemetry.DisplayFormat':
-      return 'org.firstinspires.ftc.robotcore.external.' + type;
-    case 'AndroidAccelerometer':
-    case 'AndroidGyroscope':
-    case 'AndroidOrientation':
-    case 'AndroidSoundPool':
-    case 'AndroidTextToSpeech':
-      return 'org.firstinspires.ftc.robotcore.external.android.' + type;
-    case 'BuiltinCameraDirection':
-    case 'CameraName':
-    case 'WebcamName':
-      return 'org.firstinspires.ftc.robotcore.external.hardware.camera.' + type;
-    case 'ExposureControl':
-    case 'FocusControl':
-    case 'GainControl':
-    case 'PtzControl':
-    case 'WhiteBalanceControl':
-      return 'org.firstinspires.ftc.robotcore.external.hardware.camera.controls.' + type;
-    case 'CameraControl':
-    case 'ExposureControl':
-    case 'FocusControl':
-    case 'GainControl':
-    case 'PtzControl':
-    case 'WhiteBalanceControl':
-      return 'org.firstinspires.ftc.robotcore.external.hardware.camera.controls.' + type;
-    case 'MatrixF':
-    case 'OpenGLMatrix':
-    case 'VectorF':
-      return 'org.firstinspires.ftc.robotcore.external.matrices.' + type;
-    case 'Acceleration':
-    case 'AngleUnit':
-    case 'AngularVelocity':
-    case 'Pose3D':
-    case 'AxesOrder':
-    case 'AxesReference':
-    case 'Axis':
-    case 'CurrentUnit':
-    case 'DistanceUnit':
-    case 'MagneticFlux':
-    case 'Orientation':
-    case 'Position':
-    case 'Quaternion':
-    case 'Temperature':
-    case 'TempUnit':
-    case 'UnnormalizedAngleUnit':
-    case 'Velocity':
-    case 'YawPitchRollAngles':
-      return 'org.firstinspires.ftc.robotcore.external.navigation.' + type;
-    case 'CameraStreamServer':
-      return 'org.firstinspires.ftc.robotcore.external.stream.' + type;
-    case 'AppUtil':
-      return 'org.firstinspires.ftc.robotcore.internal.system.' + type;
-    case 'RotatedRect':
-    case 'Scalar':
-      return 'org.opencv.core.' + type;
-    case 'org.opencv.core.Point':
-    case 'org.opencv.core.Rect':
-    case 'org.opencv.core.Size':
-      return type;
+function extractBlockContent(blkFileContent) {
+  // The blocks file content contains the blocks xml followed by the extra xml.
+  var i = findExtraXml(blkFileContent);
+  if (i !== -1) {
+    return blkFileContent.substring(0, i);
   }
-  return knownTypeToClassNameObsolete(type);
+  // Be tolerant if the extra xml is missing.
+  console.log('Warning: Block file is missing extra xml.');
+  return blkFileContent;
 }
 
 function wrapJavaScriptCode(originalCode, blockLabel) {

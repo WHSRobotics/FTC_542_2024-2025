@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="Gradle: com.acmerobotics.dashboard:dashboard:0.4.16@aar" external-system-id="GRADLE">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../FTC_542_2025_2026/.gradle/caches/8.10.2/transforms/9d626667c38d92cdbc43a39189b17abd/transformed/dashboard-0.4.16/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../FTC_542_2025_2026/.gradle/caches/8.10.2/transforms/9d626667c38d92cdbc43a39189b17abd/transformed/dashboard-0.4.16/res" />
+      <root url="file://$PROJECT_DIR$/../FTC_542_2025_2026/.gradle/caches/8.10.2/transforms/9d626667c38d92cdbc43a39189b17abd/transformed/dashboard-0.4.16/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/../FTC_542_2025_2026/.gradle/caches/modules-2/files-2.1/com.acmerobotics.dashboard/dashboard/0.4.16/b9e0a5402d89d807c37f7e1a82575114e03be004/dashboard-0.4.16-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../FTC_542_2025_2026/.gradle/caches/modules-2/files-2.1/com.acmerobotics.dashboard/dashboard/0.4.16/297a2f10706322e66717d151ed976713b3703537/dashboard-0.4.16-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

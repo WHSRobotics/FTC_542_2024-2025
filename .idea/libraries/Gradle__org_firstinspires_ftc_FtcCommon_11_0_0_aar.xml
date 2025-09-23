@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="Gradle: org.firstinspires.ftc:FtcCommon:11.0.0@aar" external-system-id="GRADLE">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../FTC_542_2025_2026/.gradle/caches/8.10.2/transforms/67a67c3c337e92f075042b762d45a4e9/transformed/FtcCommon-11.0.0/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../FTC_542_2025_2026/.gradle/caches/8.10.2/transforms/67a67c3c337e92f075042b762d45a4e9/transformed/FtcCommon-11.0.0/res" />
+      <root url="file://$PROJECT_DIR$/../FTC_542_2025_2026/.gradle/caches/8.10.2/transforms/67a67c3c337e92f075042b762d45a4e9/transformed/FtcCommon-11.0.0/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/../FTC_542_2025_2026/.gradle/caches/modules-2/files-2.1/org.firstinspires.ftc/FtcCommon/11.0.0/91c16d5d35dfeaf657cc74d0f485a99326f6eeba/FtcCommon-11.0.0-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../FTC_542_2025_2026/.gradle/caches/modules-2/files-2.1/org.firstinspires.ftc/FtcCommon/11.0.0/d69e1b4aca3db8e630eb13c20837d7263c735df6/FtcCommon-11.0.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

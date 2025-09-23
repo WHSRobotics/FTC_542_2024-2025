@@ -22,8 +22,7 @@ public class AutoLiveTest extends OpModeEx {
 
     @Override
     public void initInternal() {
-        autoServo = hardwareMap.get(Servo.class,"elbowLeft");
-        secondServo = hardwareMap.get(Servo.class,"elbowRight");
+        autoServo = hardwareMap.get(Servo.class,"left_hand");
         try {
             nanoServer = new NanoHTTPD("192.168.43.1",8043) {
                 @Override
@@ -38,7 +37,6 @@ public class AutoLiveTest extends OpModeEx {
                             servoPosition = 1.0;
                         }
                         autoServo.setPosition(servoPosition);
-                        secondServo.setPosition(servoPosition);
                     }
                     msg += "<form><input type='range' name='slider' min='0' max='100' value='" + (servoPosition * 100) + "' onchange='submit()'></form>\n";
                     msg += "<p>Servo position: " + servoPosition + "</p>";

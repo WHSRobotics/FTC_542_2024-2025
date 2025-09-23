@@ -1103,7 +1103,7 @@
     <string name="saveChangesMessageScreen">Save your changes before exiting this screen? If you click \'Exit Without Saving\' your changes will be lost.</string>
     <string name="saveChangesTitle">Save Changes?</string>
     <string name="save_configuration">Save Configuration</string>
-    <string name="sdkVersionMismatchContext">The Robot Controller SDK %1$s and the Driver Station %2$s do not match. Reinstall clean, latest versions of both.</string>
+    <string name="sdkVersionMismatchContext">The Robot Controller SDK %1$s and the Driver Station %2$s do not match. For best results install matching, latest, versions of both.</string>
     <string name="search_menu_title">Search</string>
     <string name="serialNumberNotAttached">" (not attached)"</string>
     <string name="server_not_ok">Server not OK.</string>
@@ -1135,7 +1135,7 @@
     <string name="summaryWarnAbout2_4GhzBand">Show warning when the Robot Controller access point is on the 2.4 GHz Wi-Fi band, and both the Robot Controller and Driver Station support 5 GHz</string>
     <string name="summaryWarnAboutIncorrectClocks">Show warning when the Robot Controller and/or Driver Station clocks are known to be incorrect</string>
     <string name="summaryWarnAboutMismatchedAppVersions">Show warning when the Robot Controller and Driver Station are not the same version, which is not allowed at a competition</string>
-    <string name="summaryWarnAboutObsoleteSoftware">Show warning when software that is no longer legal for use in the current FTC competition season is detected</string>
+    <string name="summaryWarnAboutObsoleteSoftware">Show warning when software that is no longer recommended for use in the current FTC competition season is detected</string>
     <string name="swapPrompt">Choose the USB controller you want to swap \'%s\' with, or press \'Cancel\'</string>
     <string name="system_op_mode_display_name">%s (System)</string>
     <string name="templateConfigurationInstructions">To configure your robot using %1$s, attach the following devices, then press the \'Config\' button:\n%2$s</string>
@@ -1227,7 +1227,7 @@
     <string name="warningDsClockBehind">The Driver Station\'s clock is behind. Please set the clock to the correct time.</string>
     <string name="warningDuplicateOpMode">An OpMode with the name \'%s\' is already registered; renaming the duplicate OpMode.</string>
     <string name="warningI2cCommError">Error communicating with I2C device(s) </string>
-    <string name="warningMismatchedAppVersions">The Robot Controller and Driver Station app versions do not match, which is required for competition. You should update the %s app.</string>
+    <string name="warningMismatchedAppVersions">The Robot Controller and Driver Station app versions do not match, which is recommended for competition. You should update the %s app.</string>
     <string name="warningProblemCommunicatingWithUSBDevice">Problem communicating with %s.</string>
     <string name="warningRcAppObsolete">The Robot Controller app is obsolete. You should install the new version for this FTC season.</string>
     <string name="warningRcClockBehind">The Robot Controller\'s clock is behind. Please set the clock to the correct time.</string>

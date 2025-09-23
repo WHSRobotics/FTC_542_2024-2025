@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="Gradle: org.firstinspires.ftc:Hardware:11.0.0@aar" external-system-id="GRADLE">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../FTC_542_2025_2026/.gradle/caches/8.10.2/transforms/4128a21dd5a1c747f19b33e554418f01/transformed/Hardware-11.0.0/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../FTC_542_2025_2026/.gradle/caches/8.10.2/transforms/4128a21dd5a1c747f19b33e554418f01/transformed/Hardware-11.0.0/res" />
+      <root url="file://$PROJECT_DIR$/../FTC_542_2025_2026/.gradle/caches/8.10.2/transforms/4128a21dd5a1c747f19b33e554418f01/transformed/Hardware-11.0.0/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/../FTC_542_2025_2026/.gradle/caches/modules-2/files-2.1/org.firstinspires.ftc/Hardware/11.0.0/623527abaacec4f15843e23c1be798b74cfc52f0/Hardware-11.0.0-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../FTC_542_2025_2026/.gradle/caches/modules-2/files-2.1/org.firstinspires.ftc/Hardware/11.0.0/b8cb5149ccb5190d82fb0e1e5f5c3651c885d41e/Hardware-11.0.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

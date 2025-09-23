@@ -1,13 +1,11 @@
 package org.whitneyrobotics.ftc.teamcode.pedroPathing.examples;
 
 import com.pedropathing.follower.Follower;
-import com.pedropathing.localization.Pose;
-import com.pedropathing.util.Constants;
+import com.pedropathing.geometry.Pose;
 import  com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.whitneyrobotics.ftc.teamcode.pedroPathing.constants.FConstants;
-import org.whitneyrobotics.ftc.teamcode.pedroPathing.constants.LConstants;
+import org.whitneyrobotics.ftc.teamcode.pedroPathing.Constants;
 
 /**
  * This is an example teleop that showcases movement and field-centric driving.
@@ -24,7 +22,7 @@ public class ExampleFieldCentricTeleop extends OpMode {
     /** This method is call once when init is played, it initializes the follower **/
     @Override
     public void init() {
-        follower = new Follower(hardwareMap, FConstants.class, LConstants.class);
+        follower = Constants.createFollower(hardwareMap);
         follower.setStartingPose(startPose);
     }
 
@@ -50,7 +48,7 @@ public class ExampleFieldCentricTeleop extends OpMode {
         - Robot-Centric Mode: false
         */
 
-        follower.setTeleOpMovementVectors(-gamepad1.left_stick_y, -gamepad1.left_stick_x, -gamepad1.right_stick_x, false);
+        follower.setTeleOpDrive(-gamepad1.left_stick_y, -gamepad1.left_stick_x, -gamepad1.right_stick_x, false);
         follower.update();
 
         /* Telemetry Outputs of our Follower */

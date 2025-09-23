@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="Gradle: com.pedropathing:core:1.1.0-SNAPSHOT" type="java-imported" external-system-id="GRADLE">
+    <properties groupId="com.pedropathing" artifactId="core" version="1.1.0-SNAPSHOT" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../FTC_542_2025_2026/.gradle/caches/modules-2/files-2.1/com.pedropathing/core/1.1.0-SNAPSHOT/8ef5de735203d5638375630887ae98b7cac4143/core-1.1.0-SNAPSHOT.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/../FTC_542_2025_2026/.gradle/caches/modules-2/files-2.1/com.pedropathing/core/1.1.0-SNAPSHOT/6cd3ebf5746e11030dda478d4ef73b8d52b0e80c/core-1.1.0-SNAPSHOT-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../FTC_542_2025_2026/.gradle/caches/modules-2/files-2.1/com.pedropathing/core/1.1.0-SNAPSHOT/509b4523f2779c0cd4c417a9f384201948376e02/core-1.1.0-SNAPSHOT-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
